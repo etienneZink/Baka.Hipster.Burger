@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baka.Hipster.Burger.Client", "Client\Baka.Hipster.Burger.Client.csproj", "{1AA3D4EB-9E60-49C3-9CE6-0B563ED96F15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baka.Hipster.Burger.Server", "Server\Baka.Hipster.Burger.Server.csproj", "{588808BA-51F6-467F-827A-D495B10C8AB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Baka.Hipster.Burger.Shared", "Shared\Baka.Hipster.Burger.Shared.csproj", "{4CEA578A-DFC1-41B8-A7A3-2EDF97702999}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1AA3D4EB-9E60-49C3-9CE6-0B563ED96F15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AA3D4EB-9E60-49C3-9CE6-0B563ED96F15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AA3D4EB-9E60-49C3-9CE6-0B563ED96F15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AA3D4EB-9E60-49C3-9CE6-0B563ED96F15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588808BA-51F6-467F-827A-D495B10C8AB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588808BA-51F6-467F-827A-D495B10C8AB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588808BA-51F6-467F-827A-D495B10C8AB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588808BA-51F6-467F-827A-D495B10C8AB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CEA578A-DFC1-41B8-A7A3-2EDF97702999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CEA578A-DFC1-41B8-A7A3-2EDF97702999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CEA578A-DFC1-41B8-A7A3-2EDF97702999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CEA578A-DFC1-41B8-A7A3-2EDF97702999}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0D8AF20-6738-4C41-B907-9DC57C12D3BD}
+	EndGlobalSection
+EndGlobal
