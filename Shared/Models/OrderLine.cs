@@ -2,10 +2,10 @@
 {
     public class OrderLine
     {
-        public int Id { get; set; }
-        public int Amount { get; set; }
-        public int Position { get; set; }
-        public Order Order { get; set; } //ToDo in DB OrderId als int und FK
-        public Article Article { get; set; } //ToDo in DB ArticleId als int und FK
+        public virtual int Id { get; set; }
+        public virtual int Amount { get; set; }
+        public virtual int Position { get; set; }
+        public virtual Order Order { get; set; }
+        public virtual Article Article { get; set; }
     }
 }

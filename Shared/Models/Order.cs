@@ -1,15 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Baka.Hipster.Burger.Shared.Models
 {
     public class Order
     {
-        public int Id { get; set; }
-        public string OrderNumber { get; set; } //ToDo Länge 50
-        public DateTime OrderDate { get; set; }
-        public string Description { get; set; } //ToDo Länge 100 ToDo Nullable
-        public Employee Employee { get; set; } //ToDo in DB EmployeeId als int und FK
-        public Customer Customer { get; set; } //ToDo in DB CustomerId als int und FK
-        public int Version { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string OrderNumber { get; set; }
+        public virtual DateTime OrderDate { get; set; }
+        public virtual string Description { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual int Version { get; set; }
+
+        private IList<OrderLine> _orderLines;
+
+        public virtual IList<OrderLine> OrderLines => _orderLines ??= new List<OrderLine>();
     }
 }

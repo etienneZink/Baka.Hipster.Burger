@@ -4,12 +4,12 @@ namespace Baka.Hipster.Burger.Shared.Models
 {
     public class User
     {
-        public int Id { get; set; }
-        public string Username { get; set; } //ToDo Länge 20 ToDo Unique
-        public string Firstname { get; set; } //ToDo Länge 50 ToDo Nullable
-        public string Lastname { get; set; } //ToDo Länge 50
-        public string Password { get; set; } //ToDo Länge 60  ToDo Hash in DB speichern!
-        public bool IsAdmin { get; set; }
-        public int Version { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Username { get; set; } //ToDo Länge 20 ToDo Unique
+        public virtual string Firstname { get; set; } //ToDo Länge 50 ToDo Nullable
+        public virtual string Lastname { get; set; } //ToDo Länge 50
+        public virtual string Password { get; set; } //ToDo Länge 60  ToDo Hash in DB speichern!
+        public virtual bool IsAdmin { get; set; }
+        public virtual int Version { get; set; }
     }
 }
