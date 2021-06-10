@@ -36,7 +36,9 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
 
-            var areaToDelete = await Get(id);
+            var areaToDelete = await session.QueryOver<Area>()
+                .Where(a => a.Id == id)
+                .SingleOrDefaultAsync<Area>();
             if (areaToDelete is null) return false;
 
             await session.DeleteAsync(areaToDelete);
@@ -45,7 +47,6 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             return (session.QueryOver<Area>()
                 .Where(a => a.Id == id)
                 .SingleOrDefaultAsync<Area>() is null);
-
         }
 
         public async Task<Area> Get(int id)
