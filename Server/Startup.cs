@@ -7,6 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Baka.Hipster.Burger.Server.Helper.Implementation;
+using Baka.Hipster.Burger.Server.Helper.Interfaces;
+using Baka.Hipster.Burger.Server.Repositories.Implementation;
+using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 
 namespace Baka.Hipster.Burger.Server
 {
@@ -17,6 +21,18 @@ namespace Baka.Hipster.Burger.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+
+            //add helper
+            services.AddScoped<INHibernateHelper, NHibernateHelper>();
+
+            //add repositories
+            services.AddScoped<IAreaRepository, AreaRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IOrderLineRepository, OrderLineRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
