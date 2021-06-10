@@ -6,7 +6,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Interfaces
 {
     public interface IEmployeeRepository
     {
-        Task<bool> NewOrUpdate(Employee employee);
+        Task<int> NewOrUpdate(Employee employee);
         Task<bool> Delete(int id);
         Task<Employee> Get(int id);
         Task<ICollection<Employee>> GetAll();

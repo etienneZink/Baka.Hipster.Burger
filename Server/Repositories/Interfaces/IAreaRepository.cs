@@ -7,7 +7,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Interfaces
 {
     public interface IAreaRepository
     {
-        Task<bool> NewOrUpdate(Area area);
+        Task<int> NewOrUpdate(Area area);
         Task<bool> Delete(int id);
         Task<Area> Get(int id);
         Task<ICollection<Area>> GetAll();

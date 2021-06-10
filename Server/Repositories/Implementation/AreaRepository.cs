@@ -16,30 +16,53 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             _nHibernateHelper = nHibernateHelper;
         }
 
-        public async Task<bool> NewOrUpdate(Area area)
+        public async Task<int> NewOrUpdate(Area area)
         {
-            if (area is null) return false;
+            if (area is null) return -1;
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
 
-            session.SaveOrUpdateAsync(area);
+            await session.SaveOrUpdateAsync(area);
+            await transaction.CommitAsync();
 
-            throw new System.NotImplementedException();
+            return session.QueryOver<Area>()
+                .Where(a => a.PostCode == area.PostCode)
+                .SingleOrDefaultAsync<Area>()
+                .Id;
         }
 
         public async Task<bool> Delete(int id)
         {
-            throw new System.NotImplementedException();
+            using var session = _nHibernateHelper.OpenSession();
+            using var transaction = session.BeginTransaction();
+
+            var areaToDelete = await Get(id);
+            if (areaToDelete is null) return false;
+
+            await session.DeleteAsync(areaToDelete);
+            await transaction.CommitAsync();
+
+            return (session.QueryOver<Area>()
+                .Where(a => a.Id == id)
+                .SingleOrDefaultAsync<Area>() is null);
+
         }
 
         public async Task<Area> Get(int id)
         {
-            throw new System.NotImplementedException();
+            using var session = _nHibernateHelper.OpenSession();
+
+            return await session.QueryOver<Area>()
+                .Where(a => a.Id == id)
+                .SingleOrDefaultAsync<Area>();
         }
 
         public async Task<ICollection<Area>> GetAll()
         {
-            throw new System.NotImplementedException();
+            using var session = _nHibernateHelper.OpenSession();
+
+            return await session.QueryOver<Area>()
+                .ListAsync<Area>();
         }
     }
 }

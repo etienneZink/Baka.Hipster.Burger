@@ -7,7 +7,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 {
     public class ArticleRepository: IArticleRepository
     {
-        public async Task<bool> NewOrUpdate(Article article)
+        public async Task<int> NewOrUpdate(Article article)
         {
             throw new System.NotImplementedException();
         }

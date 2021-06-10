@@ -6,7 +6,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Interfaces
 {
     public interface IOrderLineRepository
     {
-        Task<bool> NewOrUpdate(OrderLine orderLine);
+        Task<int> NewOrUpdate(OrderLine orderLine);
         Task<bool> Delete(int id);
         Task<OrderLine> Get(int id);
         Task<ICollection<OrderLine>> GetAll();

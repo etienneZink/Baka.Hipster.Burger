@@ -7,7 +7,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Interfaces
 {
     public interface IArticleRepository
     {
-        Task<bool> NewOrUpdate(Article article);
+        Task<int> NewOrUpdate(Article article);
         Task<bool> Delete(int id);
         Task<Article> Get(int id);
         Task<ICollection<Article>> GetAll();

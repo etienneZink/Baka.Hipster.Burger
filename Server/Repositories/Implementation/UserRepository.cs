@@ -7,7 +7,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 {
     public class UserRepository: IUserRepository
     {
-        public async Task<bool> NewOrUpdate(User user)
+        public async Task<int> NewOrUpdate(User user)
         {
             throw new System.NotImplementedException();
         }

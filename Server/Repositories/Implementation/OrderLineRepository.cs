@@ -7,7 +7,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 {
     public class OrderLineRepository: IOrderLineRepository
     {
-        public async Task<bool> NewOrUpdate(OrderLine orderLine)
+        public async Task<int> NewOrUpdate(OrderLine orderLine)
         {
             throw new System.NotImplementedException();
         }
