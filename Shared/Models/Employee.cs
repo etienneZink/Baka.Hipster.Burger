@@ -1,11 +1,17 @@
-﻿namespace Baka.Hipster.Burger.Shared.Models
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace Baka.Hipster.Burger.Shared.Models
 {
     public class Employee
     {
-        public int Id { get; set; }
-        public string FirstName { get; set; } //ToDo Länge 50
-        public string LastName { get; set; } //ToDo Länge 50
-        public int EmployeeNumber { get; set; } //ToDo Unique constraint in DB
-        public int Version { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string FirstName { get; set; }
+        public virtual string LastName { get; set; }
+        public virtual int EmployeeNumber { get; set; }
+        public virtual int Version { get; set; }
+
+        private IList<Area> _areas;
+        public virtual IList<Area> Areas => _areas ??= new List<Area>();
     }
 }

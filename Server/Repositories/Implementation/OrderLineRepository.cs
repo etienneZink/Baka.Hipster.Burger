@@ -1,0 +1,68 @@
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Baka.Hipster.Burger.Server.Helper.Interfaces;
+using Baka.Hipster.Burger.Server.Repositories.Interfaces;
+using Baka.Hipster.Burger.Shared.Models;
+
+namespace Baka.Hipster.Burger.Server.Repositories.Implementation
+{
+    public class OrderLineRepository: IOrderLineRepository
+    {
+        private readonly INHibernateHelper _nHibernateHelper;
+
+        public OrderLineRepository(INHibernateHelper nHibernateHelper)
+        {
+            _nHibernateHelper = nHibernateHelper;
+        }
+
+        public async Task<int> NewOrUpdate(OrderLine orderLine)
+        {
+            if (orderLine is null) return -1;
+            using var session = _nHibernateHelper.OpenSession();
+            using var transaction = session.BeginTransaction();
+
+            await session.SaveOrUpdateAsync(orderLine);
+            await transaction.CommitAsync();
+
+            return session.QueryOver<OrderLine>()
+                .Where(o => o.Order == orderLine.Order && o.Position == orderLine.Position)
+                .SingleOrDefaultAsync<OrderLine>()
+                .Id;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            using var session = _nHibernateHelper.OpenSession();
+            using var transaction = session.BeginTransaction();
+
+            var orderLineToDelete = await session.QueryOver<OrderLine>()
+                .Where(o => o.Id == id)
+                .SingleOrDefaultAsync<OrderLine>();
+            if (orderLineToDelete is null) return false;
+
+            await session.DeleteAsync(orderLineToDelete);
+            await transaction.CommitAsync();
+
+            return (session.QueryOver<OrderLine>()
+                .Where(o => o.Id == id)
+                .SingleOrDefaultAsync<OrderLine>() is null);
+        }
+
+        public async Task<OrderLine> Get(int id)
+        {
+            using var session = _nHibernateHelper.OpenSession();
+
+            return await session.QueryOver<OrderLine>()
+                .Where(a => a.Id == id)
+                .SingleOrDefaultAsync<OrderLine>();
+        }
+
+        public async Task<ICollection<OrderLine>> GetAll()
+        {
+            using var session = _nHibernateHelper.OpenSession();
+
+            return await session.QueryOver<OrderLine>()
+                .ListAsync<OrderLine>();
+        }
+    }
+}
