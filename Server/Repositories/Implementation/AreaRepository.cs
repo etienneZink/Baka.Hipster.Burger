@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Baka.Hipster.Burger.Server.Helper.Interfaces;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
@@ -22,13 +23,21 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
 
-            await session.SaveOrUpdateAsync(area);
-            await transaction.CommitAsync();
+            try
+            {
+                await session.SaveOrUpdateAsync(area);
+                await transaction.CommitAsync();
 
-            return session.QueryOver<Area>()
-                .Where(a => a.PostCode == area.PostCode)
-                .SingleOrDefaultAsync<Area>()
-                .Id;
+                return session.QueryOver<Area>()
+                    .Where(a => a.PostCode == area.PostCode)
+                    .SingleOrDefaultAsync<Area>()
+                    .Id;
+            }
+            catch (Exception e)
+            {
+                await transaction.RollbackAsync();
+                return -1;
+            }
         }
 
         public async Task<bool> Delete(int id)
@@ -36,34 +45,57 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
 
-            var areaToDelete = await session.QueryOver<Area>()
-                .Where(a => a.Id == id)
-                .SingleOrDefaultAsync<Area>();
-            if (areaToDelete is null) return false;
+            try
+            {
+                var areaToDelete = await session.QueryOver<Area>()
+                    .Where(a => a.Id == id)
+                    .SingleOrDefaultAsync<Area>();
+                if (areaToDelete is null) return false;
 
-            await session.DeleteAsync(areaToDelete);
-            await transaction.CommitAsync();
+                await session.DeleteAsync(areaToDelete);
+                await transaction.CommitAsync();
 
-            return (session.QueryOver<Area>()
-                .Where(a => a.Id == id)
-                .SingleOrDefaultAsync<Area>() is null);
+                return (session.QueryOver<Area>()
+                    .Where(a => a.Id == id)
+                    .SingleOrDefaultAsync<Area>() is null);
+            }
+            catch (Exception e)
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
         }
 
         public async Task<Area> Get(int id)
         {
             using var session = _nHibernateHelper.OpenSession();
 
-            return await session.QueryOver<Area>()
-                .Where(a => a.Id == id)
-                .SingleOrDefaultAsync<Area>();
+            try
+            {
+                return await session.QueryOver<Area>()
+                    .Where(a => a.Id == id)
+                    .SingleOrDefaultAsync<Area>();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public async Task<ICollection<Area>> GetAll()
         {
             using var session = _nHibernateHelper.OpenSession();
 
-            return await session.QueryOver<Area>()
-                .ListAsync<Area>();
+            try
+            {
+                return await session.QueryOver<Area>()
+                    .ListAsync<Area>();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

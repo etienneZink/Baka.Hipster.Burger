@@ -11,7 +11,7 @@ namespace Baka.Hipster.Burger.Server.Helper.Implementation
     public class NHibernateHelper: INHibernateHelper
     {
         private static ISessionFactory _mSessionFactory;
-        public static string DatabaseFile;
+        public static readonly string DatabaseFile = "Hipster-Burger.db";
 
         private ISessionFactory SessionFactory
         {
@@ -27,7 +27,7 @@ namespace Baka.Hipster.Burger.Server.Helper.Implementation
         private void InitializeFactory()
         {
             _mSessionFactory = Fluently.Configure()
-                .Database(SQLiteConfiguration.Standard.UsingFile(DatabaseFile)) //ohne .ShowSql() da dies verwirrende Outputs in das Terminal printed, während der Benutzung
+                .Database(SQLiteConfiguration.Standard.UsingFile(DatabaseFile).ShowSql())
                 .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly())
                     .Conventions.Add(FluentNHibernate.Conventions.Helpers.DefaultLazy.Never()))
                 .BuildSessionFactory();
