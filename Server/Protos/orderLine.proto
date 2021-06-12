@@ -7,7 +7,7 @@ package orderLine;
 
 import "Protos/common.proto";
 
-service OrderLineService {
+service OrderLineProto {
 	
 	rpc Add (common.OrderLineMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);

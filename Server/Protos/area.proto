@@ -6,7 +6,7 @@ package area;
 
 import "Protos/common.proto";
 
-service AreaService {
+service AreaProto {
 	rpc Add (common.AreaMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
 	rpc Update (common.AreaMessage) returns (common.BoolResponse);

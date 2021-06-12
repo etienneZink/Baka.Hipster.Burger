@@ -6,7 +6,7 @@ package article;
 
 import "Protos/common.proto";
 
-service ArticleService {
+service ArticleProto {
 	rpc Add (common.ArticleMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
 	rpc Update (common.ArticleMessage) returns (common.BoolResponse);

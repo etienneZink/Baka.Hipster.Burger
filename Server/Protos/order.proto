@@ -6,7 +6,7 @@ package order;
 
 import "Protos/common.proto";
 
-service OrderService {
+service OrderProto {
 	rpc Add (common.OrderMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
 	rpc Update (common.OrderMessage) returns (common.BoolResponse);

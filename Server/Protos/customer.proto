@@ -6,7 +6,7 @@ package customer;
 
 import "Protos/common.proto";
 
-service CustomerService {
+service CustomerProto {
 	rpc Add (common.CustomerMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
 	rpc Update (common.CustomerMessage) returns (common.BoolResponse);

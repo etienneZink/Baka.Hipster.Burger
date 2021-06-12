@@ -6,7 +6,7 @@ package user;
 
 import "Protos/common.proto";
 
-service UserService {
+service UserProto {
 
 
   rpc ChangePassword (FullUser) returns (common.BoolResponse);

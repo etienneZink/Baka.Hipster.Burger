@@ -11,6 +11,7 @@ using Baka.Hipster.Burger.Server.Helper.Implementation;
 using Baka.Hipster.Burger.Server.Helper.Interfaces;
 using Baka.Hipster.Burger.Server.Repositories.Implementation;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
+using Baka.Hipster.Burger.Server.Services;
 
 namespace Baka.Hipster.Burger.Server
 {
@@ -53,7 +54,13 @@ namespace Baka.Hipster.Burger.Server
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<AreaService>();
+                endpoints.MapGrpcService<ArticleService>();
+                endpoints.MapGrpcService<CustomerService>();
+                endpoints.MapGrpcService<EmployeeService>();
+                endpoints.MapGrpcService<OrderLineService>();
+                endpoints.MapGrpcService<OrderService>();
+                endpoints.MapGrpcService<UserService>();
 
                 endpoints.MapGet("/", async context =>
                 {

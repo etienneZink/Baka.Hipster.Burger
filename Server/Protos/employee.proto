@@ -6,7 +6,7 @@ package employee;
 
 import "Protos/common.proto";
 
-service EmployeeService {
+service EmployeeProto {
 	rpc Add (common.EmployeeMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
 	rpc Update (common.EmployeeMessage) returns (common.BoolResponse);
