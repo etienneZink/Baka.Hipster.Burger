@@ -25,6 +25,10 @@ namespace Baka.Hipster.Burger.Server
             //add helper
             services.AddScoped<INHibernateHelper, NHibernateHelper>();
 
+            services.AddAuthorization(options =>
+                options.AddPolicy("Administration",
+                    policy => policy.RequireClaim("Admin")));
+
             //add repositories
             services.AddScoped<IAreaRepository, AreaRepository>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
@@ -44,6 +48,8 @@ namespace Baka.Hipster.Burger.Server
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

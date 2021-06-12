@@ -33,7 +33,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                     .SingleOrDefaultAsync<Order>()
                     .Id;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 return -1;
@@ -59,7 +59,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                     .Where(o => o.Id == id)
                     .SingleOrDefaultAsync<Order>() is null);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 return false;
@@ -76,7 +76,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                     .Where(a => a.Id == id)
                     .SingleOrDefaultAsync<Order>();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -91,7 +91,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 return await session.QueryOver<Order>()
                     .ListAsync<Order>();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

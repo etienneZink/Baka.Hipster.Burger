@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Server";
+
+package employee;
+
+import "Protos/common.proto";
+
+service EmployeeService {
+	rpc Add (common.EmployeeMessage) returns (common.IdMessage);
+	rpc Delete (common.IdMessage) returns (common.BoolResponse);
+	rpc Update (common.EmployeeMessage) returns (common.BoolResponse);
+	rpc Get (common.IdMessage) returns (common.EmployeeMessage);
+	rpc GetAll (common.Empty) returns (common.EmployeeMessages);
+}
