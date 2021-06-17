@@ -6,12 +6,17 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Baka.Hipster.Burger.Server.Helper;
 using Baka.Hipster.Burger.Server.Helper.Implementation;
 using Baka.Hipster.Burger.Server.Helper.Interfaces;
 using Baka.Hipster.Burger.Server.Repositories.Implementation;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Server.Services;
+using Grpc.Core;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Baka.Hipster.Burger.Server
 {
@@ -26,9 +31,30 @@ namespace Baka.Hipster.Burger.Server
             //add helper
             services.AddScoped<INHibernateHelper, NHibernateHelper>();
 
+            var key = Encoding.ASCII.GetBytes("This is the secret key");
+            services.AddAuthentication(o =>
+                {
+                    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
             services.AddAuthorization(options =>
-                options.AddPolicy("Administration",
+                options.AddPolicy("Admin",
                     policy => policy.RequireClaim("Admin")));
+
+            services.AddAuthorization();
 
             //add repositories
             services.AddScoped<IAreaRepository, AreaRepository>();
@@ -49,6 +75,7 @@ namespace Baka.Hipster.Burger.Server
             }
 
             app.UseRouting();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

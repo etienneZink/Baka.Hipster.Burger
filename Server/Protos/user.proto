@@ -15,11 +15,17 @@ service UserProto {
   rpc Update (UserMessage) returns (common.BoolResponse);
   rpc Get (common.IdMessage) returns (UserMessage);
   rpc GetAll (common.Empty) returns (UserMessages);
-  rpc LogIn (FullUser) returns (TokenMessage);
+  rpc LogIn (UserLogin) returns (TokenMessage);
+  rpc Register (FullUser) returns (common.BoolResponse);
 }
 
 message FullUser{
 	UserMessage User = 1;
+	string Password = 2;
+}
+
+message UserLogin{
+	string Username = 1;
 	string Password = 2;
 }
 
