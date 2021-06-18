@@ -33,7 +33,7 @@ namespace Baka.Hipster.Burger.Server.Mappings
                 .Not.Nullable();
 
             HasMany(o => o.OrderLines)
-                .Cascade.DeleteOrphan() //ToDo checken ob benötigt mit all
+                .Cascade.DeleteOrphan()
                 .Cascade.All()
                 .Not.KeyNullable();
 

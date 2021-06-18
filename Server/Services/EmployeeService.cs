@@ -21,6 +21,12 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
+        public override async Task<BoolResponse> CanDelete(IdMessage request, ServerCallContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        [Authorize("Admin")]
         public override async Task<BoolResponse> Update(EmployeeMessage request, ServerCallContext context)
         {
             throw new NotImplementedException();

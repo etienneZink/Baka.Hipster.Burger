@@ -9,6 +9,7 @@ import "Protos/common.proto";
 service EmployeeProto {
 	rpc Add (common.EmployeeMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
+	rpc CanDelete (common.IdMessage) returns (common.BoolResponse);
 	rpc Update (common.EmployeeMessage) returns (common.BoolResponse);
 	rpc Get (common.IdMessage) returns (common.EmployeeMessage);
 	rpc GetAll (common.Empty) returns (common.EmployeeMessages);

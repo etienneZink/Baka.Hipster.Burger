@@ -23,41 +23,45 @@ namespace Baka.Hipster.Burger.Server.Services
         [Authorize("Admin")]
         public override async Task<IdMessage> Add(AreaMessage request, ServerCallContext context)
         {
+            if(request is null) return new IdMessage { Id = -1 };
+
             var area = new Area
             {
                 Description = request?.Description,
                 PostCode = request.PostCode,
             };
-
-            Employee employee;
+            
             foreach (var employeeId in request.Employees)
             {
-                employee = await _employeeRepository.Get(employeeId.Id);
+                var employee = await _employeeRepository.Get(employeeId.Id);
                 if(employee is not null) area.Employees.Add(employee);
             }
 
-            if (await _areaRepository.NewOrUpdate(area) < 0) return new IdMessage { Id = -1 };
-
-            return new IdMessage { Id = area.Id };
-            
+            return await _areaRepository.NewOrUpdate(area) < 0 ? new IdMessage { Id = -1 } : new IdMessage { Id = area.Id };
         }
 
         [Authorize("Admin")]
         public override async Task<BoolResponse> Delete(IdMessage request, ServerCallContext context)
         {
+            if (request is null) return new BoolResponse { Result = false };
             if (!await IsDeletable(request.Id)) return new BoolResponse { Result = false };
+
             return new BoolResponse { Result = await _areaRepository.Delete(request.Id) };
         }
 
         [Authorize("Admin")]
         public override async Task<BoolResponse> CanDelete(IdMessage request, ServerCallContext context)
         {
+            if (request is null) return new BoolResponse { Result = false };
+
             return new BoolResponse { Result = await IsDeletable(request.Id) };
         }
 
         [Authorize("Admin")]
         public override async Task<BoolResponse> Update(AreaMessage request, ServerCallContext context)
         {
+            if (request is null) return new BoolResponse { Result = false };
+
             var area = await _areaRepository.Get(request.Id);
             if (area is null) return new BoolResponse { Result = false };
 
@@ -71,14 +75,14 @@ namespace Baka.Hipster.Burger.Server.Services
                 if (employee is not null) area.Employees.Add(employee);
             }
 
-            if (await _areaRepository.NewOrUpdate(area) < 0) return new BoolResponse { Result = false };
-
-            return new BoolResponse { Result = true };
+            return await _areaRepository.NewOrUpdate(area) < 0 ? new BoolResponse { Result = false } : new BoolResponse { Result = true };
         }
 
         [Authorize("Admin")]
         public override async Task<AreaMessage> Get(IdMessage request, ServerCallContext context)
         {
+            if (request is null) return new AreaMessage();
+
             var area = await _areaRepository.Get(request.Id);
             if (area is null) return new AreaMessage();
 
@@ -102,6 +106,8 @@ namespace Baka.Hipster.Burger.Server.Services
         {
             var areaMessages = new AreaMessages();
 
+            if (request is null) return areaMessages;
+            
             var areas = await _areaRepository.GetAll();
             if (areas is null) return areaMessages;
 
