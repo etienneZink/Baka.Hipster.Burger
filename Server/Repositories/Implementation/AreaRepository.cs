@@ -20,6 +20,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
         public async Task<int> NewOrUpdate(Area area)
         {
             if (area is null) return -1;
+
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
 

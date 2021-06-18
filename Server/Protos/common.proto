@@ -18,36 +18,23 @@ message AreaMessage{
 	int32 Id = 1;
 	string Description = 2;
 	int32 PostCode = 3;
-	repeated EmployeeReduced Employees = 4;
-}
-
-message AreaReduced{
-	int32 Id = 1;
-	string Description = 2;
-	int32 PostCode = 3;
+	repeated IdMessage Employees = 4;
 }
 
 message AreaMessages{
-	repeated AreaMessage Area = 1;
+	repeated AreaMessage Areas = 1;
 }
 
 message OrderLineMessage{
 	int32 Id = 1;
 	int32 Amount = 2;
 	int32 Position = 3;
-	OrderReduced Order = 4;
-	ArticleMessage Article = 5;
-}
-
-message OrderLineReduced{
-	int32 Id = 1;
-	int32 Amount = 2;
-	int32 Position = 3;
-	ArticleMessage Article = 5;
+	IdMessage Order = 4;
+	IdMessage Article = 5;
 }
 
 message OrderLineMessages{
-	repeated OrderLineMessage OrderLine = 1;
+	repeated OrderLineMessage OrderLines = 1;
 }
 
 message OrderMessage{
@@ -55,22 +42,13 @@ message OrderMessage{
 	string OrderNumber = 2;
 	DateTimeMessage OrderDate = 3;
 	string Description = 4;
-	EmployeeMessage Employee = 5;
-	CustomerMessage Customer = 6;
-	repeated OrderLineReduced OrderLines = 7;
-}
-
-message OrderReduced{
-	int32 Id = 1;
-	string OrderNumber = 2;
-	DateTimeMessage OrderDate = 3;
-	string Description = 4;
-	EmployeeMessage Employee = 5;
-	CustomerMessage Customer = 6;
+	IdMessage Employee = 5;
+	IdMessage Customer = 6;
+	repeated IdMessage OrderLines = 7;
 }
 
 message OrderMessages{
-	repeated OrderMessage Order = 1;
+	repeated OrderMessage Orders = 1;
 }
 
 message EmployeeMessage{
@@ -78,18 +56,11 @@ message EmployeeMessage{
 	string FirstName = 2;
 	string LastName = 3;
 	int32 EmployeeNumber = 4;
-	repeated AreaReduced Areas = 5;
-}
-
-message EmployeeReduced{
-	int32 Id = 1;
-	string FirstName = 2;
-	string LastName = 3;
-	int32 EmployeeNumber = 4;
+	repeated IdMessage Areas = 5;
 }
 
 message EmployeeMessages{
-	repeated EmployeeMessage EmployeeMessage = 1;
+	repeated EmployeeMessage EmployeeMessages = 1;
 }
 
 message CustomerMessage{
@@ -116,7 +87,7 @@ message ArticleMessage{
 }
 
 message ArticleMessages{
-	repeated ArticleMessage Article = 1;
+	repeated ArticleMessage Articles = 1;
 }
 
 message DateTimeMessage{

@@ -9,6 +9,7 @@ import "Protos/common.proto";
 service AreaProto {
 	rpc Add (common.AreaMessage) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
+	rpc CanDelete (common.IdMessage) returns (common.BoolResponse);
 	rpc Update (common.AreaMessage) returns (common.BoolResponse);
 	rpc Get (common.IdMessage) returns (common.AreaMessage);
 	rpc GetAll (common.Empty) returns (common.AreaMessages);
