@@ -27,10 +27,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 await session.SaveOrUpdateAsync(orderLine);
                 await transaction.CommitAsync();
 
-                return session.QueryOver<OrderLine>()
-                    .Where(o => o.Order == orderLine.Order && o.Position == orderLine.Position)
-                    .SingleOrDefaultAsync<OrderLine>()
-                    .Id;
+                return orderLine.Id;
             }
             catch (Exception)
             {

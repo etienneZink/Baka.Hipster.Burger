@@ -29,15 +29,11 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 await session.SaveOrUpdateAsync(area);
                 await transaction.CommitAsync();
 
-                return session.QueryOver<Area>()
-                    .Where(a => a.PostCode == area.PostCode)
-                    .SingleOrDefaultAsync<Area>()
-                    .Id;
+                return area.Id;
             }
             catch (Exception)
             {
-                await transaction.RollbackAsync();
-                return -1;
+                await transaction.RollbackAsync(); return -1;
             }
         }
 

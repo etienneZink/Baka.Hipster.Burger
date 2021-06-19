@@ -45,4 +45,5 @@ message UserMessages{
 
 message TokenMessage{
 	string Token = 1;
+	bool IsAdmin = 2;
 }
