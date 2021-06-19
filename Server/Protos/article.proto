@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Server";
+
+package article;
+
+import "Protos/common.proto";
+
+service ArticleProto {
+	rpc Add (common.ArticleMessage) returns (common.IdMessage);
+	rpc Delete (common.IdMessage) returns (common.BoolResponse);
+	rpc CanDelete (common.IdMessage) returns (common.BoolResponse);
+	rpc Update (common.ArticleMessage) returns (common.BoolResponse);
+	rpc Get (common.IdMessage) returns (common.ArticleMessage);
+	rpc GetAll (common.Empty) returns (common.ArticleMessages);
+}

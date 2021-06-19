@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Server";
+
+package order;
+
+import "Protos/common.proto";
+
+service OrderProto {
+	rpc Add (common.OrderMessageRequest) returns (common.IdMessage);
+	rpc Delete (common.IdMessage) returns (common.BoolResponse);
+	rpc Update (common.OrderMessageRequest) returns (common.BoolResponse);
+	rpc Get (common.IdMessage) returns (common.OrderMessageResponse);
+	rpc GetAll (common.Empty) returns (common.OrderMessageResponses);
+}

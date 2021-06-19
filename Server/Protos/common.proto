@@ -1,0 +1,110 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Server";
+
+package common;
+
+message Empty {}
+
+message IdMessage{
+	int32 Id = 1;
+}
+
+message BoolResponse{
+	bool Result = 1;
+}
+
+message AreaMessage{
+	int32 Id = 1;
+	string Description = 2;
+	int32 PostCode = 3;
+	repeated IdMessage Employees = 4;
+}
+
+message AreaMessages{
+	repeated AreaMessage Areas = 1;
+}
+
+message OrderLineMessage{
+	int32 Id = 1;
+	int32 Amount = 2;
+	int32 Position = 3;
+	IdMessage Order = 4;
+	IdMessage Article = 5;
+}
+
+message OrderLineMessages{
+	repeated OrderLineMessage OrderLines = 1;
+}
+
+message OrderMessageResponse{
+	int32 Id = 1;
+	string OrderNumber = 2;
+	DateTimeMessage OrderDate = 3;
+	string Description = 4;
+	IdMessage Employee = 5;
+	IdMessage Customer = 6;
+	repeated IdMessage OrderLines = 7;
+}
+
+message OrderMessageRequest{
+	int32 Id = 1;
+	string OrderNumber = 2;
+	DateTimeMessage OrderDate = 3;
+	string Description = 4;
+	IdMessage Employee = 5;
+	IdMessage Customer = 6;
+}
+
+message OrderMessageResponses{
+	repeated OrderMessageResponse Orders = 1;
+}
+
+message EmployeeMessage{
+	int32 Id = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	int32 EmployeeNumber = 4;
+	repeated IdMessage Areas = 5;
+}
+
+message EmployeeMessages{
+	repeated EmployeeMessage Employees = 1;
+}
+
+message CustomerMessage{
+	int32 Id = 1;
+	string Name = 2;
+	string Firstname = 3;
+	string Phone = 4;
+	string Street = 5;
+	string StreetNumber = 6;
+	int32 PostalCode = 7;
+	string City = 8;
+}
+
+message CustomerMessages{
+	repeated CustomerMessage Customers = 1;
+}
+
+message ArticleMessage{
+	int32 Id = 1;
+	string ArticleNumber = 2;
+	string Name = 3;
+	string Description = 4;
+	double Price = 5;
+}
+
+message ArticleMessages{
+	repeated ArticleMessage Articles = 1;
+}
+
+message DateTimeMessage{
+	int32 year = 1;
+	int32 month = 2;
+	int32 day = 3;
+	int32 hour = 4;
+	int32 minute = 5;
+	int32 second = 6;
+	int32 millisecond = 7;
+}

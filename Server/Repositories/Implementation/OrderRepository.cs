@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Baka.Hipster.Burger.Server.Helper.Interfaces;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
@@ -22,13 +23,18 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
 
-            await session.SaveOrUpdateAsync(order);
-            await transaction.CommitAsync();
+            try
+            {
+                await session.SaveOrUpdateAsync(order);
+                await transaction.CommitAsync();
 
-            return session.QueryOver<Order>()
-                .Where(o => o.OrderNumber == order.OrderNumber)
-                .SingleOrDefaultAsync<Order>()
-                .Id;
+                return order.Id;
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                return -1;
+            }
         }
 
         public async Task<bool> Delete(int id)
@@ -36,34 +42,56 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
 
-            var orderToDelete = await session.QueryOver<Order>()
-                .Where(o=> o.Id == id)
-                .SingleOrDefaultAsync<Order>();
-            if (orderToDelete is null) return false;
+            try
+            {
+                var orderToDelete = await session.QueryOver<Order>()
+                    .Where(o => o.Id == id)
+                    .SingleOrDefaultAsync<Order>();
+                if (orderToDelete is null) return false;
 
-            await session.DeleteAsync(orderToDelete);
-            await transaction.CommitAsync();
+                await session.DeleteAsync(orderToDelete);
+                await transaction.CommitAsync();
 
-            return (session.QueryOver<Order>()
-                .Where(o => o.Id == id)
-                .SingleOrDefaultAsync<Order>() is null);
+                return (session.QueryOver<Order>()
+                    .Where(o => o.Id == id)
+                    .SingleOrDefaultAsync<Order>() is null);
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                return false;
+            }
         }
 
         public async Task<Order> Get(int id)
         {
             using var session = _nHibernateHelper.OpenSession();
 
-            return await session.QueryOver<Order>()
-                .Where(a => a.Id == id)
-                .SingleOrDefaultAsync<Order>();
+            try
+            {
+                return await session.QueryOver<Order>()
+                    .Where(a => a.Id == id)
+                    .SingleOrDefaultAsync<Order>();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public async Task <ICollection<Order>> GetAll()
         {
             using var session = _nHibernateHelper.OpenSession();
 
-            return await session.QueryOver<Order>()
-                .ListAsync<Order>();
+            try
+            {
+                return await session.QueryOver<Order>()
+                    .ListAsync<Order>();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }
