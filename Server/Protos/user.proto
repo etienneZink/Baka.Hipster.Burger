@@ -9,7 +9,7 @@ import "Protos/common.proto";
 service UserProto {
 
 
-  rpc ChangePassword (FullUser) returns (common.BoolResponse);
+  rpc ChangePassword (ChangePasswordRequest) returns (common.BoolResponse);
   rpc Add (FullUser) returns (common.IdMessage);
   rpc Delete (common.IdMessage) returns (common.BoolResponse);
   rpc CanDelete (common.IdMessage) returns (common.BoolResponse);
@@ -36,7 +36,6 @@ message UserMessage {
 	string Firstname = 3;
 	string Lastname = 4;
 	bool IsAdmin = 5;
-	int32 Version = 6;
 }
 
 message UserMessages{
@@ -45,5 +44,11 @@ message UserMessages{
 
 message TokenMessage{
 	string Token = 1;
-	bool IsAdmin = 2;
+	UserMessage User = 2;
+}
+
+message ChangePasswordRequest{
+	int32 Id = 1;
+	string OldPassword = 2;
+	string NewPassword = 3;
 }
