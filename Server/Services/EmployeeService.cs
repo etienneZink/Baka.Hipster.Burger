@@ -27,7 +27,7 @@ namespace Baka.Hipster.Burger.Server.Services
         [Authorize("Admin")]
         public override async Task<IdMessage> Add(EmployeeMessage request, ServerCallContext context)
         {
-            if (request is null) return new IdMessage { Id = -1 };
+            if (request?.Areas is null) return new IdMessage { Id = -1 };
 
             var employee = new Employee
             {
@@ -63,7 +63,7 @@ namespace Baka.Hipster.Burger.Server.Services
         [Authorize("Admin")]
         public override async Task<BoolResponse> Update(EmployeeMessage request, ServerCallContext context)
         {
-            if (request is null) return new BoolResponse { Result = false };
+            if (request?.Areas is null) return new BoolResponse { Result = false };
 
             var employee = await _employeeRepository.Get(request.Id);
             if (employee is null) return new BoolResponse { Result = false };
@@ -71,7 +71,7 @@ namespace Baka.Hipster.Burger.Server.Services
             employee.EmployeeNumber = request.EmployeeNumber;
             employee.FirstName = request.FirstName;
             employee.LastName = request.LastName;
-            employee.Areas.Clear();
+            employee.Areas.Clear();//ToDo check if it works
 
             foreach (var areaId in request.Areas)
             {

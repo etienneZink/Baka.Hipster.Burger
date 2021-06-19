@@ -37,7 +37,7 @@ message OrderLineMessages{
 	repeated OrderLineMessage OrderLines = 1;
 }
 
-message OrderMessage{
+message OrderMessageResponse{
 	int32 Id = 1;
 	string OrderNumber = 2;
 	DateTimeMessage OrderDate = 3;
@@ -47,8 +47,17 @@ message OrderMessage{
 	repeated IdMessage OrderLines = 7;
 }
 
-message OrderMessages{
-	repeated OrderMessage Orders = 1;
+message OrderMessageRequest{
+	int32 Id = 1;
+	string OrderNumber = 2;
+	DateTimeMessage OrderDate = 3;
+	string Description = 4;
+	IdMessage Employee = 5;
+	IdMessage Customer = 6;
+}
+
+message OrderMessageResponses{
+	repeated OrderMessageResponse Orders = 1;
 }
 
 message EmployeeMessage{

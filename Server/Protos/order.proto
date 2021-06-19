@@ -7,9 +7,9 @@ package order;
 import "Protos/common.proto";
 
 service OrderProto {
-	rpc Add (common.OrderMessage) returns (common.IdMessage);
+	rpc Add (common.OrderMessageRequest) returns (common.IdMessage);
 	rpc Delete (common.IdMessage) returns (common.BoolResponse);
-	rpc Update (common.OrderMessage) returns (common.BoolResponse);
-	rpc Get (common.IdMessage) returns (common.OrderMessage);
-	rpc GetAll (common.Empty) returns (common.OrderMessages);
+	rpc Update (common.OrderMessageRequest) returns (common.BoolResponse);
+	rpc Get (common.IdMessage) returns (common.OrderMessageResponse);
+	rpc GetAll (common.Empty) returns (common.OrderMessageResponses);
 }
