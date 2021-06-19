@@ -5,16 +5,18 @@ using Baka.Hipster.Burger.Shared.Models;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using FluentNHibernate.Conventions;
 
 namespace Baka.Hipster.Burger.Server.Services
 {
     public class AreaService: AreaProto.AreaProtoBase
     {
-        private readonly AreaRepository _areaRepository;
-        private readonly EmployeeRepository _employeeRepository;
+        private readonly IAreaRepository _areaRepository;
 
-        public AreaService(AreaRepository areaRepository, EmployeeRepository employeeRepository)
+        private readonly IEmployeeRepository _employeeRepository;
+
+        public AreaService(IAreaRepository areaRepository, IEmployeeRepository employeeRepository)
         {
             _areaRepository = areaRepository;
             _employeeRepository = employeeRepository;
@@ -27,7 +29,7 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var area = new Area
             {
-                Description = request?.Description,
+                Description = request.Description,
                 PostCode = request.PostCode,
             };
             
@@ -52,9 +54,7 @@ namespace Baka.Hipster.Burger.Server.Services
         [Authorize("Admin")]
         public override async Task<BoolResponse> CanDelete(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new BoolResponse { Result = false };
-
-            return new BoolResponse { Result = await IsDeletable(request.Id) };
+            return request is null ? new BoolResponse { Result = false } : new BoolResponse { Result = await IsDeletable(request.Id) };
         }
 
         [Authorize("Admin")]
@@ -65,7 +65,7 @@ namespace Baka.Hipster.Burger.Server.Services
             var area = await _areaRepository.Get(request.Id);
             if (area is null) return new BoolResponse { Result = false };
 
-            area.Description = request?.Description;
+            area.Description = request.Description;
             area.PostCode = area.PostCode;
             area.Employees.Clear();
 
@@ -134,9 +134,7 @@ namespace Baka.Hipster.Burger.Server.Services
         private async Task<bool> IsDeletable(int Id)
         {
             var area = await _areaRepository.Get(Id);
-            if (area is null) return false;
-
-            return area.Employees.IsEmpty();
+            return area is not null && area.Employees.IsEmpty();
         }
     }
 }

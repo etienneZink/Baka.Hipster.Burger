@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Baka.Hipster.Burger.Server.Repositories.Implementation;
+using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Shared.Models;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
@@ -10,11 +11,11 @@ namespace Baka.Hipster.Burger.Server.Services
 {
     public class ArticleService: ArticleProto.ArticleProtoBase
     {
-        private readonly ArticleRepository _articleRepository;
+        private readonly IArticleRepository _articleRepository;
 
-        private readonly OrderLineRepository _orderLineRepository;
+        private readonly IOrderLineRepository _orderLineRepository;
 
-        public ArticleService(ArticleRepository articleRepository, OrderLineRepository orderLineRepository)
+        public ArticleService(IArticleRepository articleRepository, IOrderLineRepository orderLineRepository)
         {
             _articleRepository = articleRepository;
             _orderLineRepository = orderLineRepository;
@@ -27,9 +28,9 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var article = new Article
             {
-                Description = request?.Description,
-                ArticleNumber = request?.ArticleNumber,
-                Name = request?.Name,
+                Description = request.Description,
+                ArticleNumber = request.ArticleNumber,
+                Name = request.Name,
                 Price = request.Price
             };
 
@@ -48,8 +49,7 @@ namespace Baka.Hipster.Burger.Server.Services
         [Authorize("Admin")]
         public override async Task<BoolResponse> CanDelete(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new BoolResponse { Result = false };
-            return new BoolResponse { Result = await IsDeletable(request.Id) };
+            return request is null ? new BoolResponse { Result = false } : new BoolResponse { Result = await IsDeletable(request.Id) };
         }
 
         [Authorize("Admin")]
@@ -60,9 +60,9 @@ namespace Baka.Hipster.Burger.Server.Services
             var article = await _articleRepository.Get(request.Id);
             if (article is null) return new BoolResponse { Result = false };
 
-            article.Description = request?.Description;
-            article.ArticleNumber = request?.ArticleNumber;
-            article.Name = request?.Name;
+            article.Description = request.Description;
+            article.ArticleNumber = request.ArticleNumber;
+            article.Name = request.Name;
             article.Price = request.Price;
 
             return await _articleRepository.NewOrUpdate(article) < 0 ? new BoolResponse { Result = false } : new BoolResponse { Result = true };
@@ -118,7 +118,7 @@ namespace Baka.Hipster.Burger.Server.Services
             var orderLines = await _orderLineRepository.GetAll();
             if (orderLines is null) return false;
 
-            return orderLines.Any(x => x.Article.Id == Id);
+            return orderLines.All(x => x.Article.Id != Id);
         }
     }
 }

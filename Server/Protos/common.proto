@@ -60,7 +60,7 @@ message EmployeeMessage{
 }
 
 message EmployeeMessages{
-	repeated EmployeeMessage EmployeeMessages = 1;
+	repeated EmployeeMessage Employees = 1;
 }
 
 message CustomerMessage{
