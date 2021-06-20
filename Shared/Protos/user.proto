@@ -1,23 +1,23 @@
 syntax = "proto3";
 
-option csharp_namespace = "Baka.Hipster.Burger.Server";
+option csharp_namespace = "Baka.Hipster.Burger.Shared.Protos";
 
-package user;
+package shared;
 
 import "Protos/common.proto";
 
 service UserProto {
 
 
-  rpc ChangePassword (ChangePasswordRequest) returns (common.BoolResponse);
-  rpc Add (FullUser) returns (common.IdMessage);
-  rpc Delete (common.IdMessage) returns (common.BoolResponse);
-  rpc CanDelete (common.IdMessage) returns (common.BoolResponse);
-  rpc Update (UserMessage) returns (common.BoolResponse);
-  rpc Get (common.IdMessage) returns (UserMessage);
-  rpc GetAll (common.Empty) returns (UserMessages);
+  rpc ChangePassword (ChangePasswordRequest) returns (BoolResponse);
+  rpc Add (FullUser) returns (IdMessage);
+  rpc Delete (IdMessage) returns (BoolResponse);
+  rpc CanDelete (IdMessage) returns (BoolResponse);
+  rpc Update (UserMessage) returns (BoolResponse);
+  rpc Get (IdMessage) returns (UserMessage);
+  rpc GetAll (Empty) returns (UserMessages);
   rpc LogIn (UserLogin) returns (TokenMessage);
-  rpc Register (FullUser) returns (common.BoolResponse);
+  rpc Register (FullUser) returns (BoolResponse);
 }
 
 message FullUser{

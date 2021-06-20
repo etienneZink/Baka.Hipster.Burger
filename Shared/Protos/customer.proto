@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Shared.Protos";
+
+package shared;
+
+import "Protos/common.proto";
+
+service CustomerProto {
+	rpc Add (CustomerMessage) returns (IdMessage);
+	rpc Delete (IdMessage) returns (BoolResponse);
+	rpc CanDelete (IdMessage) returns (BoolResponse);
+	rpc Update (CustomerMessage) returns (BoolResponse);
+	rpc Get (IdMessage) returns (CustomerMessage);
+	rpc GetAll (Empty) returns (CustomerMessages);
+}

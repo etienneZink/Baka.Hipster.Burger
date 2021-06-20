@@ -5,28 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\area.proto" />
-    <None Remove="Protos\article.proto" />
-    <None Remove="Protos\common.proto" />
-    <None Remove="Protos\customer.proto" />
-    <None Remove="Protos\employee.proto" />
-    <None Remove="Protos\order.proto" />
-    <None Remove="Protos\orderLine.proto" />
-    <None Remove="Protos\user.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="Protos\common.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\orderLine.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\order.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\employee.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\customer.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\article.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\area.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\user.proto" GrpcServices="Server" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
     <PackageReference Include="FluentNHibernate" Version="3.1.0" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.38.0" />

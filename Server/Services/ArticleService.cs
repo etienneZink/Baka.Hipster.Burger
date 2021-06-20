@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Baka.Hipster.Burger.Server.Repositories.Implementation;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Shared.Models;
+using Baka.Hipster.Burger.Shared.Protos;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 
