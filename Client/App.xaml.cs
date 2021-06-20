@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Baka.Hipster.Burger.Client.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,7 +28,7 @@ namespace Baka.Hipster.Burger.Client
             //containerBuilder.RegisterType<CustomerServiceClient>();
             Container = containerBuilder.Build();
 
-            //Container.Resolve<MainWindowController>().Initialize();
+            Container.Resolve<LoginWindowController>().Initialize();
         }
     }
 }
