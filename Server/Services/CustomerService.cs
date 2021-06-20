@@ -23,7 +23,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
         
         [Authorize]
-        public override async Task<IdMessage> Add(CustomerMessage request, ServerCallContext context)
+        public override async Task<IdMessage> Add(CustomerRequest request, ServerCallContext context)
         {
             if (request is null) return new IdMessage { Id = -1 };
 
@@ -59,7 +59,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize]
-        public override async Task<BoolResponse> Update(CustomerMessage request, ServerCallContext context)
+        public override async Task<BoolResponse> Update(CustomerRequest request, ServerCallContext context)
         {
             if (request is null) return new BoolResponse { Result = false };
 
@@ -78,14 +78,14 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize]
-        public override async Task<CustomerMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<CustomerResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new CustomerMessage();
+            if (request is null) return new CustomerResponse { Status = Shared.Protos.Status.Failed };
 
             var customer = await _customerRepository.Get(request.Id);
-            if (customer is null) return new CustomerMessage();
+            if (customer is null) return new CustomerResponse { Status = Shared.Protos.Status.Failed };
 
-            return new CustomerMessage
+            return new CustomerResponse
             {
                 City = customer.City,
                 Firstname = customer.Firstname,
@@ -94,14 +94,15 @@ namespace Baka.Hipster.Burger.Server.Services
                 PostalCode = customer.PostalCode,
                 Street = customer.Street,
                 StreetNumber = customer.StreetNumber,
-                Id = customer.Id
+                Id = customer.Id,
+                Status = Shared.Protos.Status.Ok
             };
         }
 
         [Authorize]
-        public override async Task<CustomerMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<CustomerResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var customerMessages = new CustomerMessages();
+            var customerMessages = new CustomerResponses { Status = Shared.Protos.Status.Failed };
 
             if (request is null) return customerMessages;
 
@@ -110,7 +111,7 @@ namespace Baka.Hipster.Burger.Server.Services
 
             foreach (var customer in customers)
             {
-                customerMessages.Customers.Add(new CustomerMessage
+                customerMessages.Customers.Add(new CustomerResponse
                 {
                     City = customer.City,
                     Firstname = customer.Firstname,
@@ -119,10 +120,12 @@ namespace Baka.Hipster.Burger.Server.Services
                     PostalCode = customer.PostalCode,
                     Street = customer.Street,
                     StreetNumber = customer.StreetNumber,
-                    Id = customer.Id
+                    Id = customer.Id,
+                    Status = Shared.Protos.Status.Ok
                 });
             }
 
+            customerMessages.Status = Shared.Protos.Status.Ok;
             return customerMessages;
         }
 

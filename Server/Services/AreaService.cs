@@ -22,7 +22,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
         
         [Authorize("Admin")]
-        public override async Task<IdMessage> Add(AreaMessage request, ServerCallContext context)
+        public override async Task<IdMessage> Add(AreaRequest request, ServerCallContext context)
         {
             if(request?.Employees is null) return new IdMessage { Id = -1 };
 
@@ -57,7 +57,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<BoolResponse> Update(AreaMessage request, ServerCallContext context)
+        public override async Task<BoolResponse> Update(AreaRequest request, ServerCallContext context)
         {
             if (request?.Employees is null) return new BoolResponse { Result = false };
 
@@ -78,14 +78,14 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<AreaMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<AreaResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new AreaMessage();
+            if (request is null) return new AreaResponse { Status = Shared.Protos.Status.Failed };
 
             var area = await _areaRepository.Get(request.Id);
-            if (area is null) return new AreaMessage();
+            if (area is null) return new AreaResponse { Status = Shared.Protos.Status.Failed };
 
-            var areaMessage = new AreaMessage
+            var areaMessage = new AreaResponse
             {
                 Id = area.Id,
                 Description = area.Description,
@@ -97,13 +97,14 @@ namespace Baka.Hipster.Burger.Server.Services
                 areaMessage.Employees.Add(new IdMessage { Id = employee.Id });
             }
 
+            areaMessage.Status = Shared.Protos.Status.Ok;
             return areaMessage;
         }
 
         [Authorize("Admin")]
-        public override async Task<AreaMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<AreaResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var areaMessages = new AreaMessages();
+            var areaMessages = new AreaResponses { Status = Shared.Protos.Status.Failed };
 
             if (request is null) return areaMessages;
             
@@ -112,11 +113,12 @@ namespace Baka.Hipster.Burger.Server.Services
 
             foreach (var area in areas)
             {
-                var areaMessage = new AreaMessage
+                var areaMessage = new AreaResponse
                 {
                     Id = area.Id,
                     Description = area.Description,
                     PostCode = area.PostCode,
+                    Status = Shared.Protos.Status.Ok
                 };
 
                 foreach (var employee in area.Employees)
@@ -127,6 +129,7 @@ namespace Baka.Hipster.Burger.Server.Services
                 areaMessages.Areas.Add(areaMessage);
             }
 
+            areaMessages.Status = Shared.Protos.Status.Ok;
             return areaMessages;
         }
 

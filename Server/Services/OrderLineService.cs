@@ -26,7 +26,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize]
-        public override async Task<IdMessage> Add(OrderLineMessage request, ServerCallContext context)
+        public override async Task<IdMessage> Add(OrderLineRequest request, ServerCallContext context)
         {
             if (request?.Article is null || request.Order is null) return new IdMessage { Id = -1 };
 
@@ -51,29 +51,30 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize]
-        public override async Task<OrderLineMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<OrderLineResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new OrderLineMessage();
+            if (request is null) return new OrderLineResponse { Status = Shared.Protos.Status.Failed };
 
             var orderLine = await _orderLineRepository.Get(request.Id);
-            if (orderLine is null) return new OrderLineMessage();
+            if (orderLine is null) return new OrderLineResponse { Status = Shared.Protos.Status.Failed };
 
-            var orderLineMessage = new OrderLineMessage 
+            var orderLineMessage = new OrderLineResponse 
             {
                 Id = orderLine.Id,
                 Position = orderLine.Position,
                 Article = new IdMessage { Id = orderLine.Article.Id },
                 Order = new IdMessage { Id = orderLine.Order.Id},
-                Amount = orderLine.Amount
+                Amount = orderLine.Amount,
+                Status = Shared.Protos.Status.Ok
             };
 
             return orderLineMessage;
         }
 
         [Authorize]
-        public override async Task<OrderLineMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<OrderLineResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var orderLineMessages = new OrderLineMessages();
+            var orderLineMessages = new OrderLineResponses { Status = Shared.Protos.Status.Failed };
 
             if (request is null) return orderLineMessages;
 
@@ -82,16 +83,18 @@ namespace Baka.Hipster.Burger.Server.Services
 
             foreach (var orderLine in orderLines)
             {
-                orderLineMessages.OrderLines.Add(new OrderLineMessage
+                orderLineMessages.OrderLines.Add(new OrderLineResponse
                 {
                     Id = orderLine.Id,
                     Position = orderLine.Position,
                     Article = new IdMessage { Id = orderLine.Article.Id },
                     Order = new IdMessage { Id = orderLine.Order.Id },
-                    Amount = orderLine.Amount
+                    Amount = orderLine.Amount,
+                    Status = Shared.Protos.Status.Ok
                 });
             }
 
+            orderLineMessages.Status = Shared.Protos.Status.Ok;
             return orderLineMessages;
         }
     }

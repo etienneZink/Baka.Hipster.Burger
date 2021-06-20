@@ -26,7 +26,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
         
         [Authorize("Admin")]
-        public override async Task<IdMessage> Add(EmployeeMessage request, ServerCallContext context)
+        public override async Task<IdMessage> Add(EmployeeRequest request, ServerCallContext context)
         {
             if (request?.Areas is null) return new IdMessage { Id = -1 };
 
@@ -62,7 +62,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<BoolResponse> Update(EmployeeMessage request, ServerCallContext context)
+        public override async Task<BoolResponse> Update(EmployeeRequest request, ServerCallContext context)
         {
             if (request?.Areas is null) return new BoolResponse { Result = false };
 
@@ -84,19 +84,19 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<EmployeeMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<EmployeeResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new EmployeeMessage();
+            if (request is null) return new EmployeeResponse { Status = Shared.Protos.Status.Failed };
 
             var employee = await _employeeRepository.Get(request.Id);
-            if (employee is null) return new EmployeeMessage();
+            if (employee is null) return new EmployeeResponse { Status = Shared.Protos.Status.Failed };
 
-            var employeeMessage = new EmployeeMessage()
+            var employeeMessage = new EmployeeResponse()
             {
                 EmployeeNumber = employee.EmployeeNumber,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
-                Id = employee.Id
+                Id = employee.Id,
             };
 
             foreach (var area in employee.Areas)
@@ -104,13 +104,14 @@ namespace Baka.Hipster.Burger.Server.Services
                 employeeMessage.Areas.Add(new IdMessage { Id = area.Id });
             }
 
+            employeeMessage.Status = Shared.Protos.Status.Ok;
             return employeeMessage;
         }
 
         [Authorize("Admin")]
-        public override async Task<EmployeeMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<EmployeeResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var employeeMessages = new EmployeeMessages();
+            var employeeMessages = new EmployeeResponses { Status = Shared.Protos.Status.Failed };
 
             if (request is null) return employeeMessages;
 
@@ -119,12 +120,13 @@ namespace Baka.Hipster.Burger.Server.Services
 
             foreach (var employee in employees)
             {
-                var employeeMessage = new EmployeeMessage()
+                var employeeMessage = new EmployeeResponse()
                 {
                     EmployeeNumber = employee.EmployeeNumber,
                     FirstName = employee.FirstName,
                     LastName = employee.LastName,
-                    Id = employee.Id
+                    Id = employee.Id,
+                    Status = Shared.Protos.Status.Ok
                 };
 
                 foreach (var area in employee.Areas)
@@ -135,6 +137,7 @@ namespace Baka.Hipster.Burger.Server.Services
                 employeeMessages.Employees.Add(employeeMessage);
             }
 
+            employeeMessages.Status = Shared.Protos.Status.Ok;
             return employeeMessages;
         }
 

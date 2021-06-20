@@ -12,6 +12,7 @@ using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Status = Baka.Hipster.Burger.Shared.Protos.Status;
 
 namespace Baka.Hipster.Burger.Server.Services
 {
@@ -28,7 +29,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<IdMessage> Add(FullUser request, ServerCallContext context)
+        public override async Task<IdMessage> Add(FullUserRequest request, ServerCallContext context)
         {
             if (request?.User is null) return new IdMessage { Id = -1 };
 
@@ -62,7 +63,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<BoolResponse> Update(UserMessage request, ServerCallContext context)
+        public override async Task<BoolResponse> Update(UserRequest request, ServerCallContext context)
         {
             if (request is null) return new BoolResponse {Result = false};
 
@@ -78,27 +79,28 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<UserMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<UserResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new UserMessage();
+            if (request is null) return new UserResponse { Status = Status.Failed};
 
             var user = await _userRepository.Get(request.Id);
-            if (user is null) return new UserMessage();
+            if (user is null) return new UserResponse { Status = Status.Failed };
 
-            return new UserMessage
+            return new UserResponse
             {
                 Firstname = user.Firstname,
                 Lastname = user.Lastname,
                 Username = user.Username,
                 IsAdmin = user.IsAdmin,
-                Id = user.Id
+                Id = user.Id,
+                Status = Status.Ok
             };
         }
 
         [Authorize("Admin")]
-        public override async Task<UserMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<UserResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var userMessages = new UserMessages();
+            var userMessages = new UserResponses{ Status = Status.Failed };
 
             if (request is null) return userMessages;
 
@@ -107,16 +109,18 @@ namespace Baka.Hipster.Burger.Server.Services
 
             foreach (var user in users)
             {
-                userMessages.User.Add(new UserMessage
+                userMessages.User.Add(new UserResponse
                 {
                     Firstname = user.Firstname,
                     Lastname = user.Lastname,
                     Username = user.Username,
                     IsAdmin = user.IsAdmin,
-                    Id = user.Id
+                    Id = user.Id,
+                    Status = Status.Ok
                 });
             }
 
+            userMessages.Status = Status.Ok;
             return userMessages;
         }
 
@@ -139,32 +143,34 @@ namespace Baka.Hipster.Burger.Server.Services
         [AllowAnonymous]
         public override async Task<TokenMessage> LogIn(UserLogin request, ServerCallContext context)
         {
-            if (request is null) return new TokenMessage();
+            if (request is null) return new TokenMessage { Status = Status.Failed };
 
             var username = request.Username.ToLower();
 
             var users = (await _userRepository.GetAll())?.Where(x => x.Username.ToLower() == username);
-            if (users is null) return new TokenMessage();
+            if (users is null) return new TokenMessage { Status = Status.Failed };
 
             var user = users.FirstOrDefault(x => BCrypt.Net.BCrypt.Verify(request.Password, x.Password));
-            if (user is null) return new TokenMessage();
+            if (user is null) return new TokenMessage { Status = Status.Failed };
 
             return new TokenMessage
             {
                 Token = await GenerateToken(user),
-                User = new UserMessage
+                User = new UserResponse
                 {
                     Firstname = user.Firstname,
                     Lastname = user.Lastname,
                     Username = user.Username,
                     IsAdmin = user.IsAdmin,
-                    Id = user.Id
-                }
+                    Id = user.Id,
+                    Status = Status.Ok
+                },
+                Status = Status.Ok
             };
         }
 
         [AllowAnonymous]
-        public override async Task<BoolResponse> Register(FullUser request, ServerCallContext context)
+        public override async Task<BoolResponse> Register(FullUserRequest request, ServerCallContext context)
         {
             if (request?.User is null) return new BoolResponse { Result = false };
 

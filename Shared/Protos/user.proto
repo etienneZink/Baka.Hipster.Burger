@@ -15,7 +15,7 @@ service UserProto {
   rpc CanDelete (IdMessage) returns (BoolResponse);
   rpc Update (UserRequest) returns (BoolResponse);
   rpc Get (IdMessage) returns (UserResponse);
-  rpc GetAll (Empty) returns (UserResponse);
+  rpc GetAll (Empty) returns (UserResponses);
   rpc LogIn (UserLogin) returns (TokenMessage);
   rpc Register (FullUserRequest) returns (BoolResponse);
 }

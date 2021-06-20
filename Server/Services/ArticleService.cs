@@ -23,7 +23,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
         
         [Authorize("Admin")]
-        public override async Task<IdMessage> Add(ArticleMessage request, ServerCallContext context)
+        public override async Task<IdMessage> Add(ArticleRequest request, ServerCallContext context)
         {
             if (request is null) return new IdMessage { Id = -1 };
 
@@ -54,7 +54,7 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<BoolResponse> Update(ArticleMessage request, ServerCallContext context)
+        public override async Task<BoolResponse> Update(ArticleRequest request, ServerCallContext context)
         {
             if (request is null) return new BoolResponse { Result = false };
 
@@ -70,27 +70,28 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize]
-        public override async Task<ArticleMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<ArticleResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new ArticleMessage();
+            if (request is null) return new ArticleResponse { Status = Shared.Protos.Status.Failed };
 
             var article = await _articleRepository.Get(request.Id);
-            if (article is null) return new ArticleMessage();
+            if (article is null) return new ArticleResponse { Status = Shared.Protos.Status.Failed };
 
-            return new ArticleMessage
+            return new ArticleResponse
             {
                 ArticleNumber = article.ArticleNumber,
                 Description = article.Description,
                 Id = article.Id,
                 Price = article.Price,
-                Name = article.Name
+                Name = article.Name,
+                Status = Shared.Protos.Status.Ok
             };
         }
 
         [Authorize]
-        public override async Task<ArticleMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<ArticleResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var articleMessages = new ArticleMessages();
+            var articleMessages = new ArticleResponses { Status = Shared.Protos.Status.Failed };
             if (request is null) return articleMessages;
 
             var articles = await _articleRepository.GetAll();
@@ -98,16 +99,18 @@ namespace Baka.Hipster.Burger.Server.Services
 
             foreach (var article in articles)
             {
-                articleMessages.Articles.Add(new ArticleMessage
+                articleMessages.Articles.Add(new ArticleResponse
                 {
                     ArticleNumber = article.ArticleNumber,
                     Description = article.Description,
                     Id = article.Id,
                     Price = article.Price,
-                    Name = article.Name
+                    Name = article.Name,
+                    Status = Shared.Protos.Status.Ok
                 });
             }
 
+            articleMessages.Status = Shared.Protos.Status.Ok;
             return articleMessages;
         }
 
