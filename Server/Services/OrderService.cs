@@ -44,8 +44,8 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var order = new Order
             {
-                Description = request.Description,
-                OrderNumber = request.OrderNumber,
+                Description = request.Description ?? string.Empty,
+                OrderNumber = request.OrderNumber ?? string.Empty,
                 Customer = customer,
                 Employee = employee,
                 OrderDate = orderDate
@@ -75,8 +75,8 @@ namespace Baka.Hipster.Burger.Server.Services
 
             if (customer is null || employee is null) return new BoolResponse { Result = false };
 
-            order.Description = request.Description;
-            order.OrderNumber = request.OrderNumber;
+            order.Description = request.Description ?? string.Empty;
+            order.OrderNumber = request.OrderNumber ?? string.Empty;
             order.Customer = customer;
             order.Employee = employee;
             order.OrderDate = orderDate;
@@ -98,9 +98,9 @@ namespace Baka.Hipster.Burger.Server.Services
             var employee = await _employeeRepository.Get(order.Employee.Id);
             if (customer is null || employee is null) return orderMessageResponse;
 
-            orderMessageResponse.Description = order.Description;
+            orderMessageResponse.Description = order.Description ?? string.Empty;
             orderMessageResponse.Id = order.Id;
-            orderMessageResponse.OrderNumber = order.OrderNumber;
+            orderMessageResponse.OrderNumber = order.OrderNumber ?? string.Empty;
             orderMessageResponse.OrderDate = new DateTimeMessage
             {
                 Year = order.OrderDate.Year,
@@ -141,9 +141,9 @@ namespace Baka.Hipster.Burger.Server.Services
 
                 var orderMessageResponse = new OrderResponse
                 {
-                    Description = order.Description,
+                    Description = order.Description ?? string.Empty,
                     Id = order.Id,
-                    OrderNumber = order.OrderNumber,
+                    OrderNumber = order.OrderNumber ?? string.Empty,
                     OrderDate = new DateTimeMessage
                     {
                         Year = order.OrderDate.Year,

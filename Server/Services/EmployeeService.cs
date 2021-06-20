@@ -33,8 +33,8 @@ namespace Baka.Hipster.Burger.Server.Services
             var employee = new Employee
             {
                EmployeeNumber = request.EmployeeNumber,
-               FirstName = request.FirstName,
-               LastName = request.LastName
+               FirstName = request.FirstName ?? string.Empty,
+               LastName = request.LastName ?? string.Empty
             };
 
             foreach (var areaId in request.Areas)
@@ -70,8 +70,8 @@ namespace Baka.Hipster.Burger.Server.Services
             if (employee is null) return new BoolResponse { Result = false };
 
             employee.EmployeeNumber = request.EmployeeNumber;
-            employee.FirstName = request.FirstName;
-            employee.LastName = request.LastName;
+            employee.FirstName = request.FirstName ?? string.Empty;
+            employee.LastName = request.LastName ?? string.Empty;
             employee.Areas.Clear();//ToDo check if it works
 
             foreach (var areaId in request.Areas)
@@ -94,8 +94,8 @@ namespace Baka.Hipster.Burger.Server.Services
             var employeeMessage = new EmployeeResponse()
             {
                 EmployeeNumber = employee.EmployeeNumber,
-                FirstName = employee.FirstName,
-                LastName = employee.LastName,
+                FirstName = employee.FirstName ?? string.Empty,
+                LastName = employee.LastName ?? string.Empty,
                 Id = employee.Id,
             };
 
@@ -123,8 +123,8 @@ namespace Baka.Hipster.Burger.Server.Services
                 var employeeMessage = new EmployeeResponse()
                 {
                     EmployeeNumber = employee.EmployeeNumber,
-                    FirstName = employee.FirstName,
-                    LastName = employee.LastName,
+                    FirstName = employee.FirstName ?? string.Empty,
+                    LastName = employee.LastName ?? string.Empty,
                     Id = employee.Id,
                     Status = Shared.Protos.Status.Ok
                 };

@@ -29,9 +29,9 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var article = new Article
             {
-                Description = request.Description,
-                ArticleNumber = request.ArticleNumber,
-                Name = request.Name,
+                Description = request.Description ?? string.Empty,
+                ArticleNumber = request.ArticleNumber ?? string.Empty,
+                Name = request.Name ?? string.Empty,
                 Price = request.Price
             };
 
@@ -61,9 +61,9 @@ namespace Baka.Hipster.Burger.Server.Services
             var article = await _articleRepository.Get(request.Id);
             if (article is null) return new BoolResponse { Result = false };
 
-            article.Description = request.Description;
-            article.ArticleNumber = request.ArticleNumber;
-            article.Name = request.Name;
+            article.Description = request.Description ?? string.Empty;
+            article.ArticleNumber = request.ArticleNumber ?? string.Empty;
+            article.Name = request.Name ?? string.Empty;
             article.Price = request.Price;
 
             return await _articleRepository.NewOrUpdate(article) < 0 ? new BoolResponse { Result = false } : new BoolResponse { Result = true };
@@ -79,11 +79,11 @@ namespace Baka.Hipster.Burger.Server.Services
 
             return new ArticleResponse
             {
-                ArticleNumber = article.ArticleNumber,
-                Description = article.Description,
+                ArticleNumber = article.ArticleNumber ?? string.Empty,
+                Description = article.Description ?? string.Empty,
                 Id = article.Id,
                 Price = article.Price,
-                Name = article.Name,
+                Name = article.Name ?? string.Empty,
                 Status = Shared.Protos.Status.Ok
             };
         }
@@ -101,11 +101,11 @@ namespace Baka.Hipster.Burger.Server.Services
             {
                 articleMessages.Articles.Add(new ArticleResponse
                 {
-                    ArticleNumber = article.ArticleNumber,
-                    Description = article.Description,
+                    ArticleNumber = article.ArticleNumber ?? string.Empty,
+                    Description = article.Description ?? string.Empty,
                     Id = article.Id,
                     Price = article.Price,
-                    Name = article.Name,
+                    Name = article.Name ?? string.Empty,
                     Status = Shared.Protos.Status.Ok
                 });
             }

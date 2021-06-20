@@ -24,9 +24,7 @@ namespace Baka.Hipster.Burger.Server.Mappings
                 .Length(100);
             Map(a => a.Price)
                 .Not.Nullable();
-            Map(a => a.Version)
-                .Not.Nullable();
-
+            
             Version(a => a.Version)
                 .Not.Nullable();
             OptimisticLock.Version();

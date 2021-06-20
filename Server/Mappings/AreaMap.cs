@@ -19,10 +19,7 @@ namespace Baka.Hipster.Burger.Server.Mappings
             Map(a => a.PostCode)
                 .Unique()
                 .Not.Nullable();
-            Map(a => a.Version)
-                .Not
-                .Nullable();
-
+            
             HasManyToMany(a => a.Employees)
                 .Table("EmployeeToAreaRelations")
                 .ParentKeyColumn("EmployeeId")
@@ -31,6 +28,7 @@ namespace Baka.Hipster.Burger.Server.Mappings
 
             Version(a => a.Version)
                 .Not.Nullable();
+
             OptimisticLock.Version();
         }
     }

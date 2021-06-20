@@ -29,13 +29,13 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var customer = new Customer
             {
-                City = request.City,
-                Firstname = request.Firstname,
-                Name = request.Name,
-                Phone = request.Phone,
+                City = request.City ?? string.Empty,
+                Firstname = request.Firstname ?? string.Empty,
+                Name = request.Name ?? string.Empty,
+                Phone = request.Phone ?? string.Empty,
                 PostalCode = request.PostalCode,
-                Street = request.Street,
-                StreetNumber = request.StreetNumber,
+                Street = request.Street ?? string.Empty,
+                StreetNumber = request.StreetNumber ?? string.Empty,
             };
 
             return await _customerRepository.NewOrUpdate(customer) < 0 ? new IdMessage { Id = -1 } : new IdMessage { Id = customer.Id };
@@ -66,13 +66,13 @@ namespace Baka.Hipster.Burger.Server.Services
             var customer = await _customerRepository.Get(request.Id);
             if (customer is null) return new BoolResponse { Result = false };
 
-            customer.City = request.City;
-            customer.Firstname = request.Firstname;
-            customer.Name = request.Name;
-            customer.Phone = request.Phone;
+            customer.City = request.City ?? string.Empty;
+            customer.Firstname = request.Firstname ?? string.Empty;
+            customer.Name = request.Name ?? string.Empty;
+            customer.Phone = request.Phone ?? string.Empty;
             customer.PostalCode = request.PostalCode;
-            customer.Street = request.Street;
-            customer.StreetNumber = request.StreetNumber;
+            customer.Street = request.Street ?? string.Empty;
+            customer.StreetNumber = request.StreetNumber ?? string.Empty;
 
             return await _customerRepository.NewOrUpdate(customer) < 0 ? new BoolResponse { Result = false } : new BoolResponse { Result = true };
         }
@@ -87,13 +87,13 @@ namespace Baka.Hipster.Burger.Server.Services
 
             return new CustomerResponse
             {
-                City = customer.City,
-                Firstname = customer.Firstname,
-                Name = customer.Name,
-                Phone = customer.Phone,
+                City = customer.City ?? string.Empty,
+                Firstname = customer.Firstname ?? string.Empty,
+                Name = customer.Name ?? string.Empty,
+                Phone = customer.Phone ?? string.Empty,
                 PostalCode = customer.PostalCode,
-                Street = customer.Street,
-                StreetNumber = customer.StreetNumber,
+                Street = customer.Street ?? string.Empty,
+                StreetNumber = customer.StreetNumber ?? string.Empty,
                 Id = customer.Id,
                 Status = Shared.Protos.Status.Ok
             };
@@ -113,13 +113,13 @@ namespace Baka.Hipster.Burger.Server.Services
             {
                 customerMessages.Customers.Add(new CustomerResponse
                 {
-                    City = customer.City,
-                    Firstname = customer.Firstname,
-                    Name = customer.Name,
-                    Phone = customer.Phone,
+                    City = customer.City ?? string.Empty,
+                    Firstname = customer.Firstname ?? string.Empty,
+                    Name = customer.Name ?? string.Empty,
+                    Phone = customer.Phone ?? string.Empty,
                     PostalCode = customer.PostalCode,
-                    Street = customer.Street,
-                    StreetNumber = customer.StreetNumber,
+                    Street = customer.Street ?? string.Empty,
+                    StreetNumber = customer.StreetNumber ?? string.Empty,
                     Id = customer.Id,
                     Status = Shared.Protos.Status.Ok
                 });

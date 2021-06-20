@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Baka.Hipster.Burger.Server.Repositories.Implementation;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Shared.Models;
 using Baka.Hipster.Burger.Shared.Protos;
@@ -37,11 +38,11 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var user = new User
             {
-                Firstname = request.User.Firstname,
+                Firstname = request.User.Firstname ?? string.Empty,
                 IsAdmin = request.User.IsAdmin,
-                Lastname = request.User.Lastname,
+                Lastname = request.User.Lastname ?? string.Empty,
                 Password = password,
-                Username = request.User.Username
+                Username = request.User.Username ?? string.Empty
             };
 
             return await _userRepository.NewOrUpdate(user) < 0 ? new IdMessage { Id = -1 } : new IdMessage { Id = user.Id };
@@ -70,10 +71,10 @@ namespace Baka.Hipster.Burger.Server.Services
             var user = await _userRepository.Get(request.Id);
             if (user is null) return new BoolResponse { Result = false };
             
-            user.Firstname = request.Firstname;
+            user.Firstname = request.Firstname ?? string.Empty;
             user.IsAdmin = request.IsAdmin;
-            user.Lastname = request.Lastname;
-            user.Username = request.Username;
+            user.Lastname = request.Lastname ?? string.Empty;
+            user.Username = request.Username ?? string.Empty;
 
             return await _userRepository.NewOrUpdate(user) < 0 ? new BoolResponse { Result = false } : new BoolResponse { Result = true };
         }
@@ -88,9 +89,9 @@ namespace Baka.Hipster.Burger.Server.Services
 
             return new UserResponse
             {
-                Firstname = user.Firstname,
-                Lastname = user.Lastname,
-                Username = user.Username,
+                Firstname = user.Firstname ?? string.Empty,
+                Lastname = user.Lastname ?? string.Empty,
+                Username = user.Username ?? string.Empty,
                 IsAdmin = user.IsAdmin,
                 Id = user.Id,
                 Status = Status.Ok
@@ -111,9 +112,9 @@ namespace Baka.Hipster.Burger.Server.Services
             {
                 userMessages.User.Add(new UserResponse
                 {
-                    Firstname = user.Firstname,
-                    Lastname = user.Lastname,
-                    Username = user.Username,
+                    Firstname = user.Firstname ?? string.Empty,
+                    Lastname = user.Lastname ?? string.Empty,
+                    Username = user.Username ?? string.Empty,
                     IsAdmin = user.IsAdmin,
                     Id = user.Id,
                     Status = Status.Ok
@@ -144,7 +145,7 @@ namespace Baka.Hipster.Burger.Server.Services
         public override async Task<TokenMessage> LogIn(UserLogin request, ServerCallContext context)
         {
             if (request is null) return new TokenMessage { Status = Status.Failed };
-
+            
             var username = request.Username.ToLower();
 
             var users = (await _userRepository.GetAll())?.Where(x => x.Username.ToLower() == username);
@@ -158,9 +159,9 @@ namespace Baka.Hipster.Burger.Server.Services
                 Token = await GenerateToken(user),
                 User = new UserResponse
                 {
-                    Firstname = user.Firstname,
-                    Lastname = user.Lastname,
-                    Username = user.Username,
+                    Firstname = user.Firstname ?? string.Empty,
+                    Lastname = user.Lastname ?? string.Empty,
+                    Username = user.Username ?? string.Empty,
                     IsAdmin = user.IsAdmin,
                     Id = user.Id,
                     Status = Status.Ok
@@ -178,11 +179,11 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var user = new User
             {
-                Firstname = request.User.Firstname,
+                Firstname = request.User.Firstname ?? string.Empty,
                 IsAdmin = false,
-                Lastname = request.User.Lastname,
+                Lastname = request.User.Lastname ?? string.Empty,
                 Password = password,
-                Username = request.User.Username
+                Username = request.User.Username ?? string.Empty
             };
 
             return await _userRepository.NewOrUpdate(user) < 0 ? new BoolResponse { Result = false } : new BoolResponse { Result = true };

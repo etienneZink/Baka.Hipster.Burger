@@ -28,7 +28,7 @@ namespace Baka.Hipster.Burger.Server.Services
 
             var area = new Area
             {
-                Description = request.Description,
+                Description = request.Description ?? string.Empty,
                 PostCode = request.PostCode,
             };
             
@@ -64,7 +64,7 @@ namespace Baka.Hipster.Burger.Server.Services
             var area = await _areaRepository.Get(request.Id);
             if (area is null) return new BoolResponse { Result = false };
 
-            area.Description = request.Description;
+            area.Description = request.Description ?? string.Empty;
             area.PostCode = area.PostCode;
             area.Employees.Clear();//ToDo check if it works
 
@@ -88,7 +88,7 @@ namespace Baka.Hipster.Burger.Server.Services
             var areaMessage = new AreaResponse
             {
                 Id = area.Id,
-                Description = area.Description,
+                Description = area.Description ?? string.Empty,
                 PostCode = area.PostCode
             };
 
@@ -116,7 +116,7 @@ namespace Baka.Hipster.Burger.Server.Services
                 var areaMessage = new AreaResponse
                 {
                     Id = area.Id,
-                    Description = area.Description,
+                    Description = area.Description ?? string.Empty,
                     PostCode = area.PostCode,
                     Status = Shared.Protos.Status.Ok
                 };

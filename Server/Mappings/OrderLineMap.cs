@@ -20,11 +20,11 @@ namespace Baka.Hipster.Burger.Server.Mappings
                 .Not.Nullable()
                 .UniqueKey("Position")
                 .Generated.Insert();
-            References(o => o.Order)
+            /*References(o => o.Order)
                 .Column("OrderId")
                 .LazyLoad()
                 .Cascade.All()
-                .Not.Nullable();
+                .Not.Nullable();*/
             References(o => o.Article)
                 .Column("ArticleId")
                 .LazyLoad()
