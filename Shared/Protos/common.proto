@@ -14,18 +14,27 @@ message BoolResponse{
 	bool Result = 1;
 }
 
-message AreaMessage{
+message AreaRequest{
 	int32 Id = 1;
 	string Description = 2;
 	int32 PostCode = 3;
 	repeated IdMessage Employees = 4;
 }
 
-message AreaMessages{
-	repeated AreaMessage Areas = 1;
+message AreaResponse{
+	int32 Id = 1;
+	string Description = 2;
+	int32 PostCode = 3;
+	repeated IdMessage Employees = 4;
+	Status Status = 5;
 }
 
-message OrderLineMessage{
+message AreaResponses{
+	repeated AreaResponse Areas = 1;
+	Status Status = 2;
+}
+
+message OrderLineRequest{
 	int32 Id = 1;
 	int32 Amount = 2;
 	int32 Position = 3;
@@ -33,11 +42,21 @@ message OrderLineMessage{
 	IdMessage Article = 5;
 }
 
-message OrderLineMessages{
-	repeated OrderLineMessage OrderLines = 1;
+message OrderLineResponse{
+	int32 Id = 1;
+	int32 Amount = 2;
+	int32 Position = 3;
+	IdMessage Order = 4;
+	IdMessage Article = 5;
+	Status Status = 6;
 }
 
-message OrderMessageResponse{
+message OrderLineResponses{
+	repeated OrderLineResponse OrderLines = 1;
+	Status Status = 2;
+}
+
+message OrderResponse{
 	int32 Id = 1;
 	string OrderNumber = 2;
 	DateTimeMessage OrderDate = 3;
@@ -47,20 +66,22 @@ message OrderMessageResponse{
 	repeated IdMessage OrderLines = 7;
 }
 
-message OrderMessageRequest{
+message OrderRequest{
 	int32 Id = 1;
 	string OrderNumber = 2;
 	DateTimeMessage OrderDate = 3;
 	string Description = 4;
 	IdMessage Employee = 5;
 	IdMessage Customer = 6;
+	Status Status = 7;
 }
 
-message OrderMessageResponses{
-	repeated OrderMessageResponse Orders = 1;
+message OrderResponses{
+	repeated OrderResponse Orders = 1;
+	Status Status = 2;
 }
 
-message EmployeeMessage{
+message EmployeeRequest{
 	int32 Id = 1;
 	string FirstName = 2;
 	string LastName = 3;
@@ -68,11 +89,21 @@ message EmployeeMessage{
 	repeated IdMessage Areas = 5;
 }
 
-message EmployeeMessages{
-	repeated EmployeeMessage Employees = 1;
+message EmployeeResponse{
+	int32 Id = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	int32 EmployeeNumber = 4;
+	repeated IdMessage Areas = 5;
+	Status Status = 6;
 }
 
-message CustomerMessage{
+message EmployeeResponses{
+	repeated EmployeeResponse Employees = 1;
+	Status Status = 2;
+}
+
+message CustomerRequest{
 	int32 Id = 1;
 	string Name = 2;
 	string Firstname = 3;
@@ -83,11 +114,24 @@ message CustomerMessage{
 	string City = 8;
 }
 
-message CustomerMessages{
-	repeated CustomerMessage Customers = 1;
+message CustomerResponse{
+	int32 Id = 1;
+	string Name = 2;
+	string Firstname = 3;
+	string Phone = 4;
+	string Street = 5;
+	string StreetNumber = 6;
+	int32 PostalCode = 7;
+	string City = 8;
+	Status Status = 9;
 }
 
-message ArticleMessage{
+message CustomerResponses{
+	repeated CustomerResponse Customers = 1;
+	Status Status = 2;
+}
+
+message ArticleRequest{
 	int32 Id = 1;
 	string ArticleNumber = 2;
 	string Name = 3;
@@ -95,8 +139,18 @@ message ArticleMessage{
 	double Price = 5;
 }
 
-message ArticleMessages{
-	repeated ArticleMessage Articles = 1;
+message ArticleResponse{
+	int32 Id = 1;
+	string ArticleNumber = 2;
+	string Name = 3;
+	string Description = 4;
+	double Price = 5;
+	Status Status = 6;
+}
+
+message ArticleResponses{
+	repeated ArticleResponse Articles = 1;
+	Status Status = 2;
 }
 
 message DateTimeMessage{
@@ -107,4 +161,9 @@ message DateTimeMessage{
 	int32 minute = 5;
 	int32 second = 6;
 	int32 millisecond = 7;
+}
+
+enum Status{
+	Failed = 0;
+	Ok = 1;
 }

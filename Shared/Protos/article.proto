@@ -7,10 +7,10 @@ package shared;
 import "Protos/common.proto";
 
 service ArticleProto {
-	rpc Add (ArticleMessage) returns (IdMessage);
+	rpc Add (ArticleRequest) returns (IdMessage);
 	rpc Delete (IdMessage) returns (BoolResponse);
 	rpc CanDelete (IdMessage) returns (BoolResponse);
-	rpc Update (ArticleMessage) returns (BoolResponse);
-	rpc Get (IdMessage) returns (ArticleMessage);
-	rpc GetAll (Empty) returns (ArticleMessages);
+	rpc Update (ArticleRequest) returns (BoolResponse);
+	rpc Get (IdMessage) returns (ArticleResponse);
+	rpc GetAll (Empty) returns (ArticleResponses);
 }

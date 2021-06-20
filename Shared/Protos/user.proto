@@ -10,18 +10,18 @@ service UserProto {
 
 
   rpc ChangePassword (ChangePasswordRequest) returns (BoolResponse);
-  rpc Add (FullUser) returns (IdMessage);
+  rpc Add (FullUserRequest) returns (IdMessage);
   rpc Delete (IdMessage) returns (BoolResponse);
   rpc CanDelete (IdMessage) returns (BoolResponse);
-  rpc Update (UserMessage) returns (BoolResponse);
-  rpc Get (IdMessage) returns (UserMessage);
-  rpc GetAll (Empty) returns (UserMessages);
+  rpc Update (UserRequest) returns (BoolResponse);
+  rpc Get (IdMessage) returns (UserResponse);
+  rpc GetAll (Empty) returns (UserResponse);
   rpc LogIn (UserLogin) returns (TokenMessage);
-  rpc Register (FullUser) returns (BoolResponse);
+  rpc Register (FullUserRequest) returns (BoolResponse);
 }
 
-message FullUser{
-	UserMessage User = 1;
+message FullUserRequest{
+	UserRequest User = 1;
 	string Password = 2;
 }
 
@@ -30,7 +30,7 @@ message UserLogin{
 	string Password = 2;
 }
 
-message UserMessage {
+message UserRequest {
 	int32 Id = 1;
 	string Username = 2;
 	string Firstname = 3;
@@ -38,13 +38,24 @@ message UserMessage {
 	bool IsAdmin = 5;
 }
 
-message UserMessages{
-	repeated UserMessage User = 1;
+message UserResponse {
+	int32 Id = 1;
+	string Username = 2;
+	string Firstname = 3;
+	string Lastname = 4;
+	bool IsAdmin = 5;
+	Status Status = 6;
+}
+
+message UserResponses{
+	repeated UserResponse User = 1;
+	Status Status = 2;
 }
 
 message TokenMessage{
 	string Token = 1;
-	UserMessage User = 2;
+	UserResponse User = 2;
+	Status Status = 3;
 }
 
 message ChangePasswordRequest{

@@ -9,8 +9,8 @@ import "Protos/common.proto";
 
 service OrderLineProto {
 	
-	rpc Add (OrderLineMessage) returns (IdMessage);
+	rpc Add (OrderLineRequest) returns (IdMessage);
 	rpc Delete (IdMessage) returns (BoolResponse);
-	rpc Get (IdMessage) returns (OrderLineMessage);
-	rpc GetAll (Empty) returns (OrderLineMessages);
+	rpc Get (IdMessage) returns (OrderLineResponse);
+	rpc GetAll (Empty) returns (OrderLineResponses);
 }

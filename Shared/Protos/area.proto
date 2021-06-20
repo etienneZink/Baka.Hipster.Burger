@@ -7,10 +7,10 @@ package shared;
 import "Protos/common.proto";
 
 service AreaProto {
-	rpc Add (AreaMessage) returns (IdMessage);
+	rpc Add (AreaRequest) returns (IdMessage);
 	rpc Delete (IdMessage) returns (BoolResponse);
 	rpc CanDelete (IdMessage) returns (BoolResponse);
-	rpc Update (AreaMessage) returns (BoolResponse);
-	rpc Get (IdMessage) returns (AreaMessage);
-	rpc GetAll (Empty) returns (AreaMessages);
+	rpc Update (AreaRequest) returns (BoolResponse);
+	rpc Get (IdMessage) returns (AreaResponse);
+	rpc GetAll (Empty) returns (AreaResponses);
 }

@@ -7,9 +7,9 @@ package shared;
 import "Protos/common.proto";
 
 service OrderProto {
-	rpc Add (OrderMessageRequest) returns (IdMessage);
+	rpc Add (OrderRequest) returns (IdMessage);
 	rpc Delete (IdMessage) returns (BoolResponse);
-	rpc Update (OrderMessageRequest) returns (BoolResponse);
-	rpc Get (IdMessage) returns (OrderMessageResponse);
-	rpc GetAll (Empty) returns (OrderMessageResponses);
+	rpc Update (OrderRequest) returns (BoolResponse);
+	rpc Get (IdMessage) returns (OrderResponse);
+	rpc GetAll (Empty) returns (OrderResponses);
 }
