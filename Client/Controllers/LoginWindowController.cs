@@ -4,6 +4,7 @@ using Baka.Hipster.Burger.Client.ViewModels;
 using Baka.Hipster.Burger.Client.Views;
 using Baka.Hipster.Burger.Shared.Models;
 using Baka.Hipster.Burger.Shared.Protos;
+using Grpc.Core;
 using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 Password = _loginWindowViewModel.Password
             });
 
-            if (result?.User is null || result.Status is Status.Failed)
+            if (result?.User is null || result.Status is Shared.Protos.Status.Failed)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("The username or password was wrong. Please try again!");
@@ -71,7 +72,23 @@ namespace Baka.Hipster.Burger.Client.Controllers
             };
             //ToDo
             var _popupWindowControllerTest = _app.Container.Resolve<PopupWindowController>();
-            
+
+            var header = new Metadata();
+            header.Add("Authorization", $"Bearer {Token}");
+
+            /*_userProtoClient.Add(new FullUserRequest
+            {
+                Password = "geheim",
+                User = new UserRequest
+                {
+                    Firstname = "Theo",
+                    Lastname = "Test",
+                    IsAdmin = false,
+                    Username = "theo"
+                }
+            },
+            headers: header);
+            */
             _popupWindowControllerTest.DisplayText($"Token: {Token}\nUsername: {User.Username} ");
         }
 
