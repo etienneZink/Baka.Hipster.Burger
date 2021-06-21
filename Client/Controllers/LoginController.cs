@@ -4,26 +4,18 @@ using Baka.Hipster.Burger.Client.ViewModels;
 using Baka.Hipster.Burger.Client.Views;
 using Baka.Hipster.Burger.Shared.Models;
 using Baka.Hipster.Burger.Shared.Protos;
-using Grpc.Core;
 using Grpc.Net.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace Baka.Hipster.Burger.Client.Controllers
 {
     public class LoginController: ControllerBase
     {
+        public MainWindowController MainWindowController { get; set; }
+
         private App _app;
         private LoginViewModel _loginViewModel;
-
         private readonly UserProto.UserProtoClient _userProtoClient;
-
-        private string Token { get; set; }
-        private User User { get; set; }
 
         public LoginController(Login view, LoginViewModel viewModel, App app, GrpcChannel channel)
         {
@@ -55,13 +47,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
                     Username = _loginViewModel.Username,
                     Password = _loginViewModel.Password
                 });
-            } catch (Exception e)
+            }
+            catch (Exception)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("An error accured! Please try again later.");
                 return;
             }
-            
+
 
             if (result?.User is null || result.Status is Shared.Protos.Status.Failed)
             {
@@ -69,8 +62,8 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 _popupWindowController.DisplayText("The username or password was wrong. Please try again!");
                 return;
             }
-            Token = result.Token;
-            User = new User
+            var token = result.Token;
+            var user = new User
             {
                 Firstname = result.User.Firstname,
                 Id = result.User.Id,
@@ -78,27 +71,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 Lastname = result.User.Lastname,
                 Username = result.User.Username
             };
-            //ToDo
-
-            /*
-            var header = new Metadata();
-            header.Add("Authorization", $"Bearer {Token}");
-
-            _userProtoClient.Add(new FullUserRequest
-            {
-                Password = "geheim",
-                User = new UserRequest
-                {
-                    Firstname = "Theo",
-                    Lastname = "Test",
-                    IsAdmin = false,
-                    Username = "theo"
-                }
-            },
-            headers: header);
-            */
-            var _popupWindowControllerTest = _app.Container.Resolve<PopupWindowController>();
-            _popupWindowControllerTest.DisplayText($"Token: {Token}\nUsername: {User.Username} ");
+            MainWindowController.LogIn(token, user);
         }
     }
 }

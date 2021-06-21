@@ -23,16 +23,14 @@ namespace Baka.Hipster.Burger.Client
         protected override void OnStartup(StartupEventArgs e)
         {
             var channel = GrpcChannel.ForAddress("https://localhost:5001");
-
             
             ContainerBuilder containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
                 .Where(t => t.IsClass && (t.Namespace.Contains("Controllers") || t.Namespace.Contains("ViewModels") || t.Namespace.Contains("Views")));
             containerBuilder.RegisterInstance(this);
             containerBuilder.RegisterInstance(channel);
-                        
-            Container = containerBuilder.Build();
 
+            Container = containerBuilder.Build();
             Container.Resolve<MainWindowController>().Initialize();
         }
     }

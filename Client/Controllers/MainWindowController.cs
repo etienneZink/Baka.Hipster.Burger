@@ -2,6 +2,7 @@
 using Baka.Hipster.Burger.Client.Framework;
 using Baka.Hipster.Burger.Client.ViewModels;
 using Baka.Hipster.Burger.Client.Views;
+using Baka.Hipster.Burger.Shared.Models;
 using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _loginController = loginController;
             _startController = startController;
 
+            _loginController.MainWindowController = this;
             _viewModel.SelectedController = _loginController;
         }
 
@@ -45,6 +47,13 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public void ExecuteStartCommand(object o)
         {
+            _viewModel.SelectedController = _startController;
+        }
+
+        public void LogIn(string token, User user)
+        {
+            _viewModel.Token = token;
+            _viewModel.User = user;
             _viewModel.SelectedController = _startController;
         }
 

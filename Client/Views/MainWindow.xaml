@@ -15,7 +15,7 @@
         <ContentControl Content="{Binding View}"/>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Margin="10" Width="200" Content="Login" Command="{Binding ShowLoginCommand}"/>
+            <Button Margin="10" Width="200" Content="Login" Command="{Binding ShowLoginCommand}" Visibility="{Binding IsLoggedOut, Converter={StaticResource BoolToVis}}"/>
             <Button Margin="10" Width="200" Content="Start" Command="{Binding StartCommand}"/>
         </StackPanel>
     </Grid>
