@@ -29,10 +29,24 @@
             <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
         </EventTrigger>
     </Window.Triggers>
-    
+
     <Grid Background="LightGray">
         <Grid Height="70" VerticalAlignment="Top" Background="#FF0A057E">
-            <TextBlock Text="Startmodul" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="46" Width="559" Margin="61,0,0,-6">
+                <Button Content="Neu" ToolTip="Neu" HorizontalAlignment="Left"  Margin="10" Width="120" Height="25" materialDesign:ButtonAssist.CornerRadius="10">
+                    
+                </Button>
+                <Button Content="Bearbeiten" ToolTip="Bearbeiten" HorizontalContentAlignment="Right" HorizontalAlignment="Left"  Margin="10" Width="120" Height="25" materialDesign:ButtonAssist.CornerRadius="10">
+                </Button>
+                <Button Content="Speichern" ToolTip="Speichern" HorizontalContentAlignment="Right" HorizontalAlignment="Left"  Margin="10" Width="120" Height="25" materialDesign:ButtonAssist.CornerRadius="10">
+                </Button>
+                <Button Content="Löschen" ToolTip="Löschen" HorizontalContentAlignment="Right" HorizontalAlignment="Left"  Margin="10" Width="120" Height="25" materialDesign:ButtonAssist.CornerRadius="10">
+                </Button>
+            </StackPanel>
+            <StackPanel Margin="614,17,115,17" >
+                <TextBlock Text="Startmodul" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"/>
+
+            </StackPanel>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Burger" VerticalAlignment="Center" FontSize="18"/>
                 <materialDesign:PopupBox Margin="10" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
@@ -47,6 +61,9 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FF4843AE">
+            <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+                <Grid x:Name="GridCursor" Margin="0 150 0 0" Background="#FF0069C0" Width="10" HorizontalAlignment="Left" Height="60" VerticalAlignment="Top"/>
+            </materialDesign:TransitioningContent>
             <StackPanel>
                 <Grid Height="150" Background="White" >
                     <Button x:Name="ButtonCloseMenu" Width="60" Height="60" Background="{x:Null}" BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment="Right" Visibility="Collapsed" Click="ButtonCloseMenu_Click">
@@ -56,12 +73,12 @@
                         <materialDesign:PackIcon Foreground="#FF4843AE" Kind="Menu" Width="25" Height="25"/>
                     </Button>
                 </Grid>
-                <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF0A057E">
+                <ListView x:Name="ListViewMenu" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="#FF0A057E">
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Home" Width="25" Height="25" Margin="10" VerticalAlignment="Center"/>
                             <TextBlock Text="Start" VerticalAlignment="Center" Margin="20 10"/>
-                        </StackPanel>                        
+                        </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
@@ -89,6 +106,9 @@
                     </ListViewItem>
                 </ListView>
             </StackPanel>
+        </Grid>
+        <Grid Margin="60 70 0 0">
+            <Grid x:Name="GridPrincipal" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
     </Grid>
 </Window>
