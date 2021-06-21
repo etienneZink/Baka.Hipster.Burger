@@ -33,7 +33,7 @@ namespace Baka.Hipster.Burger.Client
                         
             Container = containerBuilder.Build();
 
-            Container.Resolve<LoginWindowController>().Initialize();
+            Container.Resolve<MainWindowController>().Initialize();
         }
     }
 }
