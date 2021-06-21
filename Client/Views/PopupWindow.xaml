@@ -8,14 +8,6 @@
         mc:Ignorable="d"
         Title="Information" Height="300" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
-                <GradientStop Color="#FFE63070" Offset="1" />
-                <GradientStop Color="#FFFE8704" Offset="0" />
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Border Height="250" VerticalAlignment="Top" CornerRadius="0 0 180 0" Background="#100E17">
-        </Border>
-        <TextBlock Text="{Binding PopupText}" Margin="30" Foreground="White" FontSize="15" Width="Auto" Height="Auto" TextWrapping="Wrap" FontFamily="Great Vibes"/>
+        <TextBlock Text="{Binding PopupText}" Margin="30" FontSize="15" Width="Auto" Height="Auto" TextWrapping="Wrap" FontFamily="Great Vibes"/>
     </Grid>
 </Window>

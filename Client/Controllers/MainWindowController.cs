@@ -27,8 +27,15 @@ namespace Baka.Hipster.Burger.Client.Controllers
         {
             _view = view;
             _viewModel = viewModel;
-            _viewModel.ShowLoginCommand = new RelayCommand(ExecuteLoginCommand);
             _viewModel.StartCommand = new RelayCommand(ExecuteStartCommand);
+            _viewModel.OrderCommand = new RelayCommand(ExecuteOrderCommand);
+            _viewModel.CustomerCommand = new RelayCommand(ExecuteCustomerCommand);
+            _viewModel.BestSellerCommand = new RelayCommand(ExecuteBestSellerCommand);
+            _viewModel.RankingCommand = new RelayCommand(ExecuteRankingCommand);
+            _viewModel.ArticleCommand = new RelayCommand(ExecuteArticleCommand);
+            _viewModel.EmployeeCommand = new RelayCommand(ExecuteEmployeeCommand);
+            _viewModel.AreaCommand = new RelayCommand(ExecuteAreaCommand);
+            _viewModel.UserCommand = new RelayCommand(ExecuteUserCommand);
 
             _view.DataContext = _viewModel;
             _app = app;
@@ -40,14 +47,65 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _viewModel.SelectedController = _loginController;
         }
 
-        public void ExecuteLoginCommand(object o)
-        {
-            _viewModel.SelectedController = _loginController;
-        }
-
         public void ExecuteStartCommand(object o)
         {
             _viewModel.SelectedController = _startController;
+        }
+
+        public void ExecuteCustomerCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("Customer!");
+        }
+
+        public void ExecuteOrderCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("Order!");
+        }
+
+        public void ExecuteBestSellerCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("BestSeller!");
+        }
+
+        public void ExecuteRankingCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("Ranking!");
+        }
+
+        public void ExecuteArticleCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("Article!");
+        }
+
+        public void ExecuteEmployeeCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("Employee!");
+        }
+
+        public void ExecuteAreaCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("Area!");
+        }
+
+        public void ExecuteUserCommand(object o)
+        {
+            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+            _popupWindowController.DisplayText("User!");
         }
 
         public void LogIn(string token, User user)

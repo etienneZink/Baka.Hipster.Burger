@@ -7,14 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush StartPoint="0.1,0" EndPoint="0.9,1">
-                <GradientStop Color="#FFE63070" Offset="1" />
-                <GradientStop Color="#FFFE8704" Offset="0" />
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Border Height="390" VerticalAlignment="Top" CornerRadius="0 0 180 0" Background="#100E17">
-        </Border>
-        <TextBlock Text="Start" Margin="30" Foreground="White" FontSize="15" Width="Auto" Height="Auto" TextWrapping="Wrap" FontFamily="Great Vibes"/>
+        <Grid>
+            <StackPanel>
+                <StackPanel Margin="15">
+                    <TextBlock TextWrapping="Wrap" Text="Hipster-Burger - Dein Lieblingsburger kommt jetzt auch zu Dir nach Hause!" Foreground="#FF4843AE" TextAlignment="Center" FontSize="30" FontFamily="Great Vibes"/>
+                </StackPanel>
+                    <Image Margin="10" Width="290" Height="290" Source="../Resources/Burger.png" Stretch="UniformToFill"/>
+                <StackPanel HorizontalAlignment="Right" Margin="0 -30">
+                    <Button FontFamily="Champagne &amp; Limousines" Content="Passwort ändern" FontSize="18" Margin="25" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding ResetPasswordCommand}"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

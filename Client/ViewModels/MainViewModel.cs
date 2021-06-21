@@ -72,7 +72,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
 
         public bool IsAdmin
         {
-            get => User.IsAdmin;
+            get => !(User is null) && User.IsAdmin;
         }
 
         public bool IsLoggedIn
@@ -88,7 +88,18 @@ namespace Baka.Hipster.Burger.Client.ViewModels
             get => !IsLoggedIn;
         }
 
-        public ICommand ShowLoginCommand { get; set; }
         public ICommand StartCommand { get; set; }
+        public ICommand CustomerCommand { get; set; }
+
+        public ICommand OrderCommand { get; set; }
+
+        public ICommand BestSellerCommand { get; set; }
+
+        public ICommand RankingCommand { get; set; }
+
+        public ICommand ArticleCommand { get; set; }
+        public ICommand EmployeeCommand { get; set; }
+        public ICommand AreaCommand { get; set; }
+        public ICommand UserCommand { get; set; }
     }
 }

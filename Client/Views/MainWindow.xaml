@@ -3,20 +3,63 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Baka.Hipster.Burger.Client"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1000">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
+        xmlns:local="clr-namespace:Baka.Hipster.Burger.Client.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" Height="600" Width="1080" WindowStartupLocation="CenterScreen" Foreground="White"
+        Title="Baka Hipster Burger">
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
 
-        <ContentControl Content="{Binding View}"/>
-
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Margin="10" Width="200" Content="Login" Command="{Binding ShowLoginCommand}" Visibility="{Binding IsLoggedOut, Converter={StaticResource BoolToVis}}"/>
-            <Button Margin="10" Width="200" Content="Start" Command="{Binding StartCommand}"/>
-        </StackPanel>
+    <Grid Background="LightGray">
+        <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FF4843AE">
+            <StackPanel>
+                <Grid Height="100" Background="#FF4843AE" >
+                </Grid>
+                <Label Content="General" Foreground="white" HorizontalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}"/>
+                <Button Command="{Binding StartCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="Home" Width="25" Height="25"/>
+                </Button>
+                <Button Command="{Binding CustomerCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="AccountBoxMultiple" Width="25" Height="25"/>
+                </Button>
+                <Button Command="{Binding OrderCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="FileDocumentEdit" Width="25" Height="25"/>
+                </Button>
+                <Button Command="{Binding BestSellerCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="TrophyVariant" Width="25" Height="25"/>
+                </Button>
+                <Button Command="{Binding RankingCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="ChartAreaspline" Width="25" Height="25"/>
+                </Button>
+                <Label Content="Admin" HorizontalAlignment="Center" Foreground="white" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
+                <Button Command="{Binding ArticleCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="Burger" Width="25" Height="25"/>
+                </Button>
+                <Button Command="{Binding EmployeeCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="Car" Width="25" Height="25"/>
+                </Button>
+                <Button Command="{Binding AreaCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="Map" Width="25" Height="25"/>
+                </Button>
+                <Button Command="{Binding UserCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="User" Width="25" Height="25"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Margin="60 0 0 0">
+            <ContentControl Content="{Binding View}"/>
+        </Grid>
     </Grid>
 </Window>
