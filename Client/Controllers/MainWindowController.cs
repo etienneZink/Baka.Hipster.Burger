@@ -36,6 +36,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _viewModel.EmployeeCommand = new RelayCommand(ExecuteEmployeeCommand);
             _viewModel.AreaCommand = new RelayCommand(ExecuteAreaCommand);
             _viewModel.UserCommand = new RelayCommand(ExecuteUserCommand);
+            _viewModel.LogOutCommand = new RelayCommand(ExecuteLogOutCommand);
 
             _view.DataContext = _viewModel;
             _app = app;
@@ -106,6 +107,13 @@ namespace Baka.Hipster.Burger.Client.Controllers
             //ToDo
             var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
             _popupWindowController.DisplayText("User!");
+        }
+
+        public void ExecuteLogOutCommand(object o)
+        {
+            _viewModel.Token = string.Empty;
+            _viewModel.User = null;
+            _viewModel.SelectedController = _loginController;
         }
 
         public void LogIn(string token, User user)

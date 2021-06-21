@@ -7,8 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid>
-            <StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Margin="15">
                     <TextBlock TextWrapping="Wrap" Text="Hipster-Burger - Dein Lieblingsburger kommt jetzt auch zu Dir nach Hause!" Foreground="#FF4843AE" TextAlignment="Center" FontSize="30" FontFamily="Great Vibes"/>
                 </StackPanel>
@@ -17,6 +16,5 @@
                     <Button FontFamily="Champagne &amp; Limousines" Content="Passwort ändern" FontSize="18" Margin="25" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding ResetPasswordCommand}"/>
                 </StackPanel>
             </StackPanel>
-        </Grid>
     </Grid>
 </UserControl>

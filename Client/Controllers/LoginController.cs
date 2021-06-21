@@ -52,6 +52,8 @@ namespace Baka.Hipster.Burger.Client.Controllers
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("An error accured! Please try again later.");
+                _loginViewModel.Username = string.Empty;
+                _loginViewModel.Password = string.Empty;
                 return;
             }
 
@@ -60,6 +62,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("The username or password was wrong. Please try again!");
+                _loginViewModel.Password = string.Empty;
                 return;
             }
             var token = result.Token;
@@ -71,6 +74,9 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 Lastname = result.User.Lastname,
                 Username = result.User.Username
             };
+
+            _loginViewModel.Username = string.Empty;
+            _loginViewModel.Password = string.Empty;
             MainWindowController.LogIn(token, user);
         }
     }

@@ -28,7 +28,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
         {
             //ToDo
             var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-            _popupWindowController.DisplayText("Customer!");
+            _popupWindowController.DisplayText("Password Reset!");
         }
     }
 }

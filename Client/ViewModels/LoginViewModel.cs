@@ -19,7 +19,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
             {
                 if (_userName == value) return;
                 _userName = value;
-                OnPropertyChanged(nameof(_userName));
+                OnPropertyChanged(nameof(Username));
             }
         }
 
@@ -32,7 +32,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
             {
                 if (_password == value) return;
                 _password = value;
-                OnPropertyChanged(nameof(_password));
+                OnPropertyChanged(nameof(Password));
             }
         }
 

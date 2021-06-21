@@ -101,5 +101,6 @@ namespace Baka.Hipster.Burger.Client.ViewModels
         public ICommand EmployeeCommand { get; set; }
         public ICommand AreaCommand { get; set; }
         public ICommand UserCommand { get; set; }
+        public ICommand LogOutCommand { get; set; }
     }
 }

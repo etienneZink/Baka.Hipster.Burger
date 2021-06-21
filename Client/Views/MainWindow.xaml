@@ -43,6 +43,9 @@
                 <Button Command="{Binding RankingCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
                     <materialDesign:PackIcon Foreground="#FF4843AE" Kind="ChartAreaspline" Width="25" Height="25"/>
                 </Button>
+                <Button Command="{Binding LogOutCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:PackIcon Foreground="#FF4843AE" Kind="Logout" Width="25" Height="25"/>
+                </Button>
                 <Label Content="Admin" HorizontalAlignment="Center" Foreground="white" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
                 <Button Command="{Binding ArticleCommand}" BorderBrush="White" Background="White" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
                     <materialDesign:PackIcon Foreground="#FF4843AE" Kind="Burger" Width="25" Height="25"/>
@@ -59,7 +62,7 @@
             </StackPanel>
         </Grid>
         <Grid Margin="60 0 0 0">
-            <ContentControl Content="{Binding View}"/>
+            <ContentControl Content="{Binding View}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
         </Grid>
     </Grid>
 </Window>
