@@ -51,9 +51,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 await session.DeleteAsync(orderLineToDelete);
                 await transaction.CommitAsync();
 
-                return (session.QueryOver<OrderLine>()
-                    .Where(o => o.Id == id)
-                    .SingleOrDefaultAsync<OrderLine>() is null);
+                return true;
             }
             catch (Exception)
             {

@@ -73,7 +73,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 }, headers);
             } catch (Exception)
             {
-                _popupWindowController.DisplayText("An error accured. Please try again laiter!");
+                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
                 return;
             }
 

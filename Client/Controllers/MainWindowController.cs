@@ -24,9 +24,11 @@ namespace Baka.Hipster.Burger.Client.Controllers
         //controllers
         private readonly LoginController _loginController;
         private readonly StartController _startController;
+        private readonly CustomerController _customerController;
 
         public MainWindowController(MainWindow view, MainViewModel viewModel, App app,
-            LoginController loginController, StartController startController)
+            LoginController loginController, StartController startController,
+            CustomerController customerController)
         {
             _view = view;
             _viewModel = viewModel;
@@ -50,6 +52,9 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _startController = startController;
             _startController.MainWindowController = this;
 
+            _customerController = customerController;
+            _customerController.MainWindowController = this;
+
             PasswordResetController.MainWindowController = this;
             
             _viewModel.SelectedController = _loginController;
@@ -62,9 +67,8 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public void ExecuteCustomerCommand(object o)
         {
-            //ToDo
-            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-            _popupWindowController.DisplayText("Customer!");
+            _viewModel.SelectedController = _customerController;
+            _customerController.LoadNewData();
         }
 
         public void ExecuteOrderCommand(object o)

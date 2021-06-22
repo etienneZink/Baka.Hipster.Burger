@@ -23,7 +23,7 @@
     </Window.Resources>
 
     <Grid Background="LightGray">
-        <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="#FF4843AE">
+        <Grid x:Name="GridMenu" Width="80" HorizontalAlignment="Left" Background="#FF4843AE">
             <StackPanel>
                 <Grid Height="100" Background="#FF4843AE" >
                 </Grid>
@@ -61,7 +61,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid Margin="60 0 0 0">
+        <Grid Margin="80 0 0 0">
             <ContentControl Content="{Binding View}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
         </Grid>
     </Grid>

@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Baka.Hipster.Burger.Client.Views" xmlns:helper="clr-namespace:Baka.Hipster.Burger.Client.Helper"
+             xmlns:local="clr-namespace:Baka.Hipster.Burger.Client.Views" 
+             xmlns:helper="clr-namespace:Baka.Hipster.Burger.Client.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -17,7 +18,7 @@
             </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel Margin="20 40">
-                <TextBlock Text="User Login" Margin="20" Foreground="#FF4843AE" TextAlignment="Center" FontSize="38" FontFamily="Great Vibes"></TextBlock>
+                <TextBlock Text="User Login" Margin="20" Foreground="#FF4843AE" TextAlignment="Center" FontSize="38" FontFamily="Great Vibes"/>
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <materialDesign:PackIcon Kind="User" Width="25" Height="25" Foreground="#FF4843AE"/>
                     <TextBox x:Name="txtUsername" Margin="10 0" Text="{Binding Username}" materialDesign:HintAssist.Hint="Enter Username" Foreground="#FF4843AE" Width="250" BorderBrush="White" CaretBrush="#FFD94448" SelectionBrush="#FFD94448" />
