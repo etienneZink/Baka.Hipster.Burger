@@ -11,7 +11,7 @@
                 <StackPanel Margin="15">
                     <TextBlock TextWrapping="Wrap" Text="Hipster-Burger - Dein Lieblingsburger kommt jetzt auch zu Dir nach Hause!" Foreground="#FF4843AE" TextAlignment="Center" FontSize="30" FontFamily="Great Vibes"/>
                 </StackPanel>
-                    <Image Margin="10" Width="290" Height="290" Source="../Resources/Burger.png" Stretch="UniformToFill"/>
+                    <Image Margin="10" Width="290" Height="290" Source="../Resources/Burger.jpg" Stretch="UniformToFill"/>
                 <StackPanel HorizontalAlignment="Right" Margin="0 -30">
                     <Button FontFamily="Champagne &amp; Limousines" Content="Passwort ändern" FontSize="18" Margin="25" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding ResetPasswordCommand}"/>
                 </StackPanel>

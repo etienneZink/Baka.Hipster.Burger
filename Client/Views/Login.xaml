@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Baka.Hipster.Burger.Client.Views"
+             xmlns:local="clr-namespace:Baka.Hipster.Burger.Client.Views" xmlns:helper="clr-namespace:Baka.Hipster.Burger.Client.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -24,7 +24,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <materialDesign:PackIcon Kind="Lock" Width="25" Height="25" Foreground="#FF4843AE"/>
-                    <TextBox x:Name="txtPassword" Margin="10 0" Text="{Binding Password}" materialDesign:HintAssist.Hint="Password" Foreground="#FF4843AE" Width="250" BorderBrush="White" CaretBrush="#FFD94448" SelectionBrush="#FFD94448" />
+                    <helper:BindablePasswordBox materialDesign:HintAssist.Hint="Password" x:Name="txtPassword" Margin="10 0" Password="{Binding Password}" />
                 </StackPanel>
                 <StackPanel Margin="10" HorizontalAlignment="Center">
                     <Button Width="100" Height="40" Style="{StaticResource MaterialDesignRaisedButton}" 

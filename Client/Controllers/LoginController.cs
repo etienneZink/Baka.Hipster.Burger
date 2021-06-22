@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Baka.Hipster.Burger.Client.Framework;
+using Baka.Hipster.Burger.Client.Helper;
 using Baka.Hipster.Burger.Client.ViewModels;
 using Baka.Hipster.Burger.Client.Views;
 using Baka.Hipster.Burger.Shared.Models;
@@ -32,7 +33,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public void ExecuteLoginCommand(object o)
         {
-            if (_loginViewModel.Username is null || _loginViewModel.Password is null)
+            if (_loginViewModel.Username is null )//|| _loginViewModel.Password is null)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("Please enter a username and password!");
