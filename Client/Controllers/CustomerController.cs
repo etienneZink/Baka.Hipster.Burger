@@ -64,6 +64,19 @@ namespace Baka.Hipster.Burger.Client.Controllers
             var headers = new Metadata();
             headers.Add("Authorization", $"Bearer {MainWindowController.Token}");
 
+            if (_viewModel.SelectedModel.Name is null ||
+                _viewModel.SelectedModel.City is null ||
+                _viewModel.SelectedModel.Firstname is null ||
+                _viewModel.SelectedModel.Phone is null ||
+                _viewModel.SelectedModel.PostalCode <= 0 ||
+                _viewModel.SelectedModel.Street is null ||
+                _viewModel.SelectedModel.StreetNumber is null)
+            {
+                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+                _popupWindowController.DisplayText("Please make sure to fill in all data!");
+                return;
+            }
+
             if (_newItem)
             {
                 IdMessage idMessage;
@@ -71,14 +84,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 {
                     idMessage = _customerProtoClient.Add(new CustomerRequest
                     {
-                        Name = _viewModel.SelectedModel.Name ??= string.Empty,
-                        City = _viewModel.SelectedModel.City ??= string.Empty,
-                        Firstname = _viewModel.SelectedModel.Firstname ??= string.Empty,
+                        Name = _viewModel.SelectedModel.Name,
+                        City = _viewModel.SelectedModel.City,
+                        Firstname = _viewModel.SelectedModel.Firstname,
                         Id = _viewModel.SelectedModel.Id,
-                        Phone = _viewModel.SelectedModel.Phone ??= string.Empty,
+                        Phone = _viewModel.SelectedModel.Phone,
                         PostalCode = _viewModel.SelectedModel.PostalCode,
-                        Street = _viewModel.SelectedModel.Street ??= string.Empty,
-                        StreetNumber = _viewModel.SelectedModel.StreetNumber ??= string.Empty
+                        Street = _viewModel.SelectedModel.Street,
+                        StreetNumber = _viewModel.SelectedModel.StreetNumber
                     },headers);
                 }
                 catch (Exception)
@@ -91,7 +104,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 if (idMessage is null || idMessage.Id < 0)
                 {
                     var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                    _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints and to fill in all data!");
+                    _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints!");
                     return;
                 }
                 LoadNewData();
@@ -104,14 +117,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
             {
                 boolRespone = _customerProtoClient.Update(new CustomerRequest
                 {
-                    Name = _viewModel.SelectedModel.Name ??= string.Empty,
-                    City = _viewModel.SelectedModel.City ??= string.Empty,
-                    Firstname = _viewModel.SelectedModel.Firstname ??= string.Empty,
+                    Name = _viewModel.SelectedModel.Name,
+                    City = _viewModel.SelectedModel.City,
+                    Firstname = _viewModel.SelectedModel.Firstname,
                     Id = _viewModel.SelectedModel.Id,
-                    Phone = _viewModel.SelectedModel.Phone ??= string.Empty,
+                    Phone = _viewModel.SelectedModel.Phone,
                     PostalCode = _viewModel.SelectedModel.PostalCode ,
-                    Street = _viewModel.SelectedModel.Street ??= string.Empty,
-                    StreetNumber = _viewModel.SelectedModel.StreetNumber ??= string.Empty
+                    Street = _viewModel.SelectedModel.Street,
+                    StreetNumber = _viewModel.SelectedModel.StreetNumber
                 }, headers);
             }
             catch (Exception)
@@ -124,7 +137,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             if (boolRespone is null || !boolRespone.Result)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints and to fill in all data!");
+                _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints!");
                 return;
             }
             _viewModel.ViewDetail = false;
