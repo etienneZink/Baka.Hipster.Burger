@@ -5,20 +5,20 @@ namespace Baka.Hipster.Burger.Client.Controllers
 {
     public class PopupWindowController
     {
-        private readonly PopupWindow _popupWindow;
-        private readonly PopupViewModel _popupViewModel;
+        private readonly PopupWindow _view;
+        private readonly PopupViewModel _viewModel;
 
         public PopupWindowController(PopupWindow popupWindow, PopupViewModel popupViewModel)
         {
-            _popupWindow = popupWindow;
-            _popupViewModel = popupViewModel;
-            _popupWindow.DataContext = _popupViewModel;
+            _view = popupWindow;
+            _viewModel = popupViewModel;
+            _view.DataContext = _viewModel;
         }
 
         public void DisplayText (string text)
         {
-            _popupViewModel.PopupText = text;
-            _popupWindow.ShowDialog();
+            _viewModel.PopupText = text;
+            _view.ShowDialog();
         }
     }
 }

@@ -33,9 +33,10 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public void ExecuteLoginCommand(object o)
         {
-            if (_loginViewModel.Username is null )//|| _loginViewModel.Password is null)
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+
+            if (_loginViewModel.Username is null || _loginViewModel.Password is null)
             {
-                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("Please enter a username and password!");
                 return;
             }
@@ -51,7 +52,6 @@ namespace Baka.Hipster.Burger.Client.Controllers
             }
             catch (Exception)
             {
-                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("An error accured! Please try again later.");
                 _loginViewModel.Username = string.Empty;
                 _loginViewModel.Password = string.Empty;
@@ -61,7 +61,6 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
             if (result?.User is null || result.Status is Shared.Protos.Status.Failed)
             {
-                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("The username or password was wrong. Please try again!");
                 _loginViewModel.Password = string.Empty;
                 return;

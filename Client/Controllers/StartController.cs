@@ -12,6 +12,8 @@ namespace Baka.Hipster.Burger.Client.Controllers
 {
     public class StartController: ControllerBase
     {
+        public MainWindowController MainWindowController { get; set; }
+
         private App _app;
 
         public StartController(Start view, StartViewModel viewModel, App app)
@@ -26,9 +28,8 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public void ExecuteResetPasswordCommand(object o)
         {
-            //ToDo
-            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-            _popupWindowController.DisplayText("Password Reset!");
+            var _passwordResetController = _app.Container.Resolve<PasswordResetController>();
+            _passwordResetController.Show();
         }
     }
 }

@@ -14,6 +14,9 @@ namespace Baka.Hipster.Burger.Client.Controllers
 {
     public class MainWindowController
     {
+        public string Token => _viewModel.Token;
+        public int UserId => _viewModel.User.Id;
+
         private readonly MainWindow _view;
         private readonly MainViewModel _viewModel;
         private readonly App _app;
@@ -42,9 +45,13 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _app = app;
 
             _loginController = loginController;
-            _startController = startController;
-
             _loginController.MainWindowController = this;
+
+            _startController = startController;
+            _startController.MainWindowController = this;
+
+            PasswordResetController.MainWindowController = this;
+            
             _viewModel.SelectedController = _loginController;
         }
 
