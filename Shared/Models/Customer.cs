@@ -12,5 +12,14 @@
         public virtual int PostalCode { get; set; }
         public virtual string City { get; set; }
         public virtual int Version { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Customer a)
+            {
+                return a.Id == Id;
+            }
+            return base.Equals(obj);
+        }
     }
 }

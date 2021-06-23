@@ -7,5 +7,14 @@
         public virtual int Position { get; set; }
         public virtual Order Order { get; set; }
         public virtual Article Article { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is OrderLine a)
+            {
+                return a.Id == Id;
+            }
+            return base.Equals(obj);
+        }
     }
 }

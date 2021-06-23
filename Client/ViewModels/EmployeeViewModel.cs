@@ -1,4 +1,5 @@
 ﻿using Baka.Hipster.Burger.Client.Framework;
+using Baka.Hipster.Burger.Client.Helper;
 using Baka.Hipster.Burger.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,45 @@ namespace Baka.Hipster.Burger.Client.ViewModels
 {
     public class EmployeeViewModel: ViewModelBase
     {
-        //ToDo
+        public string FirstName
+        {
+            get => SelectedModel?.FirstName;
+            set
+            {
+                if (SelectedModel is null || SelectedModel.FirstName == value) return;
+                SelectedModel.FirstName = value;
+                OnPropertyChanged(nameof(FirstName));
+            }
+        }
+
+        public string LastName
+        {
+            get => SelectedModel?.LastName;
+            set
+            {
+                if (SelectedModel is null || SelectedModel.LastName == value) return;
+                SelectedModel.LastName = value;
+                OnPropertyChanged(nameof(LastName));
+            }
+        }
+
+        public int EmployeeNumber
+        {
+            get
+            {
+                if (SelectedModel is null) return 0;
+                return SelectedModel.EmployeeNumber;
+            }
+            set
+            {
+                if (SelectedModel is null || SelectedModel.EmployeeNumber == value) return;
+                SelectedModel.EmployeeNumber = value;
+                OnPropertyChanged(nameof(EmployeeNumber));
+            }
+        }
+
+        public ObservableCollection<AreaHelper> Areas { get; set; } = new ObservableCollection<AreaHelper>();
+
         public ObservableCollection<Employee> Models { get; set; } = new ObservableCollection<Employee>();
 
         private Employee _selectedModel;
@@ -27,7 +66,9 @@ namespace Baka.Hipster.Burger.Client.ViewModels
                 OnPropertyChanged(nameof(SelectedModel));
                 OnPropertyChanged(nameof(ItemSelected));
                 OnPropertyChanged(nameof(ViewDetail));
-                //OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(FirstName));
+                OnPropertyChanged(nameof(LastName));
+                OnPropertyChanged(nameof(EmployeeNumber));
             }
         }
 

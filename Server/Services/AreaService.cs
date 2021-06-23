@@ -66,7 +66,7 @@ namespace Baka.Hipster.Burger.Server.Services
 
             area.Description = request.Description ?? string.Empty;
             area.PostCode = request.PostCode;
-            area.Employees.Clear();//ToDo check if it works
+            area.Employees.Clear();
 
             foreach (var employeeId in request.Employees)
             {
@@ -111,6 +111,9 @@ namespace Baka.Hipster.Burger.Server.Services
             var areas = await _areaRepository.GetAll();
             if (areas is null) return areaMessages;
 
+            var employees = await _employeeRepository.GetAll();
+            if (employees is null) return areaMessages;
+
             foreach (var area in areas)
             {
                 var areaMessage = new AreaResponse
@@ -121,9 +124,9 @@ namespace Baka.Hipster.Burger.Server.Services
                     Status = Shared.Protos.Status.Ok
                 };
 
-                foreach (var employee in area.Employees)
+                foreach (var employee in employees)
                 {
-                    areaMessage.Employees.Add(new IdMessage { Id = employee.Id });
+                    if (employee.Areas.Contains(area)) areaMessage.Employees.Add(new IdMessage { Id = employee.Id });
                 }
 
                 areaMessages.Areas.Add(areaMessage);

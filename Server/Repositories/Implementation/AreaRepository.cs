@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Baka.Hipster.Burger.Server.Helper.Interfaces;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Shared.Models;
+using NHibernate.Criterion;
+using NHibernate.Transform;
 
 namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 {

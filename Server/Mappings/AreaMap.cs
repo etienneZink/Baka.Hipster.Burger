@@ -19,7 +19,7 @@ namespace Baka.Hipster.Burger.Server.Mappings
             Map(a => a.PostCode)
                 .Unique()
                 .Not.Nullable();
-            
+
             HasManyToMany(a => a.Employees)
                 .Table("EmployeeToAreaRelations")
                 .ParentKeyColumn("EmployeeId")

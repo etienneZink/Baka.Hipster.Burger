@@ -16,5 +16,14 @@ namespace Baka.Hipster.Burger.Shared.Models
         private IList<OrderLine> _orderLines;
 
         public virtual IList<OrderLine> OrderLines => _orderLines ??= new List<OrderLine>();
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Order a)
+            {
+                return a.Id == Id;
+            }
+            return base.Equals(obj);
+        }
     }
 }

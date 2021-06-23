@@ -11,5 +11,14 @@ namespace Baka.Hipster.Burger.Shared.Models
         public virtual string Password { get; set; }
         public virtual bool IsAdmin { get; set; }
         public virtual int Version { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is User a)
+            {
+                return a.Id == Id;
+            }
+            return base.Equals(obj);
+        }
     }
 }
