@@ -4,9 +4,74 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Baka.Hipster.Burger.Client.Views"
+             xmlns:shared="clr-namespace:Baka.Hipster.Burger.Shared.Models;assembly=Baka.Hipster.Burger.Shared" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000">
-    <Grid>
-            
+    <Grid Width="1000">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Article" Width="150" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+            <Button Content="New" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding AddCommand}"/>
+            <Button Content="Edit" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding EditCommand}"/>
+            <Button Content="Save" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding SaveCommand}"/>
+            <Button Content="Delete" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1">
+            <Grid Background="#FF4843AE">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Username" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Firstname" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Lastname" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Administrator" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" />
+            </Grid>
+        </StackPanel>
+        <ListBox Grid.Column="0" Grid.Row="2" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" Background="White" BorderBrush="#FF4843AE" >
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type shared:Article}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="250"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Username}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Firstname}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Lastname}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <CheckBox Grid.Column="3" Grid.Row="0" IsChecked="{Binding IsAdmin, Mode=TwoWay}" HorizontalAlignment="Center" IsEnabled="False"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" Background="White">
+            <Grid Background="#FF4843AE" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="250"/>
+                    <ColumnDefinition Width="250"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Username}" materialDesign:HintAssist.Hint="Username" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBox Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Firstname}" materialDesign:HintAssist.Hint="Firstname" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBox Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Lastname}" materialDesign:HintAssist.Hint="Lastname" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <CheckBox Grid.Column="3" Grid.Row="0" IsChecked="{Binding IsAdmin, Mode=TwoWay}" HorizontalAlignment="Center" IsEnabled="{Binding NotOwnUser}"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Background="White"/>
     </Grid>
 </UserControl>

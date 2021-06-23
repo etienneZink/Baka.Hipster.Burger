@@ -41,7 +41,7 @@ namespace Baka.Hipster.Burger.Server.Services
                 Firstname = request.User.Firstname ?? string.Empty,
                 IsAdmin = request.User.IsAdmin,
                 Lastname = request.User.Lastname ?? string.Empty,
-                Password = password,
+                Password = password ?? string.Empty,
                 Username = request.User.Username ?? string.Empty
             };
 
@@ -191,7 +191,6 @@ namespace Baka.Hipster.Burger.Server.Services
 
         private async Task<bool> IsDeletable(int Id)
         {
-            //ToDo check wo die Abhängigkeit sein soll
             return true;
         }
 

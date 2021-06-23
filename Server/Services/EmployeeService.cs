@@ -72,7 +72,7 @@ namespace Baka.Hipster.Burger.Server.Services
             employee.EmployeeNumber = request.EmployeeNumber;
             employee.FirstName = request.FirstName ?? string.Empty;
             employee.LastName = request.LastName ?? string.Empty;
-            employee.Areas.Clear();//ToDo check if it works
+            employee.Areas.Clear();
 
             foreach (var areaId in request.Areas)
             {
