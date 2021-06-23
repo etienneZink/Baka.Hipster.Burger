@@ -15,43 +15,6 @@ namespace Baka.Hipster.Burger.Client.ViewModels
 {
     public class CustomerViewModel: ViewModelBase
     {
-        public ObservableCollection<Customer> Models { get; set; } = new ObservableCollection<Customer>();
-
-        private Customer _selectedModel;
-        public Customer SelectedModel
-        {
-            get => _selectedModel;
-            set
-            {
-                if (_selectedModel == value) return;
-                _selectedModel = value;
-                ViewDetail = false;
-                OnPropertyChanged(nameof(SelectedModel));
-                OnPropertyChanged(nameof(ItemSelected));
-                OnPropertyChanged(nameof(ViewDetail));
-                OnPropertyChanged(nameof(Name));
-                OnPropertyChanged(nameof(Firstname));
-                OnPropertyChanged(nameof(Phone));
-                OnPropertyChanged(nameof(Street));
-                OnPropertyChanged(nameof(StreetNumber));
-                OnPropertyChanged(nameof(PostalCode));
-                OnPropertyChanged(nameof(City));
-            }
-        }
-
-        private bool _viewDetail;
-
-        public bool ViewDetail
-        {
-            get => _viewDetail;
-            set
-            {
-                if (_viewDetail == value) return;
-                _viewDetail = value;
-                OnPropertyChanged(nameof(ViewDetail));
-            }
-        }
-
         public string Name 
         { 
             get => SelectedModel?.Name; 
@@ -130,6 +93,43 @@ namespace Baka.Hipster.Burger.Client.ViewModels
                 if (SelectedModel is null || SelectedModel.City == value) return;
                 SelectedModel.City = value;
                 OnPropertyChanged(nameof(City));
+            }
+        }
+
+        public ObservableCollection<Customer> Models { get; set; } = new ObservableCollection<Customer>();
+
+        private Customer _selectedModel;
+        public Customer SelectedModel
+        {
+            get => _selectedModel;
+            set
+            {
+                if (_selectedModel == value) return;
+                _selectedModel = value;
+                ViewDetail = false;
+                OnPropertyChanged(nameof(SelectedModel));
+                OnPropertyChanged(nameof(ItemSelected));
+                OnPropertyChanged(nameof(ViewDetail));
+                OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(Firstname));
+                OnPropertyChanged(nameof(Phone));
+                OnPropertyChanged(nameof(Street));
+                OnPropertyChanged(nameof(StreetNumber));
+                OnPropertyChanged(nameof(PostalCode));
+                OnPropertyChanged(nameof(City));
+            }
+        }
+
+        private bool _viewDetail;
+
+        public bool ViewDetail
+        {
+            get => _viewDetail;
+            set
+            {
+                if (_viewDetail == value) return;
+                _viewDetail = value;
+                OnPropertyChanged(nameof(ViewDetail));
             }
         }
 

@@ -15,7 +15,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
         //ToDo
         public MainWindowController MainWindowController { get; set; }
 
-        private readonly OrderViewModel _orderViewModel;
+        private readonly OrderViewModel _viewModel;
         private readonly App _app;
         private readonly OrderProto.OrderProtoClient _orderProtoClient;
 
@@ -24,9 +24,9 @@ namespace Baka.Hipster.Burger.Client.Controllers
             View = view;
             ViewModel = viewModel;
 
-            _orderViewModel = viewModel;
+            _viewModel = viewModel;
 
-            View.DataContext = _orderViewModel;
+            View.DataContext = _viewModel;
             _app = app;
             _orderProtoClient = new OrderProto.OrderProtoClient(channel);
         }

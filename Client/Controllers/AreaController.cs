@@ -15,7 +15,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
         //ToDo
         public MainWindowController MainWindowController { get; set; }
 
-        private readonly AreaViewModel _areaViewModel;
+        private readonly AreaViewModel _viewModel;
         private readonly App _app;
         private readonly AreaProto.AreaProtoClient _areaProtoClient;
 
@@ -24,9 +24,9 @@ namespace Baka.Hipster.Burger.Client.Controllers
             View = view;
             ViewModel = viewModel;
 
-            _areaViewModel = viewModel;
+            _viewModel = viewModel;
 
-            View.DataContext = _areaViewModel;
+            View.DataContext = _viewModel;
             _app = app;
             _areaProtoClient = new AreaProto.AreaProtoClient(channel);
         }
