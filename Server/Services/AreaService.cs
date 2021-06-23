@@ -65,7 +65,7 @@ namespace Baka.Hipster.Burger.Server.Services
             if (area is null) return new BoolResponse { Result = false };
 
             area.Description = request.Description ?? string.Empty;
-            area.PostCode = area.PostCode;
+            area.PostCode = request.PostCode;
             area.Employees.Clear();//ToDo check if it works
 
             foreach (var employeeId in request.Employees)

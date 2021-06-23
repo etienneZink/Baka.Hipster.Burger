@@ -12,7 +12,33 @@ namespace Baka.Hipster.Burger.Client.ViewModels
 {
     public class AreaViewModel: ViewModelBase
     {
-        //ToDo
+
+        public string Description
+        {
+            get => SelectedModel?.Description;
+            set
+            {
+                if (SelectedModel is null || SelectedModel.Description == value) return;
+                SelectedModel.Description = value;
+                OnPropertyChanged(nameof(Description));
+            }
+        }
+
+        public int PostCode
+        {
+            get
+            {
+                if (SelectedModel is null) return 0;
+                return SelectedModel.PostCode;
+            }
+            set
+            {
+                if (SelectedModel is null || SelectedModel.PostCode == value) return;
+                SelectedModel.PostCode = value;
+                OnPropertyChanged(nameof(PostCode));
+            }
+        }
+
         public ObservableCollection<Area> Models { get; set; } = new ObservableCollection<Area>();
 
         private Area _selectedModel;
@@ -27,7 +53,8 @@ namespace Baka.Hipster.Burger.Client.ViewModels
                 OnPropertyChanged(nameof(SelectedModel));
                 OnPropertyChanged(nameof(ItemSelected));
                 OnPropertyChanged(nameof(ViewDetail));
-                //OnPropertyChanged(nameof(Name));
+                OnPropertyChanged(nameof(PostCode));
+                OnPropertyChanged(nameof(Description));
             }
         }
 
