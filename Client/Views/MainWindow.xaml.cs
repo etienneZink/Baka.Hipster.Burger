@@ -23,5 +23,26 @@ namespace Baka.Hipster.Burger.Client.Views
         {
             InitializeComponent();
         }
+
+        private void me(object sender, MouseEventArgs e)
+        {
+            //------------< StackPanel_MouseEnter() >------------
+            pnlPath.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            //------------</ StackPanel_MouseEnter() >------------
+        }
+
+        private void ml(object sender, MouseEventArgs e)
+        {
+            //------------< StackPanel_MouseLeave() >------------
+            pnlPath.Background = null;
+            //------------</ StackPanel_MouseLeave() >------------
+        }
+
+        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            //------------< StackPanel_MouseDown() >------------
+            pnlPath.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            //------------</ StackPanel_MouseDown() >------------
+        }
     }
 }
