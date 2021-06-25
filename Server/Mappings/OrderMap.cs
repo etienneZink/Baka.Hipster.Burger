@@ -35,7 +35,8 @@ namespace Baka.Hipster.Burger.Server.Mappings
             HasMany(o => o.OrderLines)
                 .Cascade.DeleteOrphan()
                 .Cascade.All()
-                .Not.KeyNullable();
+                .Not.KeyNullable()
+                .KeyColumn("OrderId");
 
             Version(c => c.Version).Not.Nullable();
             OptimisticLock.Version();

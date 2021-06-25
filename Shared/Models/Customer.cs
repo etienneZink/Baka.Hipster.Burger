@@ -21,5 +21,7 @@
             }
             return base.Equals(obj);
         }
+
+        public override string ToString() => Name + " " + Firstname;
     }
 }

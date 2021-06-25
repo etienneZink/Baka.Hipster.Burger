@@ -22,5 +22,7 @@ namespace Baka.Hipster.Burger.Shared.Models
             }
             return base.Equals(obj);
         }
+
+        public override string ToString() => LastName + " " + FirstName;
     }
 }
