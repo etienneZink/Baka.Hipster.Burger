@@ -54,8 +54,9 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Console.WriteLine(e);
                 await transaction.RollbackAsync();
                 return false;
             }

@@ -24,11 +24,11 @@ namespace Baka.Hipster.Burger.Client.Controllers
         private readonly OrderProto.OrderProtoClient _orderProtoClient;
         private readonly EmployeeProto.EmployeeProtoClient _employeeProtoClient;
         private readonly CustomerProto.CustomerProtoClient _customerProtoClient;
-        //private readonly ArticleProto.ArticleProtoClient _articleProtoClient;
-        //private readonly OrderLineProto.OrderLineProtoClient _orderLineProtoClient;
+        private readonly OrderLineProto.OrderLineProtoClient _orderLineProtoClient;
+        private readonly ArticleProto.ArticleProtoClient _articleProtoClient;
 
         private bool _newItem;
-        //ToDo add OrderLines
+
         public OrderController(OrderControl view, OrderViewModel viewModel, App app, GrpcChannel channel)
         {
             View = view;
@@ -41,7 +41,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _viewModel.SaveCommand = new RelayCommand(ExecuteSaveCommand, CanExecuteSaveCommand);
             _viewModel.DeleteCommand = new RelayCommand(ExecuteDeleteCommand, CanExecuteSelectedCommand);
 
-            _viewModel.AddOrderLineCommand = new RelayCommand(ExecuteAddOrderLineCommand, CanExecuteOrderLineCommand);
+            _viewModel.AddOrderLineCommand = new RelayCommand(ExecuteAddOrderLineCommand);
             _viewModel.DeleteOrderLineCommand = new RelayCommand(ExecuteDeleteOrderLineCommand, CanExecuteOrderLineCommand);
 
             View.DataContext = _viewModel;
@@ -49,8 +49,8 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _orderProtoClient = new OrderProto.OrderProtoClient(channel);
             _employeeProtoClient = new EmployeeProto.EmployeeProtoClient(channel);
             _customerProtoClient = new CustomerProto.CustomerProtoClient(channel);
-            //_articleProtoClient = new ArticleProto.ArticleProtoClient(channel);
-            //_orderLineProtoClient = new OrderLineProto.OrderLineProtoClient(channel);
+            _orderLineProtoClient = new OrderLineProto.OrderLineProtoClient(channel);
+            _articleProtoClient = new ArticleProto.ArticleProtoClient(channel);
         }
 
         public void ExecuteAddCommand(object o)
@@ -180,6 +180,8 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
             _viewModel.Employee = selectedEmployee;
             _viewModel.Customer = selectedCustomer;
+
+            LoadNewOrderLineData();
         }
 
         public void ExecuteSaveCommand(object o)
@@ -322,18 +324,83 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public void ExecuteDeleteOrderLineCommand(object o)
         {
-            //ToDo
+            if (_viewModel.SelecteOrderLine is null)
+            {
+                return;
+            }
+
+            var headers = new Metadata();
+            headers.Add("Authorization", $"Bearer {MainWindowController.Token}");
+
+            BoolResponse result;
+
+            try
+            {
+                result = _orderLineProtoClient.Delete(new IdMessage { Id = _viewModel.SelecteOrderLine.Id }, headers);
+            }
+            catch (Exception)
+            {
+                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                return;
+            }
+
+            if (result is null || !result.Result)
+            {
+                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+                _popupWindowController.DisplayText("An error accured and the data couldn't be deleted. Please try again laiter and make sure, there is no related data to this entry!");
+                return;
+            }
+
+            LoadNewOrderLineData();
         }
 
         public void ExecuteAddOrderLineCommand(object o)
         {
-            //ToDo
+            var orderLineController = _app.Container.Resolve<OrderLineController>();
+            var newOrderLine = orderLineController.AddOrderLine(MainWindowController.Token);
+
+            if (newOrderLine is null) return;
+
+            var headers = new Metadata();
+            headers.Add("Authorization", $"Bearer {MainWindowController.Token}");
+
+            var position = _viewModel.OrderLines.
+                OrderBy(o => o.Position)
+                .LastOrDefault()?.Position + 1;
+
+            IdMessage idMessage;
+            try
+            {
+                idMessage = _orderLineProtoClient.Add(new OrderLineRequest
+                {
+                    Amount = newOrderLine.Amount,
+                    Id = newOrderLine.Id,
+                    Article = new IdMessage { Id = newOrderLine.Article.Id },
+                    Order = new IdMessage { Id = _viewModel.SelectedModel.Id },
+                    Position = position.GetValueOrDefault() //ToDO set correct value
+                }, headers);
+            }
+            catch (Exception)
+            {
+                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                return;
+            }
+
+            if (idMessage is null || idMessage.Id < 0)
+            {
+                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+                _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints!");
+                return;
+            }
+
+            LoadNewOrderLineData();
         }
 
         public bool CanExecuteOrderLineCommand(object o)
         {
-            //ToDo
-            return false;
+            return _viewModel.OrderLineSelected;
         }
 
         public bool CanExecuteSelectedCommand(object o)
@@ -422,6 +489,68 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 {
                     continue;
                 }
+            }
+        }
+
+        private void LoadNewOrderLineData()
+        {
+
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+
+            var headers = new Metadata();
+            headers.Add("Authorization", $"Bearer {MainWindowController.Token}");
+
+            OrderLineResponses result;
+            ArticleResponses articles;
+
+            try
+            {
+                result = _orderLineProtoClient.GetAll(new Empty(), headers);
+                articles = _articleProtoClient.GetAll(new Empty(), headers);
+            }
+            catch (Exception)
+            {
+                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                return;
+            }
+
+            if (result is null || result.Status is Shared.Protos.Status.Failed)
+            {
+                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                return;
+            }
+
+            _viewModel.OrderLines.Clear();
+
+            foreach (var message in result.OrderLines)
+            {
+                if (message.Order.Id != _viewModel.SelectedModel.Id) continue;
+
+                var article = new Article();
+
+                foreach (var a in articles.Articles)
+                {
+                    if (a.Id == message.Article.Id)
+                    {
+                        article = new Article
+                        {
+                            Id = a.Id,
+                            ArticleNumber = a.ArticleNumber,
+                            Description = a.Description,
+                            Name = a.Name,
+                            Price = a.Price
+                        };
+                        break;
+                    }
+                }
+
+                _viewModel.OrderLines.Add(new OrderLineHelper
+                {
+                    Article = article,
+                    Amount = message.Amount,
+                    Id = message.Id,
+                    Position = message.Position
+                }); ;
             }
         }
     }

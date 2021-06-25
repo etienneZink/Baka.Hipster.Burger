@@ -38,6 +38,20 @@ namespace Baka.Hipster.Burger.Client.ViewModels
         }
         public ObservableCollection<Employee> Employees { get; set; } = new ObservableCollection<Employee>();
 
+        public ObservableCollection<OrderLineHelper> OrderLines { get; set; } = new ObservableCollection<OrderLineHelper>();
+
+        private OrderLineHelper _selectedOrderLine;
+        public OrderLineHelper SelecteOrderLine
+        {
+            get => _selectedOrderLine;
+            set
+            {
+                if (_selectedOrderLine == value) return;
+                _selectedOrderLine = value;
+                OnPropertyChanged(nameof(SelecteOrderLine));
+            }
+        }
+
         public ObservableCollection<Order> Models { get; set; } = new ObservableCollection<Order>();
 
         private Order _selectedModel;
@@ -126,6 +140,8 @@ namespace Baka.Hipster.Burger.Client.ViewModels
         }
 
         public bool ItemSelected => SelectedModel != null;
+
+        public bool OrderLineSelected => SelecteOrderLine != null;
 
         public ICommand AddCommand { get; set; }
         public ICommand EditCommand { get; set; }

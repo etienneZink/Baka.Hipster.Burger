@@ -17,26 +17,31 @@ namespace Baka.Hipster.Burger.Server.Mappings
                 .Length(50)
                 .Unique()
                 .Not.Nullable();
+
             Map(o => o.OrderDate)
                 .Not.Nullable();
+
             Map(o => o.Description)
                 .Length(100);
            
             References(o => o.Employee)
                 .Column("EmployeeId")
                 .LazyLoad()
-                .Cascade.All()
+                .Cascade.SaveUpdate()
                 .Not.Nullable();
+
             References(o => o.Customer)
                 .Column("CustomerId")
-                .LazyLoad().Cascade.All()
+                .LazyLoad()
+                .Cascade.SaveUpdate()
                 .Not.Nullable();
 
             HasMany(o => o.OrderLines)
-                .Cascade.DeleteOrphan()
                 .Cascade.All()
+                .Cascade.DeleteOrphan()
                 .Not.KeyNullable()
-                .KeyColumn("OrderId");
+                .KeyColumn("Id")
+                .Inverse();
 
             Version(c => c.Version).Not.Nullable();
             OptimisticLock.Version();

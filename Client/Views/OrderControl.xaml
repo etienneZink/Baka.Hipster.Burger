@@ -78,7 +78,7 @@
                 <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Art.     Price" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
             </Grid>
         </StackPanel>
-        <ListBox Margin="0,60,0,0" HorizontalAlignment="Right" Width="400" Grid.Column="0" Grid.Row="2" Visibility="{Binding ViewOrderLineDetail, Converter={StaticResource BoolToVis}}" ItemsSource="{Binding OrderLines}" Background="White" BorderBrush="#FF4843AE" >
+        <ListBox Margin="0,60,0,0" HorizontalAlignment="Right" Width="400" Grid.Column="0" Grid.Row="2" Visibility="{Binding ViewOrderLineDetail, Converter={StaticResource BoolToVis}}" ItemsSource="{Binding OrderLines}" SelectedItem="{Binding SelecteOrderLine}" Background="White" BorderBrush="#FF4843AE" >
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type helper:OrderLineHelper}">
                     <Grid>
