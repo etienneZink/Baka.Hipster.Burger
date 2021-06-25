@@ -378,7 +378,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                     Id = newOrderLine.Id,
                     Article = new IdMessage { Id = newOrderLine.Article.Id },
                     Order = new IdMessage { Id = _viewModel.SelectedModel.Id },
-                    Position = position.GetValueOrDefault() //ToDO set correct value
+                    Position = position.GetValueOrDefault()
                 }, headers);
             }
             catch (Exception)
