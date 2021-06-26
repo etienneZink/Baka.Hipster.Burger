@@ -27,52 +27,52 @@ namespace Baka.Hipster.Burger.Client.Views
         //------------< StackPanel_MouseEnter() >------------
         private void homeme(object sender, MouseEventArgs e)
         {
-            homebtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            homebtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void customerme(object sender, MouseEventArgs e)
         {
-            customerbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            customerbtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void orderme(object sender, MouseEventArgs e)
         {
-            orderbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            orderbtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void bestsellerme(object sender, MouseEventArgs e)
         {
-            bestsellerbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            bestsellerbtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void rankingme(object sender, MouseEventArgs e)
         {
-            rankingbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            rankingbtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void logoutme(object sender, MouseEventArgs e)
         {
-            logoutbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            logoutbtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void articleme(object sender, MouseEventArgs e)
         {
-            articlebtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            articlebtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void employeeme(object sender, MouseEventArgs e)
         {
-            employeebtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            employeebtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void areame(object sender, MouseEventArgs e)
         {
-            areabtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            areabtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
 
         private void userme(object sender, MouseEventArgs e)
         {
-            userbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+            userbtn.Background = new SolidColorBrush(Color.FromRgb(217, 68, 72));
         }
         //------------</ StackPanel_MouseEnter() >------------
 

@@ -57,19 +57,21 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <!--.-->
-        <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Top" Height="60" Grid.Row="2" Width="400" HorizontalAlignment="Right" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}">
-            <Grid Background="#FF4843AE">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="150"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Check" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
-                <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Post Code" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
-                <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Name" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
-            </Grid>
-        </StackPanel>
-        <ListBox Margin="0,60,0,0" HorizontalAlignment="Right" Width="400" Grid.Column="0" Grid.Row="2" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}" ItemsSource="{Binding Areas}" Background="White" BorderBrush="#FF4843AE" >
+        <Border Background="LightGray" BorderBrush="#FF222222"  BorderThickness="5" Grid.Column="0" VerticalAlignment="Top" Height="60" Grid.Row="2" Width="400" HorizontalAlignment="Right" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}">
+            <StackPanel Background="LightGray" Orientation="Horizontal" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}">
+                <Grid Background="#FF4843AE">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Check" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Post Code" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                    <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Name" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <ListBox Margin="0,56,0,0" HorizontalAlignment="Right" Width="400" Grid.Column="0" Grid.Row="2" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}" ItemsSource="{Binding Areas}" Background="LightGray" BorderBrush="#FF222222" BorderThickness="5" >
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type shared:Area}">
                     <Grid>
