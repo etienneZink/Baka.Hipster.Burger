@@ -167,7 +167,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             if (result is null || !result.Result)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("An error accured and the data couldn't be deleted. Please try again laiter and make sure, there is no related data to this entry!");
+                _popupWindowController.DisplayText("An error accured and the data couldn't be deleted. Please try again laiter and make sure, there is no related data to this entry! Also considere you can't delete an admin user. First demote the user to a normal user!");
                 return;
             }
 

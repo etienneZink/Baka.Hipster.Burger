@@ -53,7 +53,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 return false;
