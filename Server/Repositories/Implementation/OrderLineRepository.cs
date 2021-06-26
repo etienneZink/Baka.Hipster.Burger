@@ -21,7 +21,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             if (orderLine is null) return -1;
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
-
+            
             try
             {
                 await session.SaveOrUpdateAsync(orderLine);
@@ -53,7 +53,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 await transaction.RollbackAsync();
                 return false;

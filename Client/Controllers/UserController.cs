@@ -94,7 +94,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                         Password = _viewModel.SelectedModel.Password ??= "geheim"
                     }, headers);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                     _popupWindowController.DisplayText("A server error accured. Please try again laiter!");

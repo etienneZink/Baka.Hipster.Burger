@@ -4,9 +4,126 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Baka.Hipster.Burger.Client.Views"
+             xmlns:shared="clr-namespace:Baka.Hipster.Burger.Shared.Models;assembly=Baka.Hipster.Burger.Shared"
+             xmlns:helper="clr-namespace:Baka.Hipster.Burger.Client.Helper" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="1000">
-    <Grid>
-            
+    <Grid Width="1000" Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Order" Width="150" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+            <Button Content="New" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding AddCommand}"/>
+            <Button Content="Edit" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding EditCommand}"/>
+            <Button Content="Save" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding SaveCommand}"/>
+            <Button Content="Delete" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding DeleteCommand}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Background="White">
+            <Grid Background="#FF4843AE">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Order Date" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Order Number" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Customer" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Employee" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+            </Grid>
+        </StackPanel>
+        <ListBox Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Width="600" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" Background="White" BorderBrush="#FF4843AE" >
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type shared:Order}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="125"/>
+                            <ColumnDefinition Width="125"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding OrderDate}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding OrderNumber}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Customer}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Employee}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!--.-->
+        <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Top" Height="60" Grid.Row="1" Width="350" HorizontalAlignment="Right" Visibility="{Binding ViewOrderLineDetail, Converter={StaticResource BoolToVis}}">
+            <Button Content="New" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding AddOrderLineCommand}"/>
+            <Button Content="Delete" Width="150" FontFamily="Champagne &amp; Limousines" Style="{StaticResource MaterialDesignRaisedButton}" materialDesign:ButtonAssist.CornerRadius="10" BorderThickness="2" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" BorderBrush="#FF4843AE" Command="{Binding DeleteOrderLineCommand}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Top" Height="60" Grid.Row="2" Width="400" HorizontalAlignment="Right" Visibility="{Binding ViewOrderLineDetail, Converter={StaticResource BoolToVis}}">
+            <Grid Background="#FF4843AE">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Amount" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Art. Number" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Art.   Name" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Art.     Price" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+            </Grid>
+        </StackPanel>
+        <ListBox Margin="0,60,0,0" HorizontalAlignment="Right" Width="400" Grid.Column="0" Grid.Row="2" Visibility="{Binding ViewOrderLineDetail, Converter={StaticResource BoolToVis}}" ItemsSource="{Binding OrderLines}" SelectedItem="{Binding SelecteOrderLine}" Background="White" BorderBrush="#FF4843AE" >
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type helper:OrderLineHelper}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Amount}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding ArticleNumber}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="2" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding ArticleName}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                        <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding ArticlePrice}" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="#FF4843AE" FontSize="18" Margin="5"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" Background="#FF4843AE">
+            <Grid Background="#FF4843AE" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding OrderDate}" materialDesign:HintAssist.Hint="mm/dd/yyyy hh:mm:ss" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <TextBox Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding OrderNumber}" materialDesign:HintAssist.Hint="Order Number" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+                <ComboBox Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding Customers}" SelectedItem="{Binding Customer}" materialDesign:HintAssist.Hint="Customer" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="Foreground" Value="#FF4843AE"/>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <ComboBox Grid.Column="3" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding Employees}" SelectedItem="{Binding Employee}" materialDesign:HintAssist.Hint="Employee" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="Foreground" Value="#FF4843AE"/>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <TextBox Grid.Column="4" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding Description}" materialDesign:HintAssist.Hint="Description" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE"/>
+            </Grid>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="4" Orientation="Horizontal" Background="White"/>
     </Grid>
 </UserControl>

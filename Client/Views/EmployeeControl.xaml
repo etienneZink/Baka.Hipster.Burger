@@ -70,7 +70,7 @@
         </StackPanel>
         <ListBox Margin="0,60,0,0" HorizontalAlignment="Right" Width="400" Grid.Column="0" Grid.Row="2" Visibility="{Binding ViewDetail, Converter={StaticResource BoolToVis}}" ItemsSource="{Binding Areas}" Background="White" BorderBrush="#FF4843AE" >
             <ListBox.ItemTemplate>
-                <DataTemplate DataType="{x:Type shared:Employee}">
+                <DataTemplate DataType="{x:Type shared:Area}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="100"/>

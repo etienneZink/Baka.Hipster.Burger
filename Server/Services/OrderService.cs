@@ -57,7 +57,22 @@ namespace Baka.Hipster.Burger.Server.Services
         [Authorize]
         public override async Task<BoolResponse> Delete(IdMessage request, ServerCallContext context)
         {
-            return request is null ? new BoolResponse { Result = false } : new BoolResponse { Result = await _orderRepository.Delete(request.Id) };
+            
+            if (request is null) return new BoolResponse { Result = false };
+
+            var order = await _orderRepository.Get(request.Id);
+            if (order is null || order.OrderLines is null) return new BoolResponse { Result = false };
+
+            var orderLines = await _orderLineRepository.GetAll();
+            if (orderLines is null) return new BoolResponse { Result = false };
+
+            foreach (var orderLine in orderLines)
+            {
+                if (order.Id != orderLine.Order.Id) continue;
+                await _orderLineRepository.Delete(orderLine.Id);
+            }
+
+            return new BoolResponse { Result = await _orderRepository.Delete(request.Id) };
         }
 
         [Authorize]

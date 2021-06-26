@@ -38,7 +38,8 @@ namespace Baka.Hipster.Burger.Server.Services
             {
                 Amount = request.Amount,
                 Article = article,
-                Order = order
+                Order = order,
+                Position = request.Position
             };
 
             return await _orderLineRepository.NewOrUpdate(orderLine) < 0 ? new IdMessage { Id = -1 } : new IdMessage { Id = orderLine.Id };
