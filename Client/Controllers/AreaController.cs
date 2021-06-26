@@ -62,7 +62,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 _viewModel.SelectedModel.PostCode <= 0)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("Please make sure to fill in all data!");//ToDo
+                _popupWindowController.DisplayText("Please make sure to fill in all data!");
                 return;
             }
 

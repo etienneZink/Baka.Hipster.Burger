@@ -21,7 +21,6 @@ namespace Baka.Hipster.Burger.Client.ViewModels
             {
                 if (SelectedModel is null || SelectedModel.ArticleNumber == value) return;
                 SelectedModel.ArticleNumber = value;
-                NewItem = false;
                 OnPropertyChanged(nameof(ArticleNumber));
             } 
         }
@@ -74,6 +73,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
                 if (_selectedModel == value) return;
                 _selectedModel = value;
                 ViewDetail = false;
+                NewItem = false;
                 OnPropertyChanged(nameof(SelectedModel));
                 OnPropertyChanged(nameof(ItemSelected));
                 OnPropertyChanged(nameof(ViewDetail));
