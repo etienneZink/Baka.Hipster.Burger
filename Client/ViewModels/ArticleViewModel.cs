@@ -12,6 +12,8 @@ namespace Baka.Hipster.Burger.Client.ViewModels
 {
     public class ArticleViewModel: ViewModelBase
     {
+
+        public bool NewItem { get; set; }
         public string ArticleNumber 
         { 
             get => SelectedModel?.ArticleNumber;
@@ -19,6 +21,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
             {
                 if (SelectedModel is null || SelectedModel.ArticleNumber == value) return;
                 SelectedModel.ArticleNumber = value;
+                NewItem = false;
                 OnPropertyChanged(nameof(ArticleNumber));
             } 
         }

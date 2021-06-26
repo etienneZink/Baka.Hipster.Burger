@@ -22,8 +22,6 @@ namespace Baka.Hipster.Burger.Client.Controllers
         private readonly App _app;
         private readonly UserProto.UserProtoClient _userProtoClient;
 
-        private bool _newItem;
-
         public UserController(UserControlClass view, UserViewModel viewModel, App app, GrpcChannel channel)
         {
             View = view;
@@ -45,14 +43,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
         {
             _viewModel.SelectedModel = new User();
             _viewModel.ViewDetail = true;
-            _newItem = true;
+            _viewModel.NewItem = true;
             _viewModel.NotOwnUser = true;
         }
 
         public void ExecuteEditCommand(object o)
         {
             _viewModel.ViewDetail = true;
-            _newItem = false;
+            _viewModel.NewItem = false;
             _viewModel.NotOwnUser = true;
             if (_viewModel.SelectedModel.Id == MainWindowController.UserId) _viewModel.NotOwnUser = false;
         }
@@ -76,7 +74,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 return;
             }
 
-            if (_newItem)
+            if (_viewModel.NewItem)
             {
                 IdMessage idMessage;
                 try
@@ -176,7 +174,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public bool CanExecuteSelectedCommand(object o)
         {
-            return _viewModel.ItemSelected;
+            return _viewModel.ItemSelected && !_viewModel.NewItem;
         }
 
         public bool CanExecuteSaveCommand(object o)

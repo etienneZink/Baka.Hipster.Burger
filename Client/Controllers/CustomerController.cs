@@ -22,8 +22,6 @@ namespace Baka.Hipster.Burger.Client.Controllers
         private App _app;
         private CustomerProto.CustomerProtoClient _customerProtoClient;
 
-        private bool _newItem;
-
         public CustomerController(CustomerControl view, CustomerViewModel viewModel, App app, GrpcChannel channel)
         {
             View = view;
@@ -45,13 +43,13 @@ namespace Baka.Hipster.Burger.Client.Controllers
         {
             _viewModel.SelectedModel = new Customer();
             _viewModel.ViewDetail = true;
-            _newItem = true;
+            _viewModel.NewItem = true;
         }
 
         public void ExecuteEditCommand(object o)
         {
             _viewModel.ViewDetail = true;
-            _newItem = false;
+            _viewModel.NewItem = false;
         }
 
         public void ExecuteSaveCommand(object o)
@@ -77,7 +75,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 return;
             }
 
-            if (_newItem)
+            if (_viewModel.NewItem)
             {
                 IdMessage idMessage;
                 try
@@ -179,7 +177,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public bool CanExecuteSelectedCommand(object o)
         {
-            return _viewModel.ItemSelected;
+            return _viewModel.ItemSelected && !_viewModel.NewItem;
         }
 
         public bool CanExecuteSaveCommand(object o)

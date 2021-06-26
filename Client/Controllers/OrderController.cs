@@ -27,8 +27,6 @@ namespace Baka.Hipster.Burger.Client.Controllers
         private readonly OrderLineProto.OrderLineProtoClient _orderLineProtoClient;
         private readonly ArticleProto.ArticleProtoClient _articleProtoClient;
 
-        private bool _newItem;
-
         public OrderController(OrderControl view, OrderViewModel viewModel, App app, GrpcChannel channel)
         {
             View = view;
@@ -58,7 +56,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             _viewModel.SelectedModel = new Order();
             _viewModel.ViewDetail = true;
             _viewModel.ViewOrderLineDetail = false;
-            _newItem = true;
+            _viewModel.NewItem = true;
 
             var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
 
@@ -119,7 +117,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
         {
             _viewModel.ViewDetail = true;
             _viewModel.ViewOrderLineDetail = true;
-            _newItem = false;
+            _viewModel.NewItem = false;
 
             var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
 
@@ -206,7 +204,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 return;
             }
 
-            if (_newItem)
+            if (_viewModel.NewItem)
             {
                 IdMessage idMessage;
                 try
@@ -405,7 +403,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public bool CanExecuteSelectedCommand(object o)
         {
-            return _viewModel.ItemSelected;
+            return _viewModel.ItemSelected && !_viewModel.NewItem;
         }
 
         public bool CanExecuteSaveCommand(object o)

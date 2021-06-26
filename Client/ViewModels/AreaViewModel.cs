@@ -12,7 +12,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
 {
     public class AreaViewModel: ViewModelBase
     {
-
+        public bool NewItem { get; set; }
         public string Description
         {
             get => SelectedModel?.Description;
@@ -20,6 +20,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
             {
                 if (SelectedModel is null || SelectedModel.Description == value) return;
                 SelectedModel.Description = value;
+                NewItem = false;
                 OnPropertyChanged(nameof(Description));
             }
         }
