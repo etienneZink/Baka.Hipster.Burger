@@ -89,7 +89,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 return await session.QueryOver<Area>()
                     .ListAsync<Area>();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
