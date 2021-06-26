@@ -90,6 +90,7 @@ namespace Baka.Hipster.Burger.Server
                 endpoints.MapGrpcService<OrderLineService>();
                 endpoints.MapGrpcService<OrderService>();
                 endpoints.MapGrpcService<UserService>();
+                endpoints.MapGrpcService<QueryService>();
 
                 endpoints.MapGet("/", async context =>
                 {
