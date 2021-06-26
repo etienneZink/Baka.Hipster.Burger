@@ -191,7 +191,9 @@ namespace Baka.Hipster.Burger.Server.Services
 
         private async Task<bool> IsDeletable(int Id)
         {
-            return true;
+            var user = await _userRepository.Get(Id);
+            if (user is null) return false;
+            return !user.IsAdmin;
         }
 
         private async Task<string> GenerateToken(User user)

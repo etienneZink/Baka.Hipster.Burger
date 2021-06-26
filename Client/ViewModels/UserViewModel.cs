@@ -12,6 +12,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
 {
     public class UserViewModel: ViewModelBase
     {
+        public bool NewItem { get; set; }
         public string Username
         {
             get => SelectedModel?.Username;
@@ -82,6 +83,7 @@ namespace Baka.Hipster.Burger.Client.ViewModels
                 if (_selectedModel == value) return;
                 _selectedModel = value;
                 ViewDetail = false;
+                NewItem = false;
                 OnPropertyChanged(nameof(SelectedModel));
                 OnPropertyChanged(nameof(ItemSelected));
                 OnPropertyChanged(nameof(ViewDetail));
