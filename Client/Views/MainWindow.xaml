@@ -27,74 +27,98 @@
             <StackPanel>
                 <Grid Height="100" Background="#FF222222" >
                 </Grid>
+                
                 <TextBlock Text="General" FontSize="16" TextDecorations="Underline" Foreground="white" HorizontalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}"/>
-                <Button Command="{Binding StartCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
-                    <StackPanel Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="Home" Width="25" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Home" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding CustomerCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="AccountBoxMultiple" Width="25" Height="25"/>
-                        <TextBlock Text="Customer" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding OrderCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="FileDocumentEdit" Width="25" Height="25"/>
-                        <TextBlock Text="Order" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding BestSellerCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="TrophyVariant" Width="25" Height="25"/>
-                        <TextBlock Text="Bestseller" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding RankingCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="ChartAreaspline" Width="25" Height="25"/>
-                        <TextBlock Text="Rankings" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding LogOutCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="Logout" Width="25" Height="25"/>
-                        <TextBlock Text="Logout" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
+
+                <StackPanel x:Name="home" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="Home" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="homebtn" MouseDown="homemd" MouseEnter="homeme" MouseLeave="homeml" Command="{Binding StartCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Home" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="customer" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="AccountBoxMultiple" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="customerbtn" MouseDown="customermd" MouseEnter="customerme" MouseLeave="customerml" Command="{Binding CustomerCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Customer" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="order" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="FileDocumentEdit" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="orderbtn" MouseDown="ordermd" MouseEnter="orderme" MouseLeave="orderml" Command="{Binding OrderCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Order" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="bestseller" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="TrophyVariant" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="bestsellerbtn" MouseDown="bestsellermd" MouseEnter="bestsellerme" MouseLeave="bestsellerml" Command="{Binding BestSellerCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Bestseller" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="ranking" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="ChartAreaspline" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="rankingbtn" MouseDown="rankingmd" MouseEnter="rankingme" MouseLeave="rankingml" Command="{Binding RankingCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Ranking" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="logout" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="Logout" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="logoutbtn" MouseDown="logoutmd" MouseEnter="logoutme" MouseLeave="logoutml" Command="{Binding LogOutCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Logout" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
                 <Label Height="25"/>
                 <TextBlock Text="Admin" TextDecorations="Underline" HorizontalAlignment="Center" FontSize="16" Foreground="white" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"/>
-                <Button Command="{Binding ArticleCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="Burger" Width="25" Height="25"/>
-                        <TextBlock Text="Article" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding EmployeeCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="Car" Width="25" Height="25"/>
-                        <TextBlock Text="Employee" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding AreaCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="Map" Width="25" Height="25"/>
-                        <TextBlock Text="Area" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding UserCommand}" Width="180" BorderBrush="#FF222222" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}">
-                    <StackPanel   Width="164" Height="31" VerticalAlignment="Center" Orientation="Horizontal">
-                        <materialDesign:PackIcon Foreground="White" Kind="User" Width="25" Height="25"/>
-                        <TextBlock Text="User" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
-                    </StackPanel>
-                </Button>
-                <StackPanel x:Name="test" MouseDown="StackPanel_MouseDown" MouseEnter="me" MouseLeave="ml" Background="#FF222222" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
-                    <materialDesign:PackIcon Foreground="White" Kind="TestTube" Width="25" Height="25" VerticalAlignment="Center"/>
-                    <Button x:Name="pnlPath" MouseDown="StackPanel_MouseDown" MouseEnter="me" MouseLeave="ml" Command="{Binding RankingCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                <StackPanel x:Name="article" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="Burger" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="articlebtn" MouseDown="articlemd" MouseEnter="articleme" MouseLeave="articleml" Command="{Binding ArticleCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
                         <Button.Content>
-                            <TextBlock Text="TEST" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                            <TextBlock Text="Article" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="employee" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="Car" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="employeebtn" MouseDown="employeemd" MouseEnter="employeeme" MouseLeave="employeeml" Command="{Binding EmployeeCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Employee" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="area" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="Map" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="areabtn" MouseDown="areamd" MouseEnter="areame" MouseLeave="areaml" Command="{Binding AreaCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="Area" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel x:Name="user" Background="#FF222222" Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}" Orientation="Horizontal">
+                    <materialDesign:PackIcon Foreground="White" Kind="User" Width="25" Height="25" VerticalAlignment="Center"/>
+                    <Button x:Name="userbtn" MouseDown="usermd" MouseEnter="userme" MouseLeave="userml" Command="{Binding UserCommand}" Background="#FF222222" BorderBrush="#FF222222" Width="150" Height="31" VerticalAlignment="Center" HorizontalAlignment="Right">
+                        <Button.Content>
+                            <TextBlock Text="User" FontSize="16" Foreground="White" VerticalAlignment="Center" Margin="20 0"/>
                         </Button.Content>
                     </Button>
                 </StackPanel>

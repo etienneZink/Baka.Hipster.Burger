@@ -24,25 +24,162 @@ namespace Baka.Hipster.Burger.Client.Views
             InitializeComponent();
         }
 
-        private void me(object sender, MouseEventArgs e)
+        //------------< StackPanel_MouseEnter() >------------
+        private void homeme(object sender, MouseEventArgs e)
         {
-            //------------< StackPanel_MouseEnter() >------------
-            pnlPath.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            //------------</ StackPanel_MouseEnter() >------------
+            homebtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
         }
 
-        private void ml(object sender, MouseEventArgs e)
+        private void customerme(object sender, MouseEventArgs e)
         {
-            //------------< StackPanel_MouseLeave() >------------
-            pnlPath.Background = null;
-            //------------</ StackPanel_MouseLeave() >------------
+            customerbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
         }
 
-        private void StackPanel_MouseDown(object sender, MouseButtonEventArgs e)
+        private void orderme(object sender, MouseEventArgs e)
         {
-            //------------< StackPanel_MouseDown() >------------
-            pnlPath.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
-            //------------</ StackPanel_MouseDown() >------------
+            orderbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
         }
+
+        private void bestsellerme(object sender, MouseEventArgs e)
+        {
+            bestsellerbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+        }
+
+        private void rankingme(object sender, MouseEventArgs e)
+        {
+            rankingbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+        }
+
+        private void logoutme(object sender, MouseEventArgs e)
+        {
+            logoutbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+        }
+
+        private void articleme(object sender, MouseEventArgs e)
+        {
+            articlebtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+        }
+
+        private void employeeme(object sender, MouseEventArgs e)
+        {
+            employeebtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+        }
+
+        private void areame(object sender, MouseEventArgs e)
+        {
+            areabtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+        }
+
+        private void userme(object sender, MouseEventArgs e)
+        {
+            userbtn.Background = new SolidColorBrush(Color.FromRgb(255, 192, 203));
+        }
+        //------------</ StackPanel_MouseEnter() >------------
+
+
+        //------------< StackPanel_MouseLeave() >------------
+        private void homeml(object sender, MouseEventArgs e)
+        {
+            homebtn.Background = null;
+        }
+
+        private void customerml(object sender, MouseEventArgs e)
+        {
+            customerbtn.Background = null;
+        }
+
+        private void orderml(object sender, MouseEventArgs e)
+        {
+            orderbtn.Background = null;
+        }
+
+        private void bestsellerml(object sender, MouseEventArgs e)
+        {
+            bestsellerbtn.Background = null;
+        }
+
+        private void rankingml(object sender, MouseEventArgs e)
+        {
+            rankingbtn.Background = null;
+        }
+
+        private void logoutml(object sender, MouseEventArgs e)
+        {
+            logoutbtn.Background = null;
+        }
+
+        private void articleml(object sender, MouseEventArgs e)
+        {
+            articlebtn.Background = null;
+        }
+
+        private void employeeml(object sender, MouseEventArgs e)
+        {
+            employeebtn.Background = null;
+        }
+
+        private void areaml(object sender, MouseEventArgs e)
+        {
+            areabtn.Background = null;
+        }
+
+        private void userml(object sender, MouseEventArgs e)
+        {
+            userbtn.Background = null;
+        }
+        //------------</ StackPanel_MouseLeave() >------------
+
+
+        //------------< StackPanel_MouseDown() >------------
+        private void homemd(object sender, MouseButtonEventArgs e)
+        {
+            homebtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void customermd(object sender, MouseButtonEventArgs e)
+        {
+            customerbtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void ordermd(object sender, MouseButtonEventArgs e)
+        {
+            orderbtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void bestsellermd(object sender, MouseButtonEventArgs e)
+        {
+            bestsellerbtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void rankingmd(object sender, MouseButtonEventArgs e)
+        {
+            rankingbtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void logoutmd(object sender, MouseButtonEventArgs e)
+        {
+            logoutbtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void articlemd(object sender, MouseButtonEventArgs e)
+        {
+            articlebtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void employeemd(object sender, MouseButtonEventArgs e)
+        {
+            employeebtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void areamd(object sender, MouseButtonEventArgs e)
+        {
+            areabtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+
+        private void usermd(object sender, MouseButtonEventArgs e)
+        {
+            userbtn.Background = new SolidColorBrush(Color.FromRgb(255, 0, 10));
+        }
+        //------------</ StackPanel_MouseDown() >------------
     }
 }
