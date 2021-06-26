@@ -27,7 +27,7 @@ message BestSeller{
 
 message AreaQuery {
 	int32 Rank = 1;
-	string PostCode = 2;
+	int32 PostCode = 2;
 	string Description = 3;
 	double Turnover = 4;
 	Status Status = 5;

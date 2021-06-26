@@ -9,7 +9,7 @@ namespace Baka.Hipster.Burger.Client.Helper
     public class AreaQueryHelper
     {
         public int Rank { get; set; }
-        public string PostCode { get; set; }
+        public int PostCode { get; set; }
         public string Description { get; set; }
         public double Turnover { get; set; }
     }

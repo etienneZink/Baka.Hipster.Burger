@@ -11,7 +11,7 @@ namespace Baka.Hipster.Burger.Client.Helper
         public int Rank { get; set; }
         public string ArticleNumber { get; set; }
         public string Name { get; set; }
-        public int Amount  { get; set; }
+        public int Amount { get; set; }
         public double Turnover { get; set; }
     }
 }

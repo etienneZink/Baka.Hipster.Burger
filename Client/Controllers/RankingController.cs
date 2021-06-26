@@ -1,9 +1,13 @@
-﻿using Baka.Hipster.Burger.Client.ViewModels;
+﻿using Autofac;
+using Baka.Hipster.Burger.Client.Helper;
+using Baka.Hipster.Burger.Client.ViewModels;
 using Baka.Hipster.Burger.Client.Views;
 using Baka.Hipster.Burger.Shared.Protos;
+using Grpc.Core;
 using Grpc.Net.Client;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,36 +16,67 @@ namespace Baka.Hipster.Burger.Client.Controllers
 {
     public class RankingController: ControllerBase
     {
-        //ToDo
         public MainWindowController MainWindowController { get; set; }
 
-        private readonly RankingViewModel _rankingViewModel;
+        private readonly RankingViewModel _viewModel;
         private readonly App _app;
-        private readonly OrderProto.OrderProtoClient _orderProtoClient;
-        private readonly OrderLineProto.OrderLineProtoClient _orderLineProtoClient;
-        private readonly ArticleProto.ArticleProtoClient _articleProtoClient;
-        private readonly EmployeeProto.EmployeeProtoClient _employeeProtoClient;
-        private readonly AreaProto.AreaProtoClient _areaProtoClient;
+        private readonly QueryProto.QueryProtoClient _queryProtoClient;
 
         public RankingController(RankingControl view, RankingViewModel viewModel, App app, GrpcChannel channel)
         {
             View = view;
             ViewModel = viewModel;
 
-            _rankingViewModel = viewModel;
+            _viewModel = viewModel;
 
-            View.DataContext = _rankingViewModel;
+            View.DataContext = _viewModel;
             _app = app;
-            _orderProtoClient = new OrderProto.OrderProtoClient(channel);
-            _orderLineProtoClient = new OrderLineProto.OrderLineProtoClient(channel);
-            _articleProtoClient = new ArticleProto.ArticleProtoClient(channel);
-            _employeeProtoClient = new EmployeeProto.EmployeeProtoClient(channel);
-            _areaProtoClient = new AreaProto.AreaProtoClient(channel);
+            _queryProtoClient = new QueryProto.QueryProtoClient(channel);
         }
 
         public void LoadNewData()
         {
-            //ToDo
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+
+            var headers = new Metadata();
+            headers.Add("Authorization", $"Bearer {MainWindowController.Token}");
+
+            AreaRanking result;
+
+            try
+            {
+                result = _queryProtoClient.GetAreaRanking(new Empty(), headers);
+            }
+            catch (Exception)
+            {
+                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                return;
+            }
+
+            if (result is null || result.Status is Shared.Protos.Status.Failed)
+            {
+                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                return;
+            }
+
+            ObservableCollection<AreaQueryHelper> models = new ObservableCollection<AreaQueryHelper>();
+
+            foreach (var message in result.Areas)
+            {
+                models.Add(new AreaQueryHelper
+                {
+                    Description = message.Description,
+                    Turnover = message.Turnover,
+                    Rank = message.Rank,
+                    PostCode = message.PostCode
+                });
+            }
+
+            _viewModel.Models.Clear();
+
+            models.OrderBy(x => x.Rank)
+                .ToList()
+                .ForEach(x => _viewModel.Models.Add(x));
         }
     }
 }
