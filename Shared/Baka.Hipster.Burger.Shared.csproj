@@ -12,6 +12,7 @@
     <None Remove="Protos\employee.proto" />
     <None Remove="Protos\order.proto" />
     <None Remove="Protos\orderLine.proto" />
+    <None Remove="Protos\query.proto" />
     <None Remove="Protos\user.proto" />
   </ItemGroup>
 
@@ -24,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="Protos\query.proto" GrpcServices="Both" />
     <Protobuf Include="Protos\area.proto">
       <GrpcServices>Both</GrpcServices>
     </Protobuf>
