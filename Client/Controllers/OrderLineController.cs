@@ -56,14 +56,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
             catch (Exception)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                _popupWindowController.DisplayText("A server error occured. Please try again laiter!");
                 return null;
             }
 
             if (result is null || result.Status is Shared.Protos.Status.Failed)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                _popupWindowController.DisplayText("A server error occured. Please try again laiter!");
                 return null;
             }
 

@@ -95,14 +95,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
                 catch (Exception)
                 {
                     var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                    _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                    _popupWindowController.DisplayText("A server error occured. Please try again laiter!");
                     return;
                 }
 
                 if (idMessage is null || idMessage.Id < 0)
                 {
                     var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                    _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints!");
+                    _popupWindowController.DisplayText("The data coundn't be saved. Please make sure that the username is unique!");
                     return;
                 }
                 LoadNewData();
@@ -125,14 +125,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
             catch (Exception)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                _popupWindowController.DisplayText("A server error occured. Please try again laiter!");
                 return;
             }
 
             if (boolRespone is null || !boolRespone.Result)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints!");
+                _popupWindowController.DisplayText("The data coundn't be saved. Please make sure that the username is unique!");
                 return;
             }
             _viewModel.ViewDetail = false;
@@ -158,14 +158,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
             catch (Exception)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                _popupWindowController.DisplayText("A server error occured. Please try again laiter!");
                 return;
             }
 
             if (result is null || !result.Result)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("An error accured and the data couldn't be deleted. Please try again laiter and make sure, there is no related data to this entry! Also considere you can't delete an admin user. First demote the user to a normal user!");
+                _popupWindowController.DisplayText("An error occured and the data couldn't be deleted. Please try again laiter! Also considere you can't delete an admin user. First demote the admin to a normal user!");
                 return;
             }
 
@@ -196,14 +196,14 @@ namespace Baka.Hipster.Burger.Client.Controllers
             catch (Exception)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                _popupWindowController.DisplayText("A server error occured. Please try again laiter!");
                 return;
             }
 
             if (result is null || result.Status is Shared.Protos.Status.Failed)
             {
                 var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
-                _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
+                _popupWindowController.DisplayText("A server error occured. Please try again laiter!");
                 return;
             }
 

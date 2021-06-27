@@ -52,7 +52,7 @@ namespace Baka.Hipster.Burger.Client.Controllers
             }
             catch (Exception)
             {
-                _popupWindowController.DisplayText("An error accured! Please try again later.");
+                _popupWindowController.DisplayText("An error occured! Please try again later.");
                 _loginViewModel.Username = string.Empty;
                 _loginViewModel.Password = string.Empty;
                 return;
