@@ -355,10 +355,17 @@ namespace Baka.Hipster.Burger.Client.Controllers
 
         public void ExecuteAddOrderLineCommand(object o)
         {
+
+            var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
+
             var orderLineController = _app.Container.Resolve<OrderLineController>();
             var newOrderLine = orderLineController.AddOrderLine(MainWindowController.Token);
 
-            if (newOrderLine is null) return;
+            if (newOrderLine is null) 
+            {
+                _popupWindowController.DisplayText("You haven't selected an article. This orderline wasn't saved!");
+                return;
+            }
 
             var headers = new Metadata();
             headers.Add("Authorization", $"Bearer {MainWindowController.Token}");
@@ -381,14 +388,12 @@ namespace Baka.Hipster.Burger.Client.Controllers
             }
             catch (Exception)
             {
-                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("A server error accured. Please try again laiter!");
                 return;
             }
 
             if (idMessage is null || idMessage.Id < 0)
             {
-                var _popupWindowController = _app.Container.Resolve<PopupWindowController>();
                 _popupWindowController.DisplayText("The data coundn't be saved. Please make sure to satisfy your unique constraints!");
                 return;
             }
