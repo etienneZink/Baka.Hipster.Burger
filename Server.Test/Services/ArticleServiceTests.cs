@@ -47,6 +47,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
             var result = await articleService.Delete(requestMock, null);
 
 
+            articleRepositoryMock.VerifyAll();
             Assert.IsFalse(result.Result);
         }
 
