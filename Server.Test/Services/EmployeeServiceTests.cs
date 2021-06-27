@@ -68,7 +68,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
 
 
             var employeeService = new EmployeeService(employeeRepositoryMock.Object, null, null);
-            var result = await employeeService.Delete(requestMock, null);
+            var result = await employeeService.CanDelete(requestMock, null);
 
 
             employeeRepositoryMock.VerifyAll();
@@ -107,7 +107,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
 
 
             var employeeService = new EmployeeService(employeeRepositoryMock.Object, null, orderRepositoryMock.Object);
-            var result = await employeeService.Delete(requestMock, null);
+            var result = await employeeService.CanDelete(requestMock, null);
 
 
             orderRepositoryMock.VerifyAll();
@@ -149,7 +149,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
 
 
             var employeeService = new EmployeeService(employeeRepositoryMock.Object, null, orderRepositoryMock.Object);
-            var result = await employeeService.Delete(requestMock, null);
+            var result = await employeeService.CanDelete(requestMock, null);
 
 
             employeeRepositoryMock.VerifyAll();
