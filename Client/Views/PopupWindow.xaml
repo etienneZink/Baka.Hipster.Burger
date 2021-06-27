@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Baka.Hipster.Burger.Client"
         mc:Ignorable="d"
-        Title="Information" Height="300" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Information" Height="300" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/Resources/ausrufezeichen.png" >
     <Grid Background="#FF4843AE">
         <TextBlock Text="{Binding PopupText}" Margin="30" FontSize="18" Width="Auto" Height="Auto" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" FontFamily="Great Vibes"/>
     </Grid>
