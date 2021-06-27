@@ -30,7 +30,7 @@
                 <TextBlock Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="Turnover in €" Width="Auto" FontFamily="Champagne &amp; Limousines" materialDesign:ButtonAssist.CornerRadius="10" Foreground="White" FontSize="18" Margin="5" Background="#FF4843AE" />
             </Grid>
         </StackPanel>
-        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" Background="White" BorderBrush="#FF4843AE" >
+        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Models}" SelectedItem="{Binding SelectedModel}" Background="LightGray" BorderBrush="#FF4843AE" >
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="{x:Type helper:AreaQueryHelper}">
                     <Grid>

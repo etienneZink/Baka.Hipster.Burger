@@ -7,7 +7,7 @@
         xmlns:shared="clr-namespace:Baka.Hipster.Burger.Shared.Models;assembly=Baka.Hipster.Burger.Shared" 
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Add Order Line" Height="400" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Add Order Line" Height="400" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/Resources/plus.png" >
     <Grid Background="#FF4843AE">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>

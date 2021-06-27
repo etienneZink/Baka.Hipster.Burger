@@ -26,6 +26,7 @@
         <Grid x:Name="GridMenu" Width="180" HorizontalAlignment="Left" Background="#FF222222">
             <StackPanel>
                 <Grid Height="100" Background="#FF222222" >
+                    <Image Source="../Resources/Logo.png" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Stretch="Fill" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}"/>
                 </Grid>
                 
                 <TextBlock Text="General" FontSize="16" TextDecorations="Underline" Foreground="white" HorizontalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVis}}"/>
