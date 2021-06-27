@@ -14,7 +14,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Image Source="../Resources/Burger.png" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30" Stretch="Fill" />
+                <Image Source="../Resources/Logo.png" Width="Auto" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30" Stretch="Fill" />
             </StackPanel>
         <StackPanel Grid.Row="0" Grid.Column="1" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel Margin="20 40">
