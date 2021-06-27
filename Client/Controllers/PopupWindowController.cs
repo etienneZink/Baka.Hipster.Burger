@@ -1,24 +1,26 @@
 ﻿using Baka.Hipster.Burger.Client.Views;
 using Baka.Hipster.Burger.Client.ViewModels ;
+using System.Windows.Media;
+using Autofac;
 
 namespace Baka.Hipster.Burger.Client.Controllers
 {
     public class PopupWindowController
     {
-        private readonly PopupWindow _view;
-        private readonly PopupViewModel _viewModel;
+        private readonly App _app;
 
-        public PopupWindowController(PopupWindow popupWindow, PopupViewModel popupViewModel)
+        public PopupWindowController( App app)
         {
-            _view = popupWindow;
-            _viewModel = popupViewModel;
-            _view.DataContext = _viewModel;
+            _app = app;
         }
 
         public void DisplayText (string text)
         {
-            _viewModel.PopupText = text;
-            _view.ShowDialog();
+            var view = _app.Container.Resolve<PopupWindow>();
+            var viewModel = _app.Container.Resolve<PopupViewModel>(); ;
+            view.DataContext = viewModel;
+            viewModel.PopupText = text;
+            view.ShowDialog();
         }
     }
 }
