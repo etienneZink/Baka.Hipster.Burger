@@ -67,7 +67,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
 
 
             var areaService = new AreaService(areaRepositoryMock.Object, null);
-            var result = await areaService.Delete(requestMock, null);
+            var result = await areaService.CanDelete(requestMock, null);
 
 
             areaRepositoryMock.VerifyAll();
@@ -101,7 +101,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
 
 
             var areaService = new AreaService(areaRepositoryMock.Object, null);
-            var result = await areaService.Delete(requestMock, null);
+            var result = await areaService.CanDelete(requestMock, null);
 
 
             areaRepositoryMock.VerifyAll();
@@ -131,11 +131,11 @@ namespace Baka.Hipster.Burger.Server.Test.Services
 
 
             var areaService = new AreaService(areaRepositoryMock.Object, null);
-            var result = await areaService.Delete(requestMock, null);
+            var result = await areaService.CanDelete(requestMock, null);
 
 
             areaRepositoryMock.VerifyAll();
-            Assert.IsFalse(result.Result);
+            Assert.IsTrue(result.Result);
         }
     }
 }
