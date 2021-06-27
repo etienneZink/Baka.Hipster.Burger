@@ -12,5 +12,14 @@ namespace Baka.Hipster.Burger.Shared.Models
 
         private IList<Employee> _employees;
         public virtual IList<Employee> Employees => _employees ??= new List<Employee>();
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Area a)
+            {
+                return a.Id == Id;
+            }
+            return base.Equals(obj);
+        }
     }
 }

@@ -1,0 +1,171 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Shared.Protos";
+
+package shared;
+
+message Empty {}
+
+message IdMessage{
+	int32 Id = 1;
+}
+
+message BoolResponse{
+	bool Result = 1;
+}
+
+message AreaRequest{
+	int32 Id = 1;
+	string Description = 2;
+	int32 PostCode = 3;
+	repeated IdMessage Employees = 4;
+}
+
+message AreaResponse{
+	int32 Id = 1;
+	string Description = 2;
+	int32 PostCode = 3;
+	repeated IdMessage Employees = 4;
+	Status Status = 5;
+}
+
+message AreaResponses{
+	repeated AreaResponse Areas = 1;
+	Status Status = 2;
+}
+
+message OrderLineRequest{
+	int32 Id = 1;
+	int32 Amount = 2;
+	int32 Position = 3;
+	IdMessage Order = 4;
+	IdMessage Article = 5;
+}
+
+message OrderLineResponse{
+	int32 Id = 1;
+	int32 Amount = 2;
+	int32 Position = 3;
+	IdMessage Order = 4;
+	IdMessage Article = 5;
+	Status Status = 6;
+}
+
+message OrderLineResponses{
+	repeated OrderLineResponse OrderLines = 1;
+	Status Status = 2;
+}
+
+
+
+message OrderRequest{
+	int32 Id = 1;
+	string OrderNumber = 2;
+	DateTimeMessage OrderDate = 3;
+	string Description = 4;
+	IdMessage Employee = 5;
+	IdMessage Customer = 6;
+}
+
+message OrderResponse{
+	int32 Id = 1;
+	string OrderNumber = 2;
+	DateTimeMessage OrderDate = 3;
+	string Description = 4;
+	IdMessage Employee = 5;
+	IdMessage Customer = 6;
+	repeated IdMessage OrderLines = 7;
+	Status Status = 8;
+}
+
+message OrderResponses{
+	repeated OrderResponse Orders = 1;
+	Status Status = 2;
+}
+
+message EmployeeRequest{
+	int32 Id = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	int32 EmployeeNumber = 4;
+	repeated IdMessage Areas = 5;
+}
+
+message EmployeeResponse{
+	int32 Id = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	int32 EmployeeNumber = 4;
+	repeated IdMessage Areas = 5;
+	Status Status = 6;
+}
+
+message EmployeeResponses{
+	repeated EmployeeResponse Employees = 1;
+	Status Status = 2;
+}
+
+message CustomerRequest{
+	int32 Id = 1;
+	string Name = 2;
+	string Firstname = 3;
+	string Phone = 4;
+	string Street = 5;
+	string StreetNumber = 6;
+	int32 PostalCode = 7;
+	string City = 8;
+}
+
+message CustomerResponse{
+	int32 Id = 1;
+	string Name = 2;
+	string Firstname = 3;
+	string Phone = 4;
+	string Street = 5;
+	string StreetNumber = 6;
+	int32 PostalCode = 7;
+	string City = 8;
+	Status Status = 9;
+}
+
+message CustomerResponses{
+	repeated CustomerResponse Customers = 1;
+	Status Status = 2;
+}
+
+message ArticleRequest{
+	int32 Id = 1;
+	string ArticleNumber = 2;
+	string Name = 3;
+	string Description = 4;
+	double Price = 5;
+}
+
+message ArticleResponse{
+	int32 Id = 1;
+	string ArticleNumber = 2;
+	string Name = 3;
+	string Description = 4;
+	double Price = 5;
+	Status Status = 6;
+}
+
+message ArticleResponses{
+	repeated ArticleResponse Articles = 1;
+	Status Status = 2;
+}
+
+message DateTimeMessage{
+	int32 year = 1;
+	int32 month = 2;
+	int32 day = 3;
+	int32 hour = 4;
+	int32 minute = 5;
+	int32 second = 6;
+	int32 millisecond = 7;
+}
+
+enum Status{
+	Failed = 0;
+	Ok = 1;
+}

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Baka.Hipster.Burger.Server.Repositories.Implementation;
 using Baka.Hipster.Burger.Shared.Models;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
-using System.Linq;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
+using Baka.Hipster.Burger.Shared.Protos;
 using FluentNHibernate.Conventions;
 
 namespace Baka.Hipster.Burger.Server.Services
@@ -23,13 +22,13 @@ namespace Baka.Hipster.Burger.Server.Services
         }
         
         [Authorize("Admin")]
-        public override async Task<IdMessage> Add(AreaMessage request, ServerCallContext context)
+        public override async Task<IdMessage> Add(AreaRequest request, ServerCallContext context)
         {
             if(request?.Employees is null) return new IdMessage { Id = -1 };
 
             var area = new Area
             {
-                Description = request.Description,
+                Description = request.Description ?? string.Empty,
                 PostCode = request.PostCode,
             };
             
@@ -58,16 +57,16 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<BoolResponse> Update(AreaMessage request, ServerCallContext context)
+        public override async Task<BoolResponse> Update(AreaRequest request, ServerCallContext context)
         {
             if (request?.Employees is null) return new BoolResponse { Result = false };
 
             var area = await _areaRepository.Get(request.Id);
             if (area is null) return new BoolResponse { Result = false };
 
-            area.Description = request.Description;
-            area.PostCode = area.PostCode;
-            area.Employees.Clear();//ToDo check if it works
+            area.Description = request.Description ?? string.Empty;
+            area.PostCode = request.PostCode;
+            area.Employees.Clear();
 
             foreach (var employeeId in request.Employees)
             {
@@ -79,17 +78,17 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<AreaMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<AreaResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new AreaMessage();
+            if (request is null) return new AreaResponse { Status = Shared.Protos.Status.Failed };
 
             var area = await _areaRepository.Get(request.Id);
-            if (area is null) return new AreaMessage();
+            if (area is null) return new AreaResponse { Status = Shared.Protos.Status.Failed };
 
-            var areaMessage = new AreaMessage
+            var areaMessage = new AreaResponse
             {
                 Id = area.Id,
-                Description = area.Description,
+                Description = area.Description ?? string.Empty,
                 PostCode = area.PostCode
             };
 
@@ -98,36 +97,42 @@ namespace Baka.Hipster.Burger.Server.Services
                 areaMessage.Employees.Add(new IdMessage { Id = employee.Id });
             }
 
+            areaMessage.Status = Shared.Protos.Status.Ok;
             return areaMessage;
         }
 
         [Authorize("Admin")]
-        public override async Task<AreaMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<AreaResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var areaMessages = new AreaMessages();
+            var areaMessages = new AreaResponses { Status = Shared.Protos.Status.Failed };
 
             if (request is null) return areaMessages;
             
             var areas = await _areaRepository.GetAll();
             if (areas is null) return areaMessages;
 
+            var employees = await _employeeRepository.GetAll();
+            if (employees is null) return areaMessages;
+
             foreach (var area in areas)
             {
-                var areaMessage = new AreaMessage
+                var areaMessage = new AreaResponse
                 {
                     Id = area.Id,
-                    Description = area.Description,
+                    Description = area.Description ?? string.Empty,
                     PostCode = area.PostCode,
+                    Status = Shared.Protos.Status.Ok
                 };
 
-                foreach (var employee in area.Employees)
+                foreach (var employee in employees)
                 {
-                    areaMessage.Employees.Add(new IdMessage { Id = employee.Id });
+                    if (employee.Areas.Contains(area)) areaMessage.Employees.Add(new IdMessage { Id = employee.Id });
                 }
 
                 areaMessages.Areas.Add(areaMessage);
             }
 
+            areaMessages.Status = Shared.Protos.Status.Ok;
             return areaMessages;
         }
 

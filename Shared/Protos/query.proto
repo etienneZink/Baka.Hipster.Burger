@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Shared.Protos";
+
+package shared;
+
+import "Protos/common.proto";
+
+service QueryProto {
+	rpc GetBestSeller (Empty) returns (BestSeller);
+	rpc GetAreaRanking (Empty) returns (AreaRanking);
+}
+
+message ArticleQuery {
+	int32 Rank = 1;
+	string ArticleNumber = 2;
+	string Name = 3;
+	int32 Amount = 4;
+	double Turnover = 5;
+	Status Status = 6;
+}
+
+message BestSeller{
+	repeated ArticleQuery Articles = 1;
+	Status Status = 2;
+}
+
+message AreaQuery {
+	int32 Rank = 1;
+	int32 PostCode = 2;
+	string Description = 3;
+	double Turnover = 4;
+	Status Status = 5;
+}
+
+message AreaRanking{
+	repeated AreaQuery Areas = 1;
+	Status Status = 2;
+}

@@ -21,7 +21,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
             if (orderLine is null) return -1;
             using var session = _nHibernateHelper.OpenSession();
             using var transaction = session.BeginTransaction();
-
+            
             try
             {
                 await session.SaveOrUpdateAsync(orderLine);
@@ -51,9 +51,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 await session.DeleteAsync(orderLineToDelete);
                 await transaction.CommitAsync();
 
-                return (session.QueryOver<OrderLine>()
-                    .Where(o => o.Id == id)
-                    .SingleOrDefaultAsync<OrderLine>() is null);
+                return true;
             }
             catch (Exception)
             {

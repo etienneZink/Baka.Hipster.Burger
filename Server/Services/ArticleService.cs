@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Baka.Hipster.Burger.Server.Repositories.Implementation;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Shared.Models;
+using Baka.Hipster.Burger.Shared.Protos;
 using Grpc.Core;
 using Microsoft.AspNetCore.Authorization;
 
@@ -22,15 +23,15 @@ namespace Baka.Hipster.Burger.Server.Services
         }
         
         [Authorize("Admin")]
-        public override async Task<IdMessage> Add(ArticleMessage request, ServerCallContext context)
+        public override async Task<IdMessage> Add(ArticleRequest request, ServerCallContext context)
         {
             if (request is null) return new IdMessage { Id = -1 };
 
             var article = new Article
             {
-                Description = request.Description,
-                ArticleNumber = request.ArticleNumber,
-                Name = request.Name,
+                Description = request.Description ?? string.Empty,
+                ArticleNumber = request.ArticleNumber ?? string.Empty,
+                Name = request.Name ?? string.Empty,
                 Price = request.Price
             };
 
@@ -53,43 +54,44 @@ namespace Baka.Hipster.Burger.Server.Services
         }
 
         [Authorize("Admin")]
-        public override async Task<BoolResponse> Update(ArticleMessage request, ServerCallContext context)
+        public override async Task<BoolResponse> Update(ArticleRequest request, ServerCallContext context)
         {
             if (request is null) return new BoolResponse { Result = false };
 
             var article = await _articleRepository.Get(request.Id);
             if (article is null) return new BoolResponse { Result = false };
 
-            article.Description = request.Description;
-            article.ArticleNumber = request.ArticleNumber;
-            article.Name = request.Name;
+            article.Description = request.Description ?? string.Empty;
+            article.ArticleNumber = request.ArticleNumber ?? string.Empty;
+            article.Name = request.Name ?? string.Empty;
             article.Price = request.Price;
 
             return await _articleRepository.NewOrUpdate(article) < 0 ? new BoolResponse { Result = false } : new BoolResponse { Result = true };
         }
 
         [Authorize]
-        public override async Task<ArticleMessage> Get(IdMessage request, ServerCallContext context)
+        public override async Task<ArticleResponse> Get(IdMessage request, ServerCallContext context)
         {
-            if (request is null) return new ArticleMessage();
+            if (request is null) return new ArticleResponse { Status = Shared.Protos.Status.Failed };
 
             var article = await _articleRepository.Get(request.Id);
-            if (article is null) return new ArticleMessage();
+            if (article is null) return new ArticleResponse { Status = Shared.Protos.Status.Failed };
 
-            return new ArticleMessage
+            return new ArticleResponse
             {
-                ArticleNumber = article.ArticleNumber,
-                Description = article.Description,
+                ArticleNumber = article.ArticleNumber ?? string.Empty,
+                Description = article.Description ?? string.Empty,
                 Id = article.Id,
                 Price = article.Price,
-                Name = article.Name
+                Name = article.Name ?? string.Empty,
+                Status = Shared.Protos.Status.Ok
             };
         }
 
         [Authorize]
-        public override async Task<ArticleMessages> GetAll(Empty request, ServerCallContext context)
+        public override async Task<ArticleResponses> GetAll(Empty request, ServerCallContext context)
         {
-            var articleMessages = new ArticleMessages();
+            var articleMessages = new ArticleResponses { Status = Shared.Protos.Status.Failed };
             if (request is null) return articleMessages;
 
             var articles = await _articleRepository.GetAll();
@@ -97,16 +99,18 @@ namespace Baka.Hipster.Burger.Server.Services
 
             foreach (var article in articles)
             {
-                articleMessages.Articles.Add(new ArticleMessage
+                articleMessages.Articles.Add(new ArticleResponse
                 {
-                    ArticleNumber = article.ArticleNumber,
-                    Description = article.Description,
+                    ArticleNumber = article.ArticleNumber ?? string.Empty,
+                    Description = article.Description ?? string.Empty,
                     Id = article.Id,
                     Price = article.Price,
-                    Name = article.Name
+                    Name = article.Name ?? string.Empty,
+                    Status = Shared.Protos.Status.Ok
                 });
             }
 
+            articleMessages.Status = Shared.Protos.Status.Ok;
             return articleMessages;
         }
 

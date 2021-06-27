@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Baka.Hipster.Burger.Server.Helper.Interfaces;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Shared.Models;
+using NHibernate.Criterion;
+using NHibernate.Transform;
 
 namespace Baka.Hipster.Burger.Server.Repositories.Implementation
 {
@@ -52,9 +54,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 await session.DeleteAsync(areaToDelete);
                 await transaction.CommitAsync();
 
-                return (session.QueryOver<Area>()
-                    .Where(a => a.Id == id)
-                    .SingleOrDefaultAsync<Area>() is null);
+                return true;
             }
             catch (Exception)
             {
@@ -89,7 +89,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 return await session.QueryOver<Area>()
                     .ListAsync<Area>();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }

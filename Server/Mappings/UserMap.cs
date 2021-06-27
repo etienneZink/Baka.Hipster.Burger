@@ -9,7 +9,7 @@ namespace Baka.Hipster.Burger.Server.Mappings
         {
             Table("Users");
             Id(c => c.Id)
-                .GeneratedBy.Native()
+                //.GeneratedBy.Native()
                 .Default(0)
                 .Not.Nullable();
 

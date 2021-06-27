@@ -65,6 +65,7 @@ namespace Baka.Hipster.Burger.Server
             services.AddScoped<IOrderLineRepository, OrderLineRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,6 +90,7 @@ namespace Baka.Hipster.Burger.Server
                 endpoints.MapGrpcService<OrderLineService>();
                 endpoints.MapGrpcService<OrderService>();
                 endpoints.MapGrpcService<UserService>();
+                endpoints.MapGrpcService<QueryService>();
 
                 endpoints.MapGet("/", async context =>
                 {

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+option csharp_namespace = "Baka.Hipster.Burger.Shared.Protos";
+
+package shared;
+
+import "Protos/common.proto";
+
+service UserProto {
+
+
+  rpc ChangePassword (ChangePasswordRequest) returns (BoolResponse);
+  rpc Add (FullUserRequest) returns (IdMessage);
+  rpc Delete (IdMessage) returns (BoolResponse);
+  rpc CanDelete (IdMessage) returns (BoolResponse);
+  rpc Update (UserRequest) returns (BoolResponse);
+  rpc Get (IdMessage) returns (UserResponse);
+  rpc GetAll (Empty) returns (UserResponses);
+  rpc LogIn (UserLogin) returns (TokenMessage);
+  rpc Register (FullUserRequest) returns (BoolResponse);
+}
+
+message FullUserRequest{
+	UserRequest User = 1;
+	string Password = 2;
+}
+
+message UserLogin{
+	string Username = 1;
+	string Password = 2;
+}
+
+message UserRequest {
+	int32 Id = 1;
+	string Username = 2;
+	string Firstname = 3;
+	string Lastname = 4;
+	bool IsAdmin = 5;
+}
+
+message UserResponse {
+	int32 Id = 1;
+	string Username = 2;
+	string Firstname = 3;
+	string Lastname = 4;
+	bool IsAdmin = 5;
+	Status Status = 6;
+}
+
+message UserResponses{
+	repeated UserResponse User = 1;
+	Status Status = 2;
+}
+
+message TokenMessage{
+	string Token = 1;
+	UserResponse User = 2;
+	Status Status = 3;
+}
+
+message ChangePasswordRequest{
+	int32 Id = 1;
+	string OldPassword = 2;
+	string NewPassword = 3;
+}

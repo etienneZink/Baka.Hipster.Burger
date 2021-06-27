@@ -24,7 +24,6 @@ namespace Baka.Hipster.Burger.Server.Mappings
                 .Table("EmployeeToAreaRelations")
                 .ParentKeyColumn("EmployeeId")
                 .ChildKeyColumn("AreaId")
-                .LazyLoad()
                 .Cascade.SaveUpdate();
 
             Version(c => c.Version)

@@ -52,9 +52,7 @@ namespace Baka.Hipster.Burger.Server.Repositories.Implementation
                 await session.DeleteAsync(customerToDelete);
                 await transaction.CommitAsync();
 
-                return (session.QueryOver<Customer>()
-                    .Where(a => a.Id == id)
-                    .SingleOrDefaultAsync<Customer>() is null);
+                return true;
             }
             catch (Exception)
             {
