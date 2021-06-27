@@ -50,7 +50,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
             Assert.IsFalse(result.Result);
         }
 
-        //manageAreas3
+        //manageEmployee3
         [TestMethod]
         public async Task IsDeletable_EmployeeNull_Fails()
         {
@@ -75,7 +75,7 @@ namespace Baka.Hipster.Burger.Server.Test.Services
             Assert.IsFalse(result.Result);
         }
 
-        //manageAreas4
+        //manageEmployee4
         [TestMethod]
         public async Task IsDeletable_OrdersNull_Fails()
         {
