@@ -12,9 +12,9 @@ namespace Baka.Hipster.Burger.Server.Test.Repositories.Implementation
     [TestClass]
     public class UserRepositoryTest
     {
-        //LoginTest
+        //LoginTest5
         [TestMethod]
-        public async Task GetAllThrowsException_Fails()
+        public async Task GetAll_ThrowsException_Fails()
         {
             var sessionMock = new Mock<ISession>();
             sessionMock
