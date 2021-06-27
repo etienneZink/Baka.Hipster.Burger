@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using Baka.Hipster.Burger.Server.Repositories.Implementation;
 using Baka.Hipster.Burger.Server.Repositories.Interfaces;
 using Baka.Hipster.Burger.Shared.Models;
 using Baka.Hipster.Burger.Shared.Protos;
@@ -156,7 +155,7 @@ namespace Baka.Hipster.Burger.Server.Services
 
             return new TokenMessage
             {
-                Token = await GenerateToken(user),
+                Token = GenerateToken(user),
                 User = new UserResponse
                 {
                     Firstname = user.Firstname ?? string.Empty,
@@ -196,7 +195,7 @@ namespace Baka.Hipster.Burger.Server.Services
             return !user.IsAdmin;
         }
 
-        private async Task<string> GenerateToken(User user)
+        private string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(Configuration["JwtBearer:TokenSecret"]);
